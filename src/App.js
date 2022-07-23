@@ -1,10 +1,9 @@
 import './App.css';
+import GalleryRouter from './Router';
 
 function App() {
   return (
-    <div className="App">
-      미슐갠......!
-    </div>
+    <GalleryRouter/>
   );
 }
 
