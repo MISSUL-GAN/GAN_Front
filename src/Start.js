@@ -19,7 +19,7 @@ function Start(){
             <br/><br/><br/>
             
             <div className="goHome">
-                <Link to = '/login'>
+                <Link to = '/login' state={{ code : code }}>
                 감상하기
                 </Link>
             </div>
