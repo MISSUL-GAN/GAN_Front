@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Login from '../routes/Login'
 import Start from '../routes/Start';
 import Home from '../routes/Home';
-import userPage from '../routes/userPage';
+//import userPage from '../routes/userPage';
 
 function GalleryRouter(){
     return( 

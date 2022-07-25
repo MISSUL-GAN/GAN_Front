@@ -9,7 +9,7 @@ function Navigation() {
     function checkLogin () {
         if(code == null){
             alert("로그인이 필요한 서비스입니다.");
-            window.location.href = "#"; { /* 홈 주소로 넣어둠 로그인 페이지로 바로 못 가서 ^^... 하...! */ }
+            window.location.href = "/";
         }
                 
         else 
@@ -23,7 +23,7 @@ function Navigation() {
 
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
-                    <a className="nav-item nav-link" href="#"> 작품 둘러보기 </a>
+                    <a className="nav-item nav-link" href = '/#/home'> 작품 둘러보기 </a>
                     <a className="nav-item nav-link" onClick={ checkLogin }> 그림 바꾸기 </a>
                     <a className="nav-item nav-link" onClick={ checkLogin }> MY </a>
                 </div>

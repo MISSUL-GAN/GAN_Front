@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Start.css';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 function Start(){
 
+    // 9-15줄은 리다이렉트 되는 페이지 (Home.js) 으로 옮겨야함. 지금은 리다이렉트를 start.js로 걸어놔서 여기에 해둔거
     let code = new URL(window.location.href).searchParams.get("code");
     
+    useEffect(() => {
+        if(!(code == null)) {
+            axios.post('서버api주소', {
+                code : code
+            });
+            
+            console.log(`서버로 인가코드 ${code} 보냄`);
+        }
+    }, []);
+
     return(
         <>
         <div className='background'>
