@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { AUTH_URL } from './LoginKey';
+import { AUTH_URL } from '../LoginKey';
 import { useLocation } from 'react-router-dom';
+import Navigation from "../components/Navigation";
 
 function Home() {
     const location = useLocation();
@@ -9,6 +10,7 @@ function Home() {
 
     return(
         <>
+        <Navigation/>
         <div> 여기는 카톡 로그인 페이지...🙃 </div>
         <br/><br/>
 
@@ -25,7 +27,9 @@ function Home() {
         }
         
         <br/><br/><br/>
-        <Link to = '/home'> 로그인 없이 둘러볼래요....지만 지금은 일단 갤러리로 연결하는 버튼 </Link>
+        <Link to = '/home'> 
+            <button type="button" class="btn btn-dark"> 로그인 없이 둘러볼래요 </button> { /* 아직 로그인 확인 X 이동만 함*/ }
+        </Link>
 
         </>
     );

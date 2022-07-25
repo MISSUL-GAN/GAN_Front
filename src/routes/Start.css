@@ -2,7 +2,7 @@
     background-image: linear-gradient(
         rgba(255, 255, 255, 0.3),
         rgba(255, 255, 255, 0.3)
-    ), url(./ponyo023.jpg);
+    ), url(../../public/img/ponyo023.jpg);
 
     background-repeat: no-repeat;
     background-position-x: center;
@@ -12,9 +12,8 @@
 }
 
 
-.siteInfo {
+.display-4, .lead {
     text-align: center;
-    font-size: 20pt;
 }
 
 .goHome {
