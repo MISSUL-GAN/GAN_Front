@@ -18,9 +18,11 @@ function Navigation() {
     
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <img className="tempLogo" alt = "tempLogo" src = "/img/logo.png" width={45}/>
-            <span className="navbar-brand mb-0"> MISSUL:GAN </span>
-
+            <a className="nav-logo" onClick={ checkLogin } href = { member ? `/?code=${code}#/` : '/'}>
+                <img className="tempLogo" alt = "tempLogo" src = "/img/logo.png" width={45}/>
+                <span className="navbar-brand mb-0"> MISSUL:GAN </span>
+            </a>
+            
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
                     <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `/?code=${code}#/home` : '/' }> 작품 둘러보기 </a>

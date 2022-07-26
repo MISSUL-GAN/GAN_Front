@@ -28,7 +28,7 @@ function Home() {
         
         <br/><br/><br/>
         <Link to = '/home'> 
-            <button type="button" class="btn btn-dark"> 로그인 없이 둘러볼래요 </button> { /* 아직 로그인 확인 X 이동만 함*/ }
+            <button type="button" className="btn btn-dark"> 로그인 없이 둘러볼래요 </button> { /* 아직 로그인 확인 X 이동만 함*/ }
         </Link>
 
         </>
