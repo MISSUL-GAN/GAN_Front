@@ -1,13 +1,13 @@
 import React from "react";
 import Navigation from "../components/Navigation";
  
-function UserPage() {
+function CreateDrawing() {
     return(
         <>
         <Navigation/>
-        <div> 여기는 마이 페이지~~~ </div>
+        <div> 여기는 그림 바꾸기~~~ </div>
         </>
     );
 }
 
-export default UserPage;
+export default CreateDrawing;
