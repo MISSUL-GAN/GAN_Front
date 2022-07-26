@@ -9,6 +9,7 @@
 * Home.js : 작품 둘러보기 페이지
 * UserPage.js : 마이 페이지
 * CreateDrawing.js : 작품 변환 페이지 
+* Drawing.js : '작품 둘러보기' 페이지에서 그림 한 개!!! 
 
 
 
