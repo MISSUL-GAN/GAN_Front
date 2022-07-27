@@ -1,3 +1,11 @@
+.like:active {
+    background-color: tomato
+}
+
+.bookmark:active {
+    background-color: aquamarine;
+}
+
 .img-modal {
     display: none;
     z-index: 1;

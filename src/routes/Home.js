@@ -14,7 +14,10 @@ function Home() {
 
         {
             pictures.map((element) => 
-                <Drawing key = {element} imgsrc="/img/logo.png" name = {element}/>
+                <>
+                    <Drawing key = {element} imgsrc="/img/logo.png" name = {element}/>
+                    <br/><br/>
+                </>
             )
         }
         </>
