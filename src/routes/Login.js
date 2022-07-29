@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { AUTH_URL } from '../LoginKey';
-import { useLocation } from 'react-router-dom';
 import Navigation from "../components/Navigation";
+import { useSelector } from 'react-redux';
 
-function Home() {
-    const location = useLocation();
-    let code = location.state.code;
-
+function Login() {
+    const code = useSelector( (state) => state ); 
     return(
         <>
         <Navigation/>
@@ -28,11 +26,12 @@ function Home() {
         
         <br/><br/><br/>
         <Link to = '/home'> 
-            <button type="button" className="btn btn-dark"> 로그인 없이 둘러볼래요 </button> { /* 아직 로그인 확인 X 이동만 함*/ }
+            <button type="button" className="btn btn-dark"> 로그인 없이 둘러볼래요 </button>
         </Link>
+        { /* 어차피 시작 - 로그인 - 갤러리 에서 시작 - 갤러리 (로그인은 네비바 접근) 으로 바뀔거라 이 버튼 나중에 지워야함 */ }
 
         </>
     );
 }
 
-export default Home;
+export default Login;
