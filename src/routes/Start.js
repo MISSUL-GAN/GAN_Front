@@ -11,7 +11,7 @@ function Start(){
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({ type: '클릭'})
+        dispatch({ type: '로그인'})
         if(!(code == null)) {
             axios.post('서버api주소', {
                 code : code

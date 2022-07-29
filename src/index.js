@@ -10,8 +10,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const code = null;
 
 function myReducer(state = code, action){
-    if(action.type === '클릭'){
+    if(action.type === '로그인'){
       state = authCode;
+      return state;
+    }
+    else if(action.type === '로그아웃'){
+      state = null;
       return state;
     }
     else 

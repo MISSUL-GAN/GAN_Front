@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import './Navigation.css';
 import { AUTH_URL } from '../LoginKey';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Navigation() {
 
     const code = useSelector( (state) => state );
+    const dispatch = useDispatch();
     const [member, setMember] = useState(false);
 
     function checkLogin () {
         if(code == null){
-            alert("로그인이 필요한 서비스입니다.");
+            alert("로그인이 필요한 서비스입니다.\n로그인 페이지로 이동합니다.");
             setMember(false);
         }    
         else {
@@ -21,12 +22,19 @@ function Navigation() {
 
         
     function changeLogin() {
-        if(!(code == null)){
+        if(code != null){
             if(window.confirm("로그아웃 하시겠습니까?")){
                 alert("로그아웃이 완료되었습니다.\n비회원 상태에서는 일부 기능이 제한될 수 있습니다.");
-                code = null;
+                dispatch({ type: '로그아웃'});
                 setMember(false);
+                window.location.href = '/#/home';
             }
+            else {
+                window.location.href = `/?code=${code}#/home`;
+            }
+        }
+        else {
+            window.location.href = AUTH_URL;
         }
     }
     
@@ -39,10 +47,10 @@ function Navigation() {
             
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
-                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `/?code=${code}#/create` : '/' }> 그림 바꾸기 </a>
-                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `/?code=${code}#/home` : '/' }> 작품 둘러보기 </a>
-                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `/?code=${code}#/myPage` : '/' }> MY </a>
-                    <a className="nav-item nav-link" onClick={ changeLogin } href = { code == null ? AUTH_URL  : '/#/home' }> { code ? "로그아웃" : "로그인" } </a>
+                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `/?code=${code}#/create` : AUTH_URL }> 그림 바꾸기 </a>
+                    <a className="nav-item nav-link" href = { code != null ? `/?code=${code}#/home` : '/#/home' }> 작품 둘러보기 </a>
+                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `/?code=${code}#/myPage` : AUTH_URL }> MY </a>
+                    <a className="nav-item nav-link" onClick={ changeLogin }> { code ? "로그아웃" : "로그인" } </a>
                 </div>
             </div>
         </nav>
