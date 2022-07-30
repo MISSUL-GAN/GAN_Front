@@ -1,6 +1,9 @@
 # GAN_Front
 아자아자 화이팅 
 
+[미슐갠](https://missulgan.art/) 가서 로그인 시도하면 안되는거 맞습니다
+왜냐면 LoginKey.js 안에 선언된 redirect url이 localhost로 걸려있으니까..... 나중에 바꾸겠음
+
 ### 파일 설명 
 <details>
 <summary> 📁 </summary>
