@@ -1,0 +1,22 @@
+.background{
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.3)
+    ), url(../../public/img/ponyo023.jpg);
+
+    background-repeat: no-repeat;
+    background-position-x: center;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
+
+.display-4, .lead {
+    text-align: center;
+}
+
+.goHome {
+    text-align: center;
+    font-size: 30pt;
+}
