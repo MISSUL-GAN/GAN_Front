@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.51de79d7.css",
+    "main.js": "/static/js/main.e9cb4283.js",
+    "static/media/ponyo023.jpg": "/static/media/ponyo023.53b5a22550d3af499e80.jpg",
+    "index.html": "/index.html",
+    "main.51de79d7.css.map": "/static/css/main.51de79d7.css.map",
+    "main.e9cb4283.js.map": "/static/js/main.e9cb4283.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.51de79d7.css",
+    "static/js/main.e9cb4283.js"
+  ]
+}
