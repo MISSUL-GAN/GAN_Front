@@ -4,6 +4,26 @@
 [미슐갠](https://missulgan.art/) 가서 로그인 시도하면 안되는거 맞습니다
 왜냐면 LoginKey.js 안에 선언된 redirect url이 localhost로 걸려있으니까..... 나중에 바꾸겠음
 
+### 브랜치 설명
+<details>
+<summary> 🌳 </summary>
+
+* main : 메인
+* gh-pages : 깃허브 페이지로 배포할 때 쓰는 브랜친데 main이랑 상태 같음요 
+* develop : 기능 하나 개발 끝날 때마다 여기로 합쳐두고 나중에 다 테스트해봐도 문제 없으면 얘를 냅다 main에 합칠 예정
+* create : 작품 변환 페이지 담당하는 브랜치
+* gallery : '작품 둘러보기' 담당하는 브랜치
+
+그니까 따지자면<br/>
+main<br/>
+ㄴ develop<br/>
+ㄴㄴ create<br/>
+ㄴㄴ gallery<br/>
+ㄴㄴ ...<br/>
+
+의 느낌입니다
+</details>
+
 ### 파일 설명 
 <details>
 <summary> 📁 </summary>
