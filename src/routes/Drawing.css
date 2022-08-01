@@ -6,47 +6,53 @@
     background-color: aquamarine;
 }
 
-.img-modal {
+#zoom-modal.drawing-modal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
     display: none;
-    z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+#zoom-modal .drawing-modal-window {
+    background: rgba(231, 177, 177, 0.7);
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    top: -100px;
     padding: 10px;
-    width: 10%;
-    height: 10%;
-    overflow: auto;
-    background-color: rgb(248, 185, 185);
+    
+    display: flex;
+    justify-content: space-around;
 }
 
-.large-img {
-    margin: auto;
-    display: block;
-    width: 80%;
+#zoom-modal .drawing-modal-close {
+    font-size: 50px;
+    display: flex;
+    justify-content: end;
 }
 
-.large-img, #title {
-    animation-name: zoom;
-    animation-duration: 0.6s;
+#zoom-modal .userInfo {
+    display: flex;
 }
 
-@keyframes zoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
+#zoom-modal .drawing-title {
+    font-size: 35px;
 }
 
-.title {
-    margin: auto;
-    display: block;
-    text-align: center;
+#zoom-modal .description {
+    font-size: 28px;
 }
 
-.close {
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
 
-.close:hover{
-    cursor: pointer;
-}
