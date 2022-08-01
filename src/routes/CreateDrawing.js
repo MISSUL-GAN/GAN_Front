@@ -42,6 +42,7 @@ function CreateDrawing() {
         console.log('원본 : ' + files[0]);
         console.log('화풍 : ' + selectedStyle);
 
+        document.getElementById("style-modal").style.display = "none";
         axios.post('서버api주소', formData, config);
     }
     
@@ -67,7 +68,7 @@ function CreateDrawing() {
 
             <div className="originImage"> 
                 <div> 변환하고 싶은 사진을 넣어주세요 </div> 
-                <img src={img} width={200} alt=''/>
+                <img src={img} height={500} alt=''/>
                 <form>
                     <input type='file' accept='image/*' onChange = {onUploadImg}/>
                 </form>
