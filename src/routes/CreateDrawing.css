@@ -1,6 +1,6 @@
 .page-content {
-    margin-left: 25em;
-    margin-right: 25em;
+    margin-left: 15em;
+    margin-right: 15em;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -17,9 +17,9 @@
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(1.8px);
-    -webkit-backdrop-filter: blur(1.8px);
+    justify-content: center;    
+    background-color: rgba(0,0,0,0.2);
+    z-index: 100;
   }
 
   #style-modal .modal-window {

@@ -68,7 +68,7 @@ function CreateDrawing() {
 
             <div className="originImage"> 
                 <div> 변환하고 싶은 사진을 넣어주세요 </div> 
-                <img src={img} height={500} alt=''/>
+                <img src={img} height={300} alt=''/>
                 <form>
                     <input type='file' accept='image/*' onChange = {onUploadImg}/>
                 </form>
@@ -84,7 +84,7 @@ function CreateDrawing() {
                     </div>
 
                     <div className="content">
-                        <form>
+                        <form className="styles">
                             <img src="/img/logo.png" alt="" width={150}/><br/><input type="radio" name="styles" value="화풍1" onClick={clickStyle} defaultChecked="checked"/> 화풍 1 <br/>
                             <img src="/img/logo.png" alt="" width={150}/><br/><input type="radio" name="styles" value="화풍2" onClick={clickStyle}/> 화풍 2 <br/>
                             <img src="/img/logo.png" alt="" width={150}/><br/><input type="radio" name="styles" value="화풍3" onClick={clickStyle}/> 화풍 3
@@ -93,6 +93,11 @@ function CreateDrawing() {
                         <button className="style-submit" onClick={onSubmitImg}> 선택한 화풍으로 변환하기 </button>
                     </div>
                 </div>    
+            </div>
+
+            <div className="newImage"> 
+                <div> 사실 변환된 사진 받으면 들어갈 자린데 일단 img 넣고 자리만 보는 중 </div>
+                <img src={img} height={300}/> 
             </div>
 
         </div>
