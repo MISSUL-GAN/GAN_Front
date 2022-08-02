@@ -27,17 +27,18 @@ function Home() {
 
     return(
         <>
-        <Navigation/>
-        <br/><br/>
-
-        {
-            pictures.map((element) => 
-                <>
-                    <Drawing key = {element} imgsrc="/img/logo.png" name = {element}/>
-                    <br/><br/>
-                </>
-            )
-        }
+            <Navigation/>
+            <div className="homecontainer">
+                <div className="drawingBox">
+                    {
+                        pictures.map((element) => 
+                            <div className="drawing">
+                                <Drawing key = {element} imgsrc="/img/logo.png" name = {element}/>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
         </>
     );
 }
