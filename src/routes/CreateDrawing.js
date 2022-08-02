@@ -5,7 +5,7 @@ import axios from "axios";
 import './CreateDrawing.css';
 
 function CreateDrawing() {
-    var selectedStyle = "화풍1";
+    var selectedStyle = "반고흐";
 
     const dispatch = useDispatch();
     const code = useSelector( (state) => state );
@@ -79,19 +79,30 @@ function CreateDrawing() {
             <div id="style-modal" className="modal-overlay"> 
                 <div className="modal-window">
                     <div className="title">
-                        <p> 원하는 화풍을 선택해주세요 </p>
+                        <div className="selectText"> <p> 원하는 화풍을 선택해주세요 </p> </div>
                         <span className="style-close" onClick={clickClose}> 닫기 </span><br/>
                     </div>
 
                     <div className="content">
                         <form className="styles">
-                            <img src="/img/logo.png" alt="" width={150}/><br/><input type="radio" name="styles" value="화풍1" onClick={clickStyle} defaultChecked="checked"/> 화풍 1 <br/>
-                            <img src="/img/logo.png" alt="" width={150}/><br/><input type="radio" name="styles" value="화풍2" onClick={clickStyle}/> 화풍 2 <br/>
-                            <img src="/img/logo.png" alt="" width={150}/><br/><input type="radio" name="styles" value="화풍3" onClick={clickStyle}/> 화풍 3
-                        </form>
+                            <div className="styleBox">
+                                <img src="/img/logo2.png" alt="" width={150} className="styleImg"/><br/>
+                                <input type="radio" name="styles" value="반고흐" onClick={clickStyle} defaultChecked="checked"/> 반 고흐
+                            </div>
 
-                        <button className="style-submit" onClick={onSubmitImg}> 선택한 화풍으로 변환하기 </button>
+                            <div className="styleBox">
+                                <img src="/img/logo2.png" alt="" width={150} className="styleImg"/><br/>
+                                <input type="radio" name="styles" value="클로드모네" onClick={clickStyle}/> 클로드 모네
+                            </div>
+
+                            <div className="styleBox">
+                                <img src="/img/logo2.png" alt="" width={150} className="styleImg"/><br/>
+                                <input type="radio" name="styles" value="폴세잔" onClick={clickStyle}/> 폴 세잔
+                            </div>
+                        </form>
                     </div>
+
+                    <button className="style-submit" onClick={onSubmitImg}> 선택한 화풍으로 변환하기 </button>
                 </div>    
             </div>
 
