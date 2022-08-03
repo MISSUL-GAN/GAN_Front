@@ -74,43 +74,36 @@ function CreateDrawing() {
                 </form>
             </div>
         
-            <button onClick={clickChange}> ➡ 변환하기 </button>
+            <div className="optionBox">
+                <div className="selectText"> <p> 원하는 화풍을 선택해주세요 </p> </div>
+                
+                <form className="styles">
+                    <input type="radio" name="styles" value="반고흐" onClick={clickStyle} defaultChecked="checked"/> 반 고흐
+                    <input type="radio" name="styles" value="클로드모네" onClick={clickStyle}/> 클로드 모네
+                    <input type="radio" name="styles" value="폴세잔" onClick={clickStyle}/> 폴 세잔
+                </form>
+                
+                <input type='file' accept='image/*' onChange = {onUploadImg}/><br/>
+                
+                <p> 선정적이거나 부적절한 문구 및 사진, 저작권에 위배되는 콘텐츠로 인해 발생하는 불이익에 대한 책임은 본인에게 있습니다. </p>
+
+                <button onClick={clickChange}> 변환하기 </button>
+            </div>
+
 
             <div id="style-modal" className="modal-overlay"> 
                 <div className="modal-window">
                     <div className="title">
-                        <div className="selectText"> <p> 원하는 화풍을 선택해주세요 </p> </div>
                         <span className="style-close" onClick={clickClose}> 닫기 </span><br/>
                     </div>
 
                     <div className="content">
-                        <form className="styles">
-                            <div className="styleBox">
-                                <img src="/img/logo2.png" alt="" width={150} className="styleImg"/><br/>
-                                <input type="radio" name="styles" value="반고흐" onClick={clickStyle} defaultChecked="checked"/> 반 고흐
-                            </div>
 
-                            <div className="styleBox">
-                                <img src="/img/logo2.png" alt="" width={150} className="styleImg"/><br/>
-                                <input type="radio" name="styles" value="클로드모네" onClick={clickStyle}/> 클로드 모네
-                            </div>
-
-                            <div className="styleBox">
-                                <img src="/img/logo2.png" alt="" width={150} className="styleImg"/><br/>
-                                <input type="radio" name="styles" value="폴세잔" onClick={clickStyle}/> 폴 세잔
-                            </div>
-                        </form>
                     </div>
 
                     <button className="style-submit" onClick={onSubmitImg}> 선택한 화풍으로 변환하기 </button>
                 </div>    
             </div>
-
-            <div className="newImage"> 
-                <div> 사실 변환된 사진 받으면 들어갈 자린데 일단 img 넣고 자리만 보는 중 </div>
-                <img src={img} height={300}/> 
-            </div>
-
         </div>
 
         </>
