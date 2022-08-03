@@ -9,6 +9,10 @@ function Login() {
             <p> 로그인 페이지임 </p>
             <p> accessToken : {aToken}</p>
             <p> refreshToken : {rToken}</p>
+
+            <button onClick={ () => {
+                window.location.href="/home";
+            }}> 홈으로 가기 </button> 
         </>
     );
 }
