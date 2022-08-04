@@ -105,18 +105,27 @@ function CreateDrawing() {
         }
     }
 
+    const clickPost = () => {
+        if(document.getElementsByClassName("titleBox")[0].value === "")
+            alert("작품명은 필수적으로 입력해야합니다.");
+        else {
+            console.log("제목 : " + document.getElementsByClassName("titleBox")[0].value);
+            console.log("설명 : " + document.getElementsByClassName("descriptionBox")[0].value);
+        }
+    }
+
     return(
         <>
         <Navigation/>
         
         <div className="page-content">
-
-            <div className="originImage"> 
-                <img src={img} height={470} alt=''/>
+            <div className="originBox">
+                { img === '' ? <p> 변환하고 싶은 사진 및 그림을 넣어주세요 </p> : <img src={img} alt=''/>}
                 <form>
                     <input type='file' id="originImg" accept='image/*' onChange = {onUploadImg}/>
                 </form>
-            </div>
+            </div>    
+
 
             <div className="emptyBox"/>
 
@@ -135,19 +144,23 @@ function CreateDrawing() {
                         <button className="deleteSubImg" onClick={clickDelete}> 지우기 </button>
                     </div>
                     
-                    <input type="checkbox" id="warning"/> 선정적이거나 부적절한 문구 및 사진, 저작권에 위배되는 콘텐츠로 인해 발생하는 불이익에 대한 책임은 본인에게 있습니다. <br/>
-            
-                    <button onClick={onSubmitImg}> 변환하기 </button>
+                    <div className="emptyBox"/>
+
+                    <div className="warning">
+                        <input type="checkbox" id="warning"/>&nbsp;
+                        선정적이거나 부적절한 문구 및 사진, 저작권에 위배되는 콘텐츠로 인해 발생하는 불이익에 대한 책임은 본인에게 있습니다. 
+                    </div>
+                    
+                    <button className="submitButton" onClick={onSubmitImg}> 변환하기 </button>
                 </div>
             :
                 <div className="resultBox">
-                    <p> 변환된 사진 받고나면 뜨는 영역 </p>
-                    
-                    <br/>
+                    <br/><br/><br/>
                     <input type="text" className="titleBox" maxLength={20} placeholder="작품명을 입력해주세요. (20자 이내)"/><br/><br/>
                     <textarea className="descriptionBox" maxLength={200} placeholder="설명을 입력해주세요. (200자 이내)"/>
                     
                     <div> 태그를 선택해주세요. (최대 3개) </div>
+                    <hr/>
                     <form onClick={checkTag}>
                         <input name="tagBox" type="checkbox"/>어두운
                         <input name="tagBox" type="checkbox"/>화사한
@@ -163,12 +176,12 @@ function CreateDrawing() {
                         <input name="tagBox" type="checkbox"/>기타<br/>
                     </form>
 
-                    
+                    <br/><br/>
                     <div className="buttonBox">
-                        <button> 다운로드 </button>
+                        <a href="/img/logo.png" download> ⬇ 다운로드 ⬇ </a>
                         <button> 카톡 공유 </button>
-                        <button> OpenSea </button>
-                        <button> Missul;GAN에 사진 게시하기 </button>
+                        <button className="NFTButton" title="OpenSea에 방금 만든 사진을 NFT로 등록해보세요!"> OpenSea </button>
+                        <button onClick={clickPost}> Missul;GAN에 사진 게시하기 </button>
                    </div>
                 </div>    
             }

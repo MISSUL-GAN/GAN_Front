@@ -1,4 +1,5 @@
 .page-content {
+  min-height: 85vh;
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -6,21 +7,69 @@
     align-content: center;
 }
 
+.originBox {
+  border: 1px solid;
+  width: 550px;
+  height: 670px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.originBox img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .emptyBox {
   min-width: 50px;
+  height: 200px;
+}
+
+.optionBox {
+  border: 1px solid;
+  width: 550px;
+  height: 670px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .subImgBox {
   display: flex;
 }
 
+.warning {
+  width: 90%;
+}
+
+.submitButton {
+  width: 90%;
+}
+
+.resultBox {
+  border: 1px solid;
+  width: 550px;
+  height: 670px;
+}
+
 .titleBox{
-  width: 650px;
+  width: 100%;
   font-size: 30px;
 }
 
 .descriptionBox {
-  width: 650px;
-  height: 380px;
+  width: 100%;
+  height: 280px;
   font-size: 26px;
 }
+
+.buttonBox {
+  display: flex;
+  justify-content: space-around;
+}
+
