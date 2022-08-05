@@ -36,13 +36,26 @@ function CreateDrawing() {
 
     const clickStyle = (e) => {
         if(selectedStyle === e.target.value){
-            document.getElementById(e.target.value).checked = false;
+            document.getElementById(e.target.id).style.background = "#F4F4F4";
+            document.getElementById(e.target.id).style.color = "#3C6B50";
+
             document.getElementById("subImg").disabled = false;
             document.getElementsByClassName("deleteSubImg")[0].disabled = false;
             selectedStyle = "";
         }
-            
+
         else {
+            document.getElementById(e.target.id).style.background = "#3C6B50";
+            document.getElementById(e.target.id).style.color = "#F4F4F4";
+
+            let buttons = document.getElementsByName("styleButton");
+            buttons.forEach((b) => {
+                if(b.id !== e.target.id){
+                    document.getElementById(b.id).style.background = "#F4F4F4";
+                    document.getElementById(b.id).style.color = "#3C6B50";
+                }
+            });
+
             document.getElementById("subImg").disabled = true;
             document.getElementsByClassName("deleteSubImg")[0].disabled = true;
             selectedStyle = e.target.value;
@@ -137,11 +150,11 @@ function CreateDrawing() {
                 <div className="optionBox">
                     <div> 원하는 화풍을 선택해주세요 </div>
                     
-                    <form id="styles">
-                        <input type="radio" name="styles" id="반고흐" value="반고흐" onClick={clickStyle}/> 반 고흐
-                        <input type="radio" name="styles" id="클로드모네" value="클로드모네" onClick={clickStyle}/> 클로드 모네
-                        <input type="radio" name="styles" id="폴세잔" value="폴세잔" onClick={clickStyle}/> 폴 세잔
-                    </form>
+                    <div id="styles">
+                        <button className="styleButton" name='styleButton' id="1" value="반고흐" onClick={clickStyle}> 반 고흐 </button>
+                        <button className="styleButton" name='styleButton' id="2" value="클로드모네" onClick={clickStyle}> 클로드 모네 </button>
+                        <button className="styleButton" name='styleButton' id="3" value="폴세잔" onClick={clickStyle}> 폴 세잔 </button> <br/>
+                    </div>
                     
                     <div className="subImgBox">
                         <input type='file' accept='image/*' id="subImg" ref={subImg} onChange = {onUploadSubImg}/><br/>

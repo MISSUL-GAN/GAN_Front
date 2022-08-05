@@ -1,3 +1,5 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
 .page-content {
   min-height: 85vh;
     display: flex;
@@ -37,6 +39,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.styleButton {
+  padding: 1px 10px 1px;
+  left: 20px;
+  top: 20px;
+
+  background: #F4F4F4;
+  color:#3C6B50;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 400;
 }
 
 .subImgBox {
