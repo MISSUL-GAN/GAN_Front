@@ -1,4 +1,5 @@
 .titleBox {
+    margin-top: 3%;
     display: flex;
     justify-content: space-between;
 }
@@ -11,6 +12,9 @@
     background-color: aquamarine;
 }
 
+.drawing {
+    margin-right: 2%;
+}
 #alert-modal.warning-modal {
     width: 100vw;
     height: 100vh;
@@ -62,35 +66,45 @@
 }
 
 #zoom-modal .drawing-modal-window {
-    background: rgba(231, 177, 177);
+    background: rgb(255, 255, 255);
     border-radius: 10px;
-    min-width: 800px;
-    min-height: 300px;
+    width: 60%;
+    height: fit-content;
     position: relative;
     top: 1%;
     margin: 0 30px 0 30px;
     padding: 10px;
-    
     display: flex;
     justify-content: space-around;
 }
 
+#zoom-modal .drawing-modal-left {
+    width: 250%;
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
+}
+
 #zoom-modal .drawing-modal-window .large-drawing {
-    width: auto;
-    height: 350px;
-    margin: 20px 20px 30px 20px;
+    width: 100%;
+    height: auto;
+}
+
+#zoom-modal .drawing-modal-right {
+    margin-left: 2%;
+    height: 92.7%;
 }
 
 #zoom-modal .drawing-modal-close {
-    font-size: 25px;
-    display: flex;
-    justify-content: end;
-    margin-right: 30px;
+    width: fit-content;
+    height: auto;
+    font-size: 20px;
+    margin-left: 96%;
 }
 
 #zoom-modal .userInfo {
     display: flex;
-    margin-bottom: 10px;
+    margin: 7% 0 1% 0;
 }
 
 #zoom-modal .profileImg{
@@ -109,12 +123,19 @@
 
 #zoom-modal .description {
     font-size: 18px;
-    margin-right: 20px;
+    width: 90%;
+}
+
+#zoom-modal .drawing-tag {
+    margin-bottom: 15%; 
+    color: rgb(98, 98, 98);             
 }
 
 #zoom-modal .buttonBox {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 5%;
 }
 
 #zoom-modal .NFTBox {
