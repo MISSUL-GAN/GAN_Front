@@ -27,9 +27,14 @@ function CreateDrawing() {
         reader.readAsDataURL(file[0]);
     }
     
-    const onUploadSubImg = (e) => {
+    const onUploadSubImg = () => {
         const styleButton = document.getElementsByName("styleButton");
-        styleButton.forEach((b) => { b.style.display = "none"; });
+        styleButton.forEach((b) => {
+            b.style.backgroundColor = "#ced4da"; 
+            b.style.color = "#868e96";
+            b.disabled = true;
+            b.style.cursor = "not-allowed";
+        });
     }
 
     const clickStyle = (e) => {
@@ -63,7 +68,12 @@ function CreateDrawing() {
     const clickDelete = () => {
         subImg.current.value = "";
         const styleButton = document.getElementsByName("styleButton");
-        styleButton.forEach((b) => { b.style.display = "inline"; });
+        styleButton.forEach((b) => { 
+            b.style.backgroundColor = "#F4F4F4";
+            b.style.color = "#3C6B50";
+            b.disabled = false;
+            b.style.cursor = "pointer";
+        });
     }
 
     const onSubmitImg = () => {
