@@ -2,13 +2,21 @@
 
 .page-content {
   min-height: 85vh;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-family: 'Spoqa Han Sans Neo';
 }
 
+.logo {
+  margin-top: 2%;
+  text-align: center;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+}
 .originBox {
   border: 1px solid;
   width: 550px;
@@ -18,6 +26,18 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.originBox p, .optionBox p {
+  text-align: center;
+  color: #7e7e7e;
+}
+
+.uploadOriginImg {
+  padding: 10px 30px 10px;
+  border: 1px solid #3C6B50;
+  color: #3C6B50;
+  border-radius: 30px;
 }
 
 .originBox img {
@@ -41,7 +61,7 @@
   align-items: center;
 }
 
-.styleButton {
+.styleButton, .uploadSubImg, .deleteSubImg {
   padding: 1px 10px 1px;
   left: 20px;
   top: 20px;
@@ -50,12 +70,16 @@
   color:#3C6B50;
   border-radius: 10px;
   border: none;
-  font-family: 'Spoqa Han Sans Neo';
   font-weight: 400;
 }
 
 .subImgBox {
   display: flex;
+}
+
+.uploadSubImg:active, .deleteSubImg:active, .uploadOriginImg:active {
+  background: #3C6B50;
+  color:#F4F4F4;
 }
 
 .warning {
@@ -64,6 +88,12 @@
 
 .submitButton {
   width: 90%;
+  background-color: #FF7A00;
+  color: #F4F4F4;
+  padding: 10px 0 10px;
+  border: none;
+  border-radius: 20px;
+  opacity: 50%;
 }
 
 .resultBox {

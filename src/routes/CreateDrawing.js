@@ -100,7 +100,7 @@ function CreateDrawing() {
             console.log(`사용자 : ${code}` + "\n" + '생성시간 : ' + time + " \n" + '원본 : ' + files[0] + "\n" + '화풍 : ' + selectedStyle);
     
             axios.post('서버api주소', formData, config);
-            document.getElementById("originImg").disabled = true;
+            document.getElementsByClassName("uploadOriginImg")[0].style.display = "none";
             setResult(true);
         }
 
@@ -108,6 +108,11 @@ function CreateDrawing() {
             alert(refusal);
     }
     
+    const clickWarning = () => {
+        if(img !== '' && ((selectedStyle !== "" && subImg.current.value === "") || (selectedStyle === "" && subImg.current.value !== "")))
+            document.getElementsByClassName("submitButton")[0].style.opacity = "100";
+    }
+
     const checkTag = () => {
         const tagBox = document.getElementsByName("tagBox");
         var count = 0;
@@ -140,12 +145,13 @@ function CreateDrawing() {
     return(
         <>
         <Navigation/>
-        
+        <div className="logo"> 주황색 미슐간 로고 들어갈 자리 </div>
         <div className="page-content">
             <div className="originBox">
-                { img === '' ? <p> 변환하고 싶은 사진 및 그림을 넣어주세요 </p> : <img src={img} alt=''/>}
+                { img === '' ? <p> 변환하고 싶은<br/>사진 및 그림을 넣어주세요 </p> : <><img src={img} alt=''/><br/></> }
                 <form>
-                    <input type='file' id="originImg" accept='image/*' onChange = {onUploadImg}/>
+                    <label className="uploadOriginImg" for="originImg"> 파일에서 찾아보기 </label>
+                    <input type='file' id="originImg" accept='image/*' style={{display:"none"}} onChange = {onUploadImg}/>
                 </form>
             </div>    
 
@@ -154,7 +160,7 @@ function CreateDrawing() {
 
             { !result ?
                 <div className="optionBox">
-                    <div> 원하는 화풍을 선택해주세요 </div>
+                    <p> 원하는 화풍을 선택해주세요 </p>
                     
                     <div id="styles">
                         <button className="styleButton" name='styleButton' id="1" value="반고흐" onClick={clickStyle}> 반 고흐 </button>
@@ -163,15 +169,16 @@ function CreateDrawing() {
                     </div>
                     
                     <div className="subImgBox">
-                        <input type='file' accept='image/*' id="subImg" ref={subImg} onChange = {onUploadSubImg}/><br/>
+                        <label className="uploadSubImg" for="subImg"> 원하는 화풍 사진 직접 첨부하기 </label>
+                        <input type='file' accept='image/*' id="subImg" ref={subImg} style={{display:"none"}} onChange = {onUploadSubImg}/><br/>
                         <button className="deleteSubImg" onClick={clickDelete}> 지우기 </button>
                     </div>
                     
                     <div className="emptyBox"/>
 
                     <div className="warning">
-                        <input type="checkbox" id="warning"/>&nbsp;
-                        선정적이거나 부적절한 문구 및 사진, 저작권에 위배되는 콘텐츠로 인해 발생하는 불이익에 대한 책임은 본인에게 있습니다. 
+                        <input type="checkbox" id="warning" onChange={clickWarning}/>&nbsp;
+                        선정적이거나 부적절한 문구 및 사진, 저작권에 위배되는 콘텐츠로 인해 발생하는 불이익에 대한 책임은 본인에게 있습니다.<br/><br/>
                     </div>
                     
                     <button className="submitButton" onClick={onSubmitImg}> 변환하기 </button>
