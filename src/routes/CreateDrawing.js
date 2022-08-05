@@ -94,14 +94,15 @@ function CreateDrawing() {
         var count = 0;
 
         for(var i = 0 ; i < 11 ; i++){
+            if(tagBox[i].checked)
+                count++;
+            
             if(count > 3){
                 alert("태그는 3개까지만 선택할 수 있습니다.");
-                tagBox[i-1].checked = false;
+                tagBox[i].checked = false;
                 count--;
                 break;
             }
-            if(tagBox[i].checked)
-                count++;
         }
     }
 
@@ -111,6 +112,9 @@ function CreateDrawing() {
         else {
             console.log("제목 : " + document.getElementsByClassName("titleBox")[0].value);
             console.log("설명 : " + document.getElementsByClassName("descriptionBox")[0].value);
+
+            const tagBox = document.getElementsByName("tagBox");
+            tagBox.forEach(tag => { if(tag.checked) console.log(tag.value); });
         }
     }
 
@@ -162,18 +166,18 @@ function CreateDrawing() {
                     <div> 태그를 선택해주세요. (최대 3개) </div>
                     <hr/>
                     <form onClick={checkTag}>
-                        <input name="tagBox" type="checkbox"/>어두운
-                        <input name="tagBox" type="checkbox"/>화사한
-                        <input name="tagBox" type="checkbox"/>다채로운
-                        <input name="tagBox" type="checkbox"/>차분한
-                        <input name="tagBox" type="checkbox"/>강랼한<br/>
+                        <input name="tagBox" type="checkbox" value="어두운"/>어두운&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="화사한"/>화사한&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="다채로운"/>다채로운&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="차분한"/>차분한&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="강랼한"/>강랼한<br/>
                     
-                        <input name="tagBox" type="checkbox"/>차가운
-                        <input name="tagBox" type="checkbox"/>따뜻한
-                        <input name="tagBox" type="checkbox"/>풍경
-                        <input name="tagBox" type="checkbox"/>동물
-                        <input name="tagBox" type="checkbox"/>인물
-                        <input name="tagBox" type="checkbox"/>기타<br/>
+                        <input name="tagBox" type="checkbox" value="차가운"/>차가운&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="따뜻한"/>따뜻한&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="풍경"/>풍경&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="동물"/>동물&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="인물"/>인물&nbsp;&nbsp;
+                        <input name="tagBox" type="checkbox" value="기타"/>기타<br/>
                     </form>
 
                     <br/><br/>
