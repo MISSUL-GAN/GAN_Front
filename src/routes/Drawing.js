@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import './Drawing.css';
+import { useSelector } from 'react-redux';
+import { AUTH_URL } from '../LoginKey';
 
 function Drawing({imgsrc, name}){
 
+    const code = useSelector( (state) => state );
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
@@ -21,12 +24,30 @@ function Drawing({imgsrc, name}){
         document.body.style.overflow = "unset";
     }
 
+    function clickAlertClose() {
+        const modal = document.getElementById("alert-modal");
+        modal.style.display = "none";
+        document.body.style.overflow = "unset";
+    }
+
     function clickLike() {
-        setLike(!like);
+        if(code !== null) 
+            setLike(!like);
+        
+        else {
+            const modal = document.getElementById("alert-modal");
+            modal.style.display = "flex";
+        }
     }
 
     function clickBookmark() {
-        setBookmark(!bookmark);
+        if(code !== null) 
+            setBookmark(!bookmark);
+    
+        else {
+            const modal = document.getElementById("alert-modal");
+            modal.style.display = "flex";
+        }
     }
 
     function clickNFT() {
@@ -46,6 +67,18 @@ function Drawing({imgsrc, name}){
                     <button className="bookmark" onClick={ clickBookmark }> { bookmark ? "스크랩 취소" : "스크랩" } </button>
                 </div>
              </div>
+
+            <div id="alert-modal" className="warning-modal">
+                <div className="warning-modal-window">
+                    <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
+                    <div className="alert-content">
+                        <p> 로그인이 필요한 서비스입니다. </p>
+                        <a href={AUTH_URL}>
+                            <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width={"222"} alt="카카오 로그인" />
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             <div id="zoom-modal" className="drawing-modal">
                 <div className="drawing-modal-window">
