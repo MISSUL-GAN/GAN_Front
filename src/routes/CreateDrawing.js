@@ -28,10 +28,8 @@ function CreateDrawing() {
     }
     
     const onUploadSubImg = (e) => {
-        const radioButton = document.getElementsByName("styles");
-        radioButton[0].disabled = true;
-        radioButton[1].disabled = true;
-        radioButton[2].disabled = true;
+        const styleButton = document.getElementsByName("styleButton");
+        styleButton.forEach((b) => { b.style.display = "none"; });
     }
 
     const clickStyle = (e) => {
@@ -64,10 +62,8 @@ function CreateDrawing() {
 
     const clickDelete = () => {
         subImg.current.value = "";
-        const radioButton = document.getElementsByName("styles");
-        radioButton[0].disabled = false;
-        radioButton[1].disabled = false;
-        radioButton[2].disabled = false;
+        const styleButton = document.getElementsByName("styleButton");
+        styleButton.forEach((b) => { b.style.display = "inline"; });
     }
 
     const onSubmitImg = () => {
