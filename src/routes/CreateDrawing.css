@@ -13,10 +13,11 @@
 .logo {
   margin-top: 2%;
   text-align: center;
-  border: 1px solid;
   display: flex;
   justify-content: center;
+  height: 100px;
 }
+
 .originBox {
   border: 1px solid;
   width: 550px;

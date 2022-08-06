@@ -35,6 +35,9 @@ function CreateDrawing() {
             b.disabled = true;
             b.style.cursor = "not-allowed";
         });
+
+        document.getElementsByClassName("uploadSubImg")[0].style.background = "#3C6B50";
+        document.getElementsByClassName("uploadSubImg")[0].style.color = "#F4F4F4";
     }
 
     const clickStyle = (e) => {
@@ -74,6 +77,9 @@ function CreateDrawing() {
             b.disabled = false;
             b.style.cursor = "pointer";
         });
+
+        document.getElementsByClassName("uploadSubImg")[0].style.background = "#F4F4F4";
+        document.getElementsByClassName("uploadSubImg")[0].style.color = "#3C6B50";
     }
 
     const onSubmitImg = () => {
@@ -109,8 +115,13 @@ function CreateDrawing() {
     }
     
     const clickWarning = () => {
-        if(img !== '' && ((selectedStyle !== "" && subImg.current.value === "") || (selectedStyle === "" && subImg.current.value !== "")))
-            document.getElementsByClassName("submitButton")[0].style.opacity = "100";
+        if(img !== '' && ((selectedStyle !== "" && subImg.current.value === "") || (selectedStyle === "" && subImg.current.value !== ""))){
+            if(document.getElementById("warning").checked)
+                document.getElementsByClassName("submitButton")[0].style.opacity = "100%";
+            
+            else
+                document.getElementsByClassName("submitButton")[0].style.opacity = "50%";
+        }
     }
 
     const checkTag = () => {
@@ -145,7 +156,7 @@ function CreateDrawing() {
     return(
         <>
         <Navigation/>
-        <div className="logo"> 주황색 미슐간 로고 들어갈 자리 </div>
+        <div className="logo"> <img src="/img/textLogo.png"/> </div>
         <div className="page-content">
             <div className="originBox">
                 { img === '' ? <p> 변환하고 싶은<br/>사진 및 그림을 넣어주세요 </p> : <><img src={img} alt=''/><br/></> }
