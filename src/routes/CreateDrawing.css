@@ -98,7 +98,6 @@
 }
 
 .resultBox {
-  border: 1px solid;
   width: 550px;
   height: 670px;
 }
@@ -106,6 +105,11 @@
 .titleBox{
   width: 100%;
   font-size: 30px;
+  border: none;
+}
+
+.titleBox:placeholder-shown {
+  background-color: rgb(255, 0, 0, 0.2);
 }
 
 .descriptionBox {
@@ -117,5 +121,17 @@
 .buttonBox {
   display: flex;
   justify-content: space-around;
+}
+
+.buttonBox button {
+  border: none;
+}
+
+.buttonBox .postButton {
+  border: 1px solid;
+  background-color: #FF7A00;
+  color: white;
+  width: 350px;
+  border-radius: 20px;
 }
 

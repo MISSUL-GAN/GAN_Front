@@ -197,9 +197,11 @@ function CreateDrawing() {
             :
                 <div className="resultBox">
                     <br/><br/><br/>
-                    <input type="text" className="titleBox" maxLength={20} placeholder="작품명을 입력해주세요. (20자 이내)"/><br/><br/>
+                    <input type="text" className="titleBox" maxLength={20} placeholder="* 작품명을 입력해주세요. (20자 이내)"/>
+                    <hr/>
                     <textarea className="descriptionBox" maxLength={200} placeholder="설명을 입력해주세요. (200자 이내)"/>
                     
+                    <br/><br/>
                     <div> 태그를 선택해주세요. (최대 3개) </div>
                     <hr/>
                     <form onClick={checkTag}>
@@ -219,10 +221,10 @@ function CreateDrawing() {
 
                     <br/><br/>
                     <div className="buttonBox">
-                        <a href="/img/logo.png" download> ⬇ 다운로드 ⬇ </a>
-                        <button> 카톡 공유 </button>
-                        <button className="NFTButton" title="OpenSea에 방금 만든 사진을 NFT로 등록해보세요!"> OpenSea </button>
-                        <button onClick={clickPost}> Missul;GAN에 사진 게시하기 </button>
+                        <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px"/> </a> </button>
+                        <button> <img src="/img/kakaoIcon.png" width="60px"/> </button>
+                        <button className="NFTButton" title="OpenSea에 방금 만든 사진을 NFT로 등록해보세요!"> <img src="/img/openseaIcon.png" width="60px"/> </button>
+                        <button className="postButton" onClick={clickPost}> Missul;GAN에 사진 게시하기 </button>
                    </div>
                 </div>    
             }
