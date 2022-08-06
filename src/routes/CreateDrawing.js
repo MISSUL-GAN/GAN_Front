@@ -46,7 +46,15 @@ function CreateDrawing() {
             document.getElementById(e.target.id).style.color = "#3C6B50";
 
             document.getElementById("subImg").disabled = false;
+            document.getElementsByClassName("uploadSubImg")[0].style.background = "#F4F4F4";
+            document.getElementsByClassName("uploadSubImg")[0].style.color = "#3C6B50";
+            document.getElementsByClassName("uploadSubImg")[0].style.cursor = "pointer";
+
             document.getElementsByClassName("deleteSubImg")[0].disabled = false;
+            document.getElementsByClassName("deleteSubImg")[0].style.background = "#F4F4F4";
+            document.getElementsByClassName("deleteSubImg")[0].style.color = "#3C6B50";
+            document.getElementsByClassName("deleteSubImg")[0].style.cursor = "pointer";
+
             selectedStyle = "";
         }
 
@@ -63,7 +71,15 @@ function CreateDrawing() {
             });
 
             document.getElementById("subImg").disabled = true;
+            document.getElementsByClassName("uploadSubImg")[0].style.background = "#ced4da"; 
+            document.getElementsByClassName("uploadSubImg")[0].style.color = "#868e96";
+            document.getElementsByClassName("uploadSubImg")[0].style.cursor = "not-allowed";
+
             document.getElementsByClassName("deleteSubImg")[0].disabled = true;
+            document.getElementsByClassName("deleteSubImg")[0].style.background = "#ced4da"; 
+            document.getElementsByClassName("deleteSubImg")[0].style.color = "#868e96";
+            document.getElementsByClassName("deleteSubImg")[0].style.cursor = "not-allowed";
+
             selectedStyle = e.target.value;
         }
     }
