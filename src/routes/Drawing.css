@@ -4,17 +4,18 @@
     justify-content: space-between;
 }
 
-.like:active {
-    background-color: tomato
+.like, .bookmark {
+    border: none;
 }
 
-.bookmark:active {
-    background-color: aquamarine;
+.like:visited, .bookmark:visited {
+    border: none;
 }
 
 .drawing {
     margin-right: 2%;
 }
+
 #alert-modal.warning-modal {
     width: 100vw;
     height: 100vh;

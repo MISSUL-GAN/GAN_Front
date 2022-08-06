@@ -46,8 +46,8 @@ function Home() {
 
             <div className="homecontainer">
                 <div className="tagOptionBox">
-                    <p> 미슐간 주황색 글씨 들어갈 자리 </p>
-                    <p> 필터를 통해 원하는 이미지를 찾아보세요 </p>
+                    <div> <img src="/img/textLogo.png" width={400}/> </div>
+                    <p className="tagGuide"> 필터를 통해 원하는 이미지를 찾아보세요 </p>
                     <form className="tagBox" onClick={checkTag}>
                         <input name="tagBox" type="checkbox" value="어두운"/>어두운&nbsp;&nbsp;
                         <input name="tagBox" type="checkbox" value="화사한"/>화사한&nbsp;&nbsp;

@@ -64,8 +64,8 @@ function Drawing({imgsrc, name}){
                 <div className="titleBox">
                     <p> 그림 {name} </p> 
                     <div>
-                        <button className="like" onClick={ clickLike }> { like ? "♥" : "♡"} </button>
-                        <button className="bookmark" onClick={ clickBookmark }> { bookmark ? "스크랩 취소" : "스크랩" } </button>
+                        <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32}/> </button>
+                        <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28}/> </button>
                     </div>
                 </div>
              </div>
@@ -90,11 +90,18 @@ function Drawing({imgsrc, name}){
                             <p className="drawing-tag"> #태그1 #태그2 #태그3 </p>
                             
                             <div className="buttonBox">
-                                <button> 다운로드 </button>
-                                <button> 카톡 공유 </button>
-                                <button onClick={ clickNFT }> OpenSea 통계 정보 </button>
-                                <button className="like" onClick={ clickLike }> { like ? "♥" : "♡"} </button>
-                                <button className="bookmark" onClick={ clickBookmark }> { bookmark ? "스크랩 취소" : "스크랩" } </button>
+                                <button style={{border:"none"}}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px"/> </a> </button>
+                                <button style={{border:"none"}}> <img src="/img/kakaoIcon.png" width="60px"/> </button>
+                                
+                                <button style={{
+                                    backgroundColor: "#3C6B50", 
+                                    border:"none", borderRadius:"8px", 
+                                    fontWeight:"200", color:"white",
+                                    width:"270px", marginRight:"30px", marginLeft:"5px"
+                                }} onClick={ clickNFT }> OpenSea 통계 정보 </button>
+
+                                <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32}/> </button>
+                                <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28}/> </button>
                             </div>
 
                             <div className="NFTBox">

@@ -1,9 +1,12 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
 .homecontainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
+    font-family: 'Spoqa Han Sans Neo';
 }
 
 .tagOptionBox {
@@ -15,6 +18,10 @@
     margin-bottom: 2%;
 }
 
+.tagGuide {
+    font-size: 24px;
+    color: #9F9F9F;
+}
 .tagBox {
     text-align: center;
 }
@@ -23,6 +30,16 @@
     width: 1500px;
     display: flex;
     justify-content: space-between;
+}
+
+.viewOptionBox button {
+    width: 154px;
+    height: 40px;
+    background: #3C6B50;
+    border: none;
+    border-radius: 8px; 
+    color: #FFFFFF;
+    font-weight: 300;
 }
 
 .drawingBox {
