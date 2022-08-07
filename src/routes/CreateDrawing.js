@@ -192,7 +192,8 @@ function CreateDrawing() {
                     <div id="styles">
                         <button className="styleButton" name='styleButton' id="1" value="반고흐" onClick={clickStyle}> 반 고흐 </button>
                         <button className="styleButton" name='styleButton' id="2" value="클로드모네" onClick={clickStyle}> 클로드 모네 </button>
-                        <button className="styleButton" name='styleButton' id="3" value="폴세잔" onClick={clickStyle}> 폴 세잔 </button> <br/>
+                        <button className="styleButton" name='styleButton' id="3" value="폴세잔" onClick={clickStyle}> 폴 세잔 </button>
+                        <button className="styleButton" name='styleButton' id="4" value="우키요에" onClick={clickStyle}> 우키요에 </button> <br/>
                     </div>
                     
                     <div className="subImgBox">
