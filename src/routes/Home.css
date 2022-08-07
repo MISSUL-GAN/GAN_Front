@@ -22,8 +22,20 @@
     font-size: 24px;
     color: #9F9F9F;
 }
-.tagBox {
-    text-align: center;
+
+.tagBox button {
+    background-color: #F4F4F4;
+    color: #3C6B50;
+    border: none;
+    border-radius: 40px;
+    font-weight: 400;
+    font-size: 18px;  
+    width: 100px;
+    margin-right: 5px;
+}
+
+.tagBox button input {
+    display: none;
 }
 
 .viewOptionBox {    

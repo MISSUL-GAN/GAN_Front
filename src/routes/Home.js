@@ -45,7 +45,19 @@ function Home() {
         filter === "random" ? console.log("랜덤정렬") : console.log("좋아요순");
     }, [changeFilter]);
 
-    const checkTag = () => {
+    const checkTag = (e) => {
+        
+        document.getElementById(e.target.className).checked = (document.getElementById(e.target.className).checked) ? false : true;
+
+        if(document.getElementById(e.target.className).checked){
+            document.getElementsByClassName(e.target.className)[0].style.backgroundColor = "#3C6B50";
+            document.getElementsByClassName(e.target.className)[0].style.color = "#FFFFFF";
+        }
+        else {  
+            document.getElementsByClassName(e.target.className)[0].style.backgroundColor = "#FFFFFF";
+            document.getElementsByClassName(e.target.className)[0].style.color = "#3C6B50";
+        }
+
         const tagBox = document.getElementsByName("tagBox");
         tagBox.forEach(tag => { if(tag.checked) console.log(tag.value); });
     }
@@ -58,20 +70,27 @@ function Home() {
                 <div className="tagOptionBox">
                     <div> <img src="/img/textLogo.png" width={400} alt=""/> </div>
                     <p className="tagGuide"> 필터를 통해 원하는 이미지를 찾아보세요 </p>
-                    <form className="tagBox" onClick={checkTag}>
-                        <input name="tagBox" type="checkbox" value="어두운"/>어두운&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="화사한"/>화사한&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="다채로운"/>다채로운&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="차분한"/>차분한&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="강렬한"/>강렬한<br/>
 
-                        <input name="tagBox" type="checkbox" value="차가운"/>차가운&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="따뜻한"/>따뜻한&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="풍경"/>풍경&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="동물"/>동물&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="인물"/>인물&nbsp;&nbsp;
-                        <input name="tagBox" type="checkbox" value="기타"/>기타<br/>
-                    </form>
+                    <div className="tagBox">
+                        <button className="100" onClick={checkTag}> <input id="100" name="tagBox" type="checkbox" value="어두운"/> 어두운 </button>
+                        <button className="200" onClick={checkTag}> <input id="200" name="tagBox" type="checkbox" value="화사한"/> 화사한 </button>
+                        <button className="300" onClick={checkTag}> <input id="300" name="tagBox" type="checkbox" value="다채로운"/> 다채로운 </button>
+                        <button className="400" onClick={checkTag}> <input id="400" name="tagBox" type="checkbox" value="차분한"/> 차분한 </button>
+                        <button className="500" onClick={checkTag}> <input id="500" name="tagBox" type="checkbox" value="강렬한"/> 강렬한 </button>
+                        <button className="600" onClick={checkTag}> <input id="600" name="tagBox" type="checkbox" value="차가운"/> 차가운 </button>
+                        <button className="700" onClick={checkTag}> <input id="700" name="tagBox" type="checkbox" value="따뜻한"/> 따뜻한 </button><br/><br/>
+                    </div>
+
+                    <div className="tagBox">
+                        <button className="800" onClick={checkTag}> <input id="800" name="tagBox" type="checkbox" value="반고흐"/> 반 고흐 </button>
+                        <button className="900" onClick={checkTag}> <input id="900" name="tagBox" type="checkbox" value="클로드모네"/> 클로드 모네 </button>
+                        <button className="1000" onClick={checkTag}> <input id="1000" name="tagBox" type="checkbox" value="폴세잔"/> 폴 세잔 </button>
+                        <button className="1100" onClick={checkTag}> <input id="1100" name="tagBox" type="checkbox" value="우키요에"/> 우키요에 </button>
+                        <button className="1200" onClick={checkTag}> <input id="1200" name="tagBox" type="checkbox" value="풍경"/> 풍경 </button>
+                        <button className="1300" onClick={checkTag}> <input id="1300" name="tagBox" type="checkbox" value="동물"/> 동물 </button>
+                        <button className="1400" onClick={checkTag}> <input id="1400" name="tagBox" type="checkbox" value="인물"/> 인물 </button>
+                        <button className="1500" onClick={checkTag}> <input id="1500" name="tagBox" type="checkbox" value="기타"/> 기타 </button>
+                    </div>
                 </div>
 
                 <div className="viewOptionBox">
