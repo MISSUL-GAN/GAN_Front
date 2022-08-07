@@ -32,7 +32,7 @@
     align-items: center;
 
     background-color: rgba(0,0,0,0.4);
-    z-index: 100;
+    z-index: 101;
 }
 
 #alert-modal .warning-modal-window {

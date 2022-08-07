@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './Drawing.css';
 import { useSelector } from 'react-redux';
 import { AUTH_URL } from '../LoginKey';
+import './Drawing.css';
 
 function Drawing({imgsrc, name}){
 
@@ -11,15 +11,13 @@ function Drawing({imgsrc, name}){
     const [seeNFT, setSeeNFT] = useState(true);
 
     function clickImg(){
-        const modal = document.getElementById("zoom-modal");
+        const modal = document.getElementsByClassName("drawing-modal")[name];
         modal.style.display = "flex";
-
         document.body.style.overflow = "hidden";
-        console.log(name);
     }
 
     function clickClose() {
-        const modal = document.getElementById("zoom-modal");
+        const modal = document.getElementsByClassName("drawing-modal")[name];
         modal.style.display = "none";
         document.body.style.overflow = "unset";
     }
@@ -52,7 +50,7 @@ function Drawing({imgsrc, name}){
 
     function clickNFT() {
         setSeeNFT(!seeNFT);
-        const NFTInfo = document.getElementsByClassName("NFTBox")[0];
+        const NFTInfo = document.getElementsByClassName("NFTBox")[name];
         let see = seeNFT ? "inline" : "none";
         NFTInfo.style.display = see;
     }
@@ -64,8 +62,8 @@ function Drawing({imgsrc, name}){
                 <div className="titleBox">
                     <p> 그림 {name} </p> 
                     <div>
-                        <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32}/> </button>
-                        <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28}/> </button>
+                        <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt=""/> </button>
+                        <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt=""/> </button>
                     </div>
                 </div>
              </div>
@@ -83,15 +81,15 @@ function Drawing({imgsrc, name}){
                                 <p className="author"> 사용자 닉네임 </p>
                             </div>
                             
-                            <p className="drawing-title"> 제목길이제한8자 </p>
+                            <p className="drawing-title"> 그림 {name} </p>
 
                             <p className="description"> 그림 {name} 설명입니다 이 작품은 사람의 간을 본따서 만든 로고인데요 아주 귀엽게 생겼습니다 으아아아아아아아아아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ </p>
                         
                             <p className="drawing-tag"> #태그1 #태그2 #태그3 </p>
                             
                             <div className="buttonBox">
-                                <button style={{border:"none"}}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px"/> </a> </button>
-                                <button style={{border:"none"}}> <img src="/img/kakaoIcon.png" width="60px"/> </button>
+                                <button style={{border:"none"}}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt=""/> </a> </button>
+                                <button style={{border:"none"}}> <img src="/img/kakaoIcon.png" width="60px" alt=""/> </button>
                                 
                                 <button style={{
                                     backgroundColor: "#3C6B50", 
@@ -102,21 +100,20 @@ function Drawing({imgsrc, name}){
                                 }} onClick={ clickNFT }> OpenSea 통계 정보 </button>
 
                                 <div className="likeBox">
-                                    <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32}/> </button>
+                                    <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt=""/> </button>
                                     <p> 1234 </p>
                                 </div>
 
                                 <div className="bookmarkBox">
-                                    <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28}/> </button>
+                                    <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt=""/> </button>
                                     <p> 1234 </p>
                                 </div>
-
-                                </div>
+                            </div>
 
                             <div className="NFTBox">
-                                통계정보... 이 작품은 https://opensea.com/fgijsdifg 에 등록된거고..<br/>
-                                가격은 몇 이더리움이고.. 근데 난 코인 안 해서 잘 모르겟음 ㅋㅋ<br/>
-                                음 네 뭐 그렇습니다.......... 어쩌고저쩌고
+                                어쩌고저쩌고<br/>
+                                이 작품의 NFT 가격!! 247239857198321093원<br/>
+                                아무튼 통계 정보~~~ 들어갈 자리~~~
                             </div>
                         </div>
                     </div>

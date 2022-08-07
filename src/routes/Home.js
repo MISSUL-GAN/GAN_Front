@@ -17,6 +17,7 @@ function Home() {
     useEffect(() => {
         dispatch({ type: '로그인'})
         document.getElementById("mostlike").style.color = "#3C6B50";
+
         if(!(code == null)) {
             axios.post('서버api주소', {
                 code : code
@@ -55,7 +56,7 @@ function Home() {
 
             <div className="homecontainer">
                 <div className="tagOptionBox">
-                    <div> <img src="/img/textLogo.png" width={400}/> </div>
+                    <div> <img src="/img/textLogo.png" width={400} alt=""/> </div>
                     <p className="tagGuide"> 필터를 통해 원하는 이미지를 찾아보세요 </p>
                     <form className="tagBox" onClick={checkTag}>
                         <input name="tagBox" type="checkbox" value="어두운"/>어두운&nbsp;&nbsp;
