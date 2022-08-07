@@ -54,6 +54,17 @@
     font-weight: 300;
 }
 
+.viewOptionBox .optionBox {
+    display: flex;
+}
+
+.viewOptionBox .optionBox h5 {
+    color: #8E9398;
+    height: fit-content;
+    margin-top: 8px;
+    font-weight: 350;
+}
+
 .viewOptionBox .viewOption {
     border: none;
     color: #8E9398;

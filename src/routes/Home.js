@@ -96,8 +96,9 @@ function Home() {
                 <div className="viewOptionBox">
                     <button className="refresh"> 이미지 새로고침 </button>
 
-                    <div>
+                    <div className="optionBox">
                         <button className="viewOption" id="mostlike" value="mostlike" onClick={changeFilter}> 좋아요순 </button>
+                        <h5> | </h5>
                         <button className="viewOption" id="random" value="random" onClick={changeFilter}> 랜덤순 </button>
                     </div>
                 </div>
