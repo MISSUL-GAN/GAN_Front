@@ -32,7 +32,7 @@
     justify-content: space-between;
 }
 
-.viewOptionBox button {
+.viewOptionBox .refresh {
     width: 154px;
     height: 40px;
     background: #3C6B50;
@@ -40,6 +40,18 @@
     border-radius: 8px; 
     color: #FFFFFF;
     font-weight: 300;
+}
+
+.viewOptionBox .viewOption {
+    border: none;
+    color: #8E9398;
+    font-weight: 400;
+    font-size: 18px;
+    background-color: rgb(0, 0, 0, 0);
+}
+
+.viewOptionBox .viewOption:visited {
+    border: none;
 }
 
 .drawingBox {

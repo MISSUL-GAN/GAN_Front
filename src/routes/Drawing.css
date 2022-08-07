@@ -6,6 +6,7 @@
 
 .like, .bookmark {
     border: none;
+    background-color: rgb(0, 0, 0, 0);
 }
 
 .like:visited, .bookmark:visited {
@@ -15,6 +16,9 @@
 .drawing {
     margin-right: 2%;
 }
+
+
+
 
 #alert-modal.warning-modal {
     width: 100vw;
@@ -50,6 +54,9 @@
     font-size: 20px;
     margin-left: 400px;
 }
+
+
+
 
 #zoom-modal.drawing-modal {
     width: 100vw;
@@ -137,6 +144,13 @@
     justify-content: space-between;
     width: 90%;
     margin-bottom: 5%;
+}
+
+#zoom-modal .likeBox, .bookmarkBox {
+    height: fit-content;
+    margin-top: 10px;
+    font-size: smaller;
+    text-align: center;
 }
 
 #zoom-modal .NFTBox {

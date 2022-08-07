@@ -16,7 +16,7 @@ function Home() {
 
     useEffect(() => {
         dispatch({ type: '로그인'})
-        
+        document.getElementById("mostlike").style.color = "#3C6B50";
         if(!(code == null)) {
             axios.post('서버api주소', {
                 code : code
@@ -27,6 +27,15 @@ function Home() {
     }, []);
 
     const changeFilter = (e) => {
+        if(e.target.value === "mostlike"){
+            document.getElementById(e.target.value).style.color = "#3C6B50";
+            document.getElementById("random").style.color = "#8E9398";
+        }
+        else {
+            document.getElementById(e.target.value).style.color = "#3C6B50";
+            document.getElementById("mostlike").style.color = "#8E9398";
+        }
+
         setFilter(e.target.value);
     }
 
@@ -65,11 +74,12 @@ function Home() {
                 </div>
 
                 <div className="viewOptionBox">
-                    <button> 이미지 새로고침 </button>
-                    <select name="filter" onChange={changeFilter}>
-                        <option value="mostlike"> 좋아요순 </option>
-                        <option value="random"> 랜덤 보기 </option>
-                    </select>
+                    <button className="refresh"> 이미지 새로고침 </button>
+
+                    <div>
+                        <button className="viewOption" id="mostlike" value="mostlike" onClick={changeFilter}> 좋아요순 </button>
+                        <button className="viewOption" id="random" value="random" onClick={changeFilter}> 랜덤순 </button>
+                    </div>
                 </div>
 
                 <div className="drawingBox">

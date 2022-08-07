@@ -97,12 +97,21 @@ function Drawing({imgsrc, name}){
                                     backgroundColor: "#3C6B50", 
                                     border:"none", borderRadius:"8px", 
                                     fontWeight:"200", color:"white",
-                                    width:"270px", marginRight:"30px", marginLeft:"5px"
+                                    width:"270px", height:"60px",
+                                    marginTop:"8px", marginRight:"30px", marginLeft:"5px"
                                 }} onClick={ clickNFT }> OpenSea 통계 정보 </button>
 
-                                <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32}/> </button>
-                                <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28}/> </button>
-                            </div>
+                                <div className="likeBox">
+                                    <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32}/> </button>
+                                    <p> 1234 </p>
+                                </div>
+
+                                <div className="bookmarkBox">
+                                    <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28}/> </button>
+                                    <p> 1234 </p>
+                                </div>
+
+                                </div>
 
                             <div className="NFTBox">
                                 통계정보... 이 작품은 https://opensea.com/fgijsdifg 에 등록된거고..<br/>
