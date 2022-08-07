@@ -95,10 +95,25 @@ main<br/>
   * ~~상세보기 모달 열었을 때 버튼 배경이 아래처럼 잡히는 현상~~ ➡ 버튼 배경 투명으로 지정해서 해결<br/>
   ![image](https://user-images.githubusercontent.com/87255462/183278318-bfdd7290-9140-470e-81cf-90748308676b.png)
 
-  * 상세보기 모달 내 name이 모두 0으로 뜨는 중 -> 콘솔에 찍을 때는 자기 번호로 잘 나오는데 whyrano.......
-    * 이거 지금,,,, 그림 20개 상세보기 모달 내 좋아요/스크랩이 그림 0 아래 좋아요/스크랩이랑 연동되는 중임 ㅋ ㅋ ㅋ우와
+  * ~~상세보기 모달 내 name이 모두 0으로 뜨는 중 -> 콘솔에 찍을 때는 자기 번호로 잘 나오는데 whyrano.......~~
+  * ~~Drawing 컴포넌트끼리 seeNFT 값이 유지되는 것 같음 -> OpenSea 정보가 디폴트로 닫혀있어야 하는데 열려있음 도랏나~~
+    * 눈물나는 삽질 과정 (나중에 복습할 땐 굵은 글씨만 봐도 됨)
     
-  * Drawing 컴포넌트끼리 seeNFT 값이 유지되는 것 같음 -> OpenSea 정보가 디폴트로 닫혀있어야 하는데 열려있음 도랏나
+      * i) 인자로 준 name을 못 가져오는 줄 알고 Drawing 컴포넌트 여기저기서 name 콘솔로 찍어서 값 확인함
+      * ii) 정확히는 이미지 클릭할 때까지 (상세보기 모달 열 때) name은 정상인데 닫을 때는 name이 또 0으로 찍히던 중
+      * iii) 알고보니 name을 잘못 가져오는게 아니라 __무슨 그림을 눌러도 상세보기 모달이 그림 0의 모달로 뜨던중__ ^^~~~
+      
+    * 원인 / 해결
+      * 이미지 클릭, 모달 닫기 등에서 요소는 다음과 같이 가져옴 (상세보기 모달의 id=zoom-modal, className=drawing-modal)<br/>
+      이때, 같은 id 여러 개 있으면 첫번째 들고옴 (=그림 0의 모달) -> 이러니까 __id는 고유값으로 지정하라는거임 중복 생기면 지정이 안되니까__
+      ```javascript
+      const modal = document.getElementById("zoom-modal"); // id가 줌-모달인 요소 하나
+      ```
+      * 아래와 같이 수정함
+      ```javascript
+      const modal = document.getElementsByClassName("drawing-modal")[name]; // className이 드로잉-모달인 배열에서 name번째 요소
+      ```
+
   * 전체화면 스크롤 말고 특정 영역 내 스크롤 객체만 가져오고 싶음
   * 필터 값 바뀌면 -> 서버에서 이미지 받아와서 -> pictures 배열에 세팅하고 싶은데 useEffect 내에서 setState 하면 무한루프 돌아버림 
     * useEffect(... , [changeFilter]) : changeFilter는 select 태그의 onChange 이벤트 함수, 그냥 그 안에서 filter 찍으면 한 박자씩 느려서 useEffect 쓰던거였음
