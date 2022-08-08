@@ -1,0 +1,50 @@
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+.logo {
+    width: auto;
+    height: 12vh;
+}
+
+.nicknameGuide {
+    font-size: 1.2vw;
+    margin-bottom: 1vh;
+}
+
+.nicknameBox {
+    width: 39%;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1vh;
+}
+
+.nicknameBox input {
+    width: 30vw;
+    font-size: 1vw;
+    background: #F4F4F4;
+    border-radius: 20px;
+    border: none;
+}
+
+.nicknameBox button {
+    width: 8vw;
+    padding: 0 1.3vw 0 1.3vw;
+    background: #FF922E;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    font-size: 0.9vw;
+}
+
+.warning {
+    width: 38%;
+    color: #9F9F9F;
+    font-size: 0.75vw;
+}
+
+
