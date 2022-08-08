@@ -13,6 +13,7 @@ function Drawing({imgsrc, name}){
     function clickImg(){
         const modal = document.getElementsByClassName("drawing-modal")[name];
         modal.style.display = "flex";
+        modal.style.top = `${window.scrollY}px`;
         document.body.style.overflow = "hidden";
     }
 
@@ -88,8 +89,8 @@ function Drawing({imgsrc, name}){
                             <p className="drawing-tag"> #태그1 #태그2 #태그3 </p>
                             
                             <div className="buttonBox">
-                                <button style={{border:"none"}}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt=""/> </a> </button>
-                                <button style={{border:"none"}}> <img src="/img/kakaoIcon.png" width="60px" alt=""/> </button>
+                                <button style={{border:"none", backgroundColor:"rgb(0,0,0,0)"}}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt=""/> </a> </button>
+                                <button style={{border:"none", backgroundColor:"rgb(0,0,0,0)"}}> <img src="/img/kakaoIcon.png" width="60px" alt=""/> </button>
                                 
                                 <button style={{
                                     backgroundColor: "#3C6B50", 
