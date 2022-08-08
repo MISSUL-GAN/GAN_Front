@@ -29,9 +29,10 @@
     background: #F4F4F4;
     border-radius: 20px;
     border: none;
+    padding-left: 1vw;
 }
 
-.nicknameBox button {
+.nicknameBox #submitButton {
     width: 8vw;
     padding: 0 1.3vw 0 1.3vw;
     background: #FF922E;
@@ -41,7 +42,7 @@
     font-size: 0.9vw;
 }
 
-.warning {
+#warning {
     width: 38%;
     color: #9F9F9F;
     font-size: 0.75vw;
