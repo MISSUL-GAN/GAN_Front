@@ -1,20 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     let aToken = new URL(window.location.href).searchParams.get("accessToken");
     let rToken = new URL(window.location.href).searchParams.get("refreshToken");
 
-    return(
-        <>
-            <p> 로그인 페이지임 </p>
-            <p> accessToken : {aToken}</p>
-            <p> refreshToken : {rToken}</p>
+    let navigate = useNavigate();
 
-            <button onClick={ () => {
-                window.location.href="/home";
-            }}> 홈으로 가기 </button> 
-        </>
-    );
+    useEffect(() => {
+        console.log("액세스토큰: " + aToken);
+        console.log("리프레쉬토큰 : " + rToken);
+        navigate('/join'); // 이미 가입했던 회원이면 받아서 /home으로 보내야할듯
+      }, []);
 }
 
 export default Login;
