@@ -68,7 +68,7 @@ function Home() {
 
             <div className="homecontainer">
                 <div className="tagOptionBox">
-                    <div> <img src="/img/textLogo.png" width={400} alt=""/> </div>
+                    <div> <img src="/img/textLogo.png" alt=""/> </div>
                     <p className="tagGuide"> 필터를 통해 원하는 이미지를 찾아보세요 </p>
 
                     <div className="tagBox">
@@ -98,7 +98,7 @@ function Home() {
 
                     <div className="optionBox">
                         <button className="viewOption" id="mostlike" value="mostlike" onClick={changeFilter}> 좋아요순 </button>
-                        <h5> | </h5>
+                        <button className="viewOption" disabled> | </button>
                         <button className="viewOption" id="random" value="random" onClick={changeFilter}> 랜덤순 </button>
                     </div>
                 </div>
