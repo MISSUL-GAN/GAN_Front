@@ -31,7 +31,7 @@ function Join() {
         <div className="page-content">
             <img className="logo" src="/img/textLogo2.png" width={200} alt=""/>
             <div className="nicknameGuide">‘Missul;GAN’에서 사용할 별명을 적어주세요.</div>
-            <form className="nicknameBox">
+            <form className="nicknameBox" autoComplete="off">
                 <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder="한글, 영문으로 구성된 2자 이상 12자 이하의 별명을 적어주세요."/>
                 <input id="submitButton" type="submit" value="별명 설정 완료"/>
             </form>
