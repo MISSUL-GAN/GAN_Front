@@ -143,8 +143,9 @@ main<br/>
 <summary> 📚 </summary>
 
  <details>
- <summary> Redux - [공식문서](https://ko.redux.js.org/introduction/getting-started/) </summary>
-
+ <summary> Redux </summary>
+ 
+  * [공식문서](https://ko.redux.js.org/introduction/getting-started/)
   * 왜 써야 하는지 : state를 전역적으로 관리할 수 있게 됨<br/>
   컴포넌트끼리 순차적으로 전달전달해서 쓰지 않고 필요한 곳에서 바로 읽어오게 ◠‿◠ <br/>
   (현재는 Link의 state 속성으로 인가코드를 전달해서 받아 쓰거나,
@@ -206,6 +207,37 @@ main<br/>
     * 근데 왜 처음에 HashRouter를 썼는지 : 써본게 그거 밖에 없어서 자연스럽게 그걸로 했음 반성하겠읍니다 <br/>
 
   * 어디 적용할 건지 : Router.js
+</details>
+
+<details>
+  <summary> CORS 정책  </summary><br/>
+  
+  * [참고한 자료](https://coding-groot.tistory.com/91)
+  
+  * 원인: 나는 localhost:3000 에서 실행중인데 다른 origin (여기서는 https://api.missulgan.art/~) 로 요청 보내서 받아오려고 함 </br>
+  ➡ 브라우저가 보안 상의 이유로 냅다 막아버릴거고 콘솔에 아래 에러 메시지 뜨면 cors다 
+  
+  ```javascript
+  Access to XMLHttpRequest at 'https://api.missulgan.art/member/me' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+  ```
+
+  * 어떻게 해결하는지 : http-proxy-middleware 사용해서 해결함 다른 방법도 있겠지만,, 그냥 이걸로 했음</br> 
+  ```javascript
+  //설치 후 src/setupProxy.js 생성
+  const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function(app) {
+    app.use(
+        '이주소로보낸요청은',
+        createProxyMiddleware({
+            target: '이주소로바꿔서보내줌',
+            changeOrigin: true,
+        })
+    );
+}; 
+  ```
+  자세한 방법은 login 브랜치 PR -> 커밋 [e492c69](https://github.com/MISSUL-GAN/GAN_Front/commit/e492c69b1b0071362734352a0c1f598a5697657a) 코멘트 참고 
+
 </details>
 
 </details>
