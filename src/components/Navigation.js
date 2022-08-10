@@ -5,55 +5,65 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function Navigation() {
 
-    const code = useSelector( (state) => state );
+    const user = useSelector( (state) => state );
     const dispatch = useDispatch();
-    const [member, setMember] = useState(false);
 
-    function checkLogin () {
-        if(code == null){
-            alert("로그인이 필요한 서비스입니다.\n로그인 페이지로 이동합니다.");
-            setMember(false);
+    function checkLogin (e) {
+        if(user.nick === null){
+            const modal = document.getElementById("alert-modal");
+            modal.style.display = "flex";
         }    
-        else {
-            setMember(true);  
-            console.log("로그인 중인 사용자입니다.");
-        }
+        else 
+            window.location.href = `${e.target.value}`;
     }
-
-        
+  
     function changeLogin() {
-        if(code != null){
+        if(user.nick !== null){
             if(window.confirm("로그아웃 하시겠습니까?")){
                 alert("로그아웃이 완료되었습니다.\n비회원 상태에서는 일부 기능이 제한될 수 있습니다.");
-                dispatch({ type: '로그아웃'});
-                setMember(false);
+                dispatch({ type : '로그아웃' });
                 window.location.href = '/home';
             }
-            else {
-                window.location.href = `home?code=${code}`;
-            }
         }
-        else {
+        else 
             window.location.href = AUTH_URL;
-        }
     }
     
+    function clickAlertClose() {
+        const modal = document.getElementById("alert-modal");
+        modal.style.display = "none";
+        document.body.style.overflow = "unset";
+    }
+
     return(
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="nav-logo" href = { code ? `/?code=${code}` : '/'}>
-                <img className="tempLogoImg" alt = "tempLogo" src = "/img/logo.png" width={45}/>
-                <span className="navbar-brand mb-0"> MISSUL:GAN </span>
-            </a>
-            
-            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div className="navbar-nav">
-                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `create?code=${code}` : AUTH_URL }> 그림 바꾸기 </a>
-                    <a className="nav-item nav-link" href = { code != null ? `home?code=${code}` : '/home' }> 작품 둘러보기 </a>
-                    <a className="nav-item nav-link" onClick={ checkLogin } href = { member ? `myPage?code=${code}` : AUTH_URL }> MY </a>
-                    <a className="nav-item nav-link" onClick={ changeLogin }> { code ? "로그아웃" : "로그인" } </a>
+        <>
+            <nav className="navbar">
+                <a className="navLogo" href='/'> <img id="logoImg" alt="" src = "/img/naviLogo.png"/> </a>
+                
+                <div id="menu">
+                    <button className="navItem" onClick={checkLogin} value="/create"> GAN 사진 변환 </button>
+                    <a className="navItem" href='/home'> 미슐간 </a>
+                    
+                    { user.image 
+                    ? <div id="img-wrapper"><img src={user.image} onClick={changeLogin}/> </div> 
+                    : <a className="navItem" href={AUTH_URL}> 로그인 </a>
+                    }
+                </div>
+            </nav>
+
+            <div id="alert-modal" className="warning-modal">
+                <div className="warning-modal-window">
+                    <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
+                    
+                    <div className="alert-content">
+                        <p> 로그인이 필요한 서비스입니다. </p>
+                        <a href={AUTH_URL}>
+                            <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width={"222"} alt="카카오 로그인" />
+                        </a>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </>
     );
 }
 

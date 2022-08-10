@@ -7,29 +7,19 @@ import axios from "axios";
 
 function Home() {
 
-    let code = new URL(window.location.href).searchParams.get("code");
-    //const code = useSelector( (state) => state );
+    const user = useSelector( (state) => state );
     const dispatch = useDispatch();
+    const pictures = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; 
 
     useEffect(() => {
-        dispatch({ type: '로그인'})
-        
-        if(!(code == null)) {
-            axios.post('서버api주소', {
-                code : code
-            });
-            
-            console.log(`서버로 다음 인가코드 전송함 : ${code}`);
-        }
+        dispatch({ type: '확인'})
     }, []);
-
-    const pictures = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; 
 
     return(
         <>
         <Navigation/>
         <br/><br/>
-
+        { console.log("home 에서 확인한 현재 유저 : " + user.nick)}
         {
             pictures.map((element) => 
                 <>

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
+import { useSelector, useDispatch } from 'react-redux';
 import './Join.css';
 
 function Join() {
+
+    const user = useSelector( (state) => state );
 
     var spc = /[~!@#$%^&*()_+|<>?:{}]/;
     var blank = /[\s]/g;
@@ -21,8 +24,12 @@ function Join() {
             document.getElementById("warning").innerHTML = "* 해당 별명은 이후 변경할 수 없습니다.";
             document.getElementById("warning").style.color = "#9F9F9F";
         }
-
     }
+
+
+    useEffect(() => {
+        console.log(user.nick + " / " + user.email + " / " + user.image)
+    }, []);
 
     return(
         <>
@@ -30,12 +37,15 @@ function Join() {
 
         <div className="page-content">
             <img className="logo" src="/img/textLogo2.png" width={200} alt=""/>
+
             <div className="nicknameGuide">‘Missul;GAN’에서 사용할 별명을 적어주세요.</div>
+
             <form className="nicknameBox" autoComplete="off">
-                <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder="한글, 영문으로 구성된 2자 이상 12자 이하의 별명을 적어주세요."/>
+                <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder={user.nick}/>
                 <input id="submitButton" type="submit" value="별명 설정 완료"/>
             </form>
-            <p id="warning"> * 해당 별명은 이후 변경할 수 없습니다. </p>
+            
+            <p id="warning"> * 한글, 영문으로 구성된 2자 이상 12자 이하의 별명을 적어주세요. (해당 별명은 이후 변경할 수 없습니다) </p>
         </div>
         </>
     );

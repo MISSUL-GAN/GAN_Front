@@ -1,34 +1,37 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';  
+import { useDispatch } from 'react-redux';
 
 function Login() {
+
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+
     let aToken = new URL(window.location.href).searchParams.get("accessToken");
     let rToken = new URL(window.location.href).searchParams.get("refreshToken");
     let profileNickname = new URL(window.location.href).searchParams.get("profileNickname");
     let isFirstTime = new URL(window.location.href).searchParams.get("firstTime");
 
-    let navigate = useNavigate();
-
     useEffect(() => {
-        console.log("액세스토큰: " + aToken);
-        console.log("리프레쉬토큰 : " + rToken);
-        //console.log("프로파일 닉넴: " + profileNickname);
-        //console.log("처음 접속?: " + isFirstTime);
-
         axios.get("/member/me", {
           headers: {
             Authorization: `Bearer ${aToken}`,
           },
         })
         .then(function (res) {
-          console.log(res.data.userNickname);
-          console.log(res.data.profileImage);
-          console.log(res.data.accountEmail);
+          dispatch({ 
+            type : '로그인',
+            user : {nick : res.data.userNickname, email : res.data.accountEmail, image : res.data.profileImage, aToken : aToken, rToken : rToken}
+          });
+
+          if(true) //isFirstTime 들어갈 자리
+            navigate('/join'); 
+
+          else 
+            navigate('/home'); 
         });
-        
-        navigate('/join'); // 이미 가입했던 회원이면 받아서 /home으로 보내야할듯
-      }, []);
+    }, []);
 }
 
 export default Login;
