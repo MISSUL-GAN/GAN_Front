@@ -211,9 +211,58 @@ main<br/>
       );
     }
     ```
-    </details>
+</details>
     
-    <details>
+<details>
+ <summary> Redux-persist </summary>
+ 
+ * 왜 써야하는지 : redux만 쓰면 새로고침, 다른 창에서 값 유지가 안됨
+   * Login.js -> Join.js 들어가서 새로고침하면 유저 정보 날아가던거
+
+* 어디 적용할 건지 : index.js 수정
+
+* 어떻게 쓰는건지 - [📹](https://www.youtube.com/watch?v=09g4ieXJ3rE) 참고
+
+0. 필요한 파일을 설치한다 (npm i redux-persist)
+1. index.js를 아래와 같이 수정한다 (redux만 썼을 때에서 추가하는거임 저거만 쓰는거 아니고)
+
+```javascript
+import { persistStore, persistReducer } from 'redux-persist'; // 추가
+import storageSession from 'redux-persist/lib/storage/session';
+import { applyMiddleware } from 'redux'; // 추가
+import { PersistGate } from 'redux-persist/integration/react'; // 추가
+
+const persistConfig = {
+  key : root,
+  storage: storageSession,
+}
+
+const persistedReducer = persistReducer(persistConfig, myReducer);
+const store = configureStore({reducer : persistedReducer}, applyMiddleware());
+const Persistor = persistStore(store);
+
+root.render(
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={Persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+);
+```
+
+* sessionStorage vs localStorage
+
+  * sessionStorage 
+
+    * 해당 탭 하나!! 내에서만 유지됨 (다른 탭끼리 공유 ㄴㄴ)<br/>
+
+  * localStorage
+
+    * origin이 같은 탭끼리는 다 공유함 (근데 해보니까 완전 실시간은 아니고 탭1에서 변경하면 탭2에서 새고 한번 해야 보임) 
+ 
+</details>
+ 
+<details>
   <summary> BrowserRouter </summary>
 
   * 왜 써야 하는지 : 현재는 HashRouter를 사용중인데, 이 경우 특정 컴포넌트를 띄울 때 url에 #이 붙게됨<br/># 들어간 url은 redirect 주소로 등록할 수 없게 되어있어서 HashRouter를 쓰면 안됨 ('fragment는 허용하지 않습니다')
@@ -221,7 +270,7 @@ main<br/>
 
   * 어디 적용할 건지 : Router.js
 </details>
-
+ 
 <details>
   <summary> CORS 정책  </summary><br/>
   
