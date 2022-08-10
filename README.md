@@ -89,6 +89,21 @@ main<br/>
 <details>
 <summary> 😖 </summary>
 
+* redux 에서 변수 값 수정했는데 유지가 안 됨
+    * 삽질 과정
+    
+      * i) reducer 안에서 state 값 직접 변경 -> state는 읽기 전용이라 이러면 에러 (state mutation이 감지되었다 어쩌고)
+      
+      * ii) action 에 넣고 보낸 값을 reducer에서 받아서 새 객체 만들고 return -> 실패~ 여전히 유지 안 됨
+      
+    * 원인/해결
+    
+      * 새로고침 할 때나 다른 페이지로 갈 때 state 가 초기화 되는 건 원래 유지가 안 되는게 기본인가봄<br/>
+      그래서 Login.js -> Join.js / Home.js 로 갈 때는 잠깐 유지되다가~ 거기서 새고 or 다른 페이지로 가면 날아갔던 거였음<br/>
+      그럴 때도 유지 시키고 싶으면 __redux-persist__ 패키지를 쓰면 된다고 한다!! 
+      
+      * 해결은 아직 ^^.. ㅍㅐ키지 공부중.. 아자아자화이팅
+
 * 카카오톡 로그인
   * ~~로그인 -> 인가코드 발급 -> 토큰 받아오기까지 성공, 사용자 정보 받아오는 부분에서 막혔음~~
   
@@ -96,14 +111,12 @@ main<br/>
     오빠가 말한거: 액세스 토큰을 서버로 보내서 유저정보 받아와라 (=/member/me 헤더로 넣고 받아와라)<br/>
     내가 이해한 거: 액세스 토큰을 서버로 보내서 유저정보 받아와라 (=/oauth2/authorization/kakao 헤더로 넣고 받아와라)
 
-    * 눈물나는 삽질 과정 1
+    * 눈물나는 삽질 과정 
     
       * i) /oauth2/authorization/kakao 로 보내면 당연히 전혀 다른 응답만 보임
       * ii) 여기 아닌가 보네 그럼 어디지 -> /member/me 에는 파라미터 넣는 곳이 없네 -> 아닌가보다
       * iii) kapi.kakao.com/v2/user/me 로 보내보자 -> token is too long ^^~~~~~~<br/>
       ㄴ 당연함 백엔드에서 쓰는 토큰이 한 3배 기니까 그쪽 서버에선 당연히 그 토큰 보내봤자 사용자 정보 안주지.......
-
-
 
 
 * 미술관 페이지
@@ -112,7 +125,7 @@ main<br/>
 
   * ~~상세보기 모달 내 name이 모두 0으로 뜨는 중 -> 콘솔에 찍을 때는 자기 번호로 잘 나오는데 whyrano.......~~
   * ~~Drawing 컴포넌트끼리 seeNFT 값이 유지되는 것 같음 -> OpenSea 정보가 디폴트로 닫혀있어야 하는데 열려있음 도랏나~~
-    * 눈물나는 삽질 과정 2 (나중에 복습할 땐 굵은 글씨만 봐도 됨)
+    * 눈물나는 삽질 과정 (나중에 복습할 땐 굵은 글씨만 봐도 됨)
     
       * i) 인자로 준 name을 못 가져오는 줄 알고 Drawing 컴포넌트 여기저기서 name 콘솔로 찍어서 값 확인함
       * ii) 정확히는 이미지 클릭할 때까지 (상세보기 모달 열 때) name은 정상인데 닫을 때는 name이 또 0으로 찍히던 중
@@ -132,16 +145,7 @@ main<br/>
   * 전체화면 스크롤 말고 특정 영역 내 스크롤 객체만 가져오고 싶음
   
   * 필터 값 바뀌면 -> 서버에서 이미지 받아와서 -> pictures 배열에 세팅하고 싶은데 useEffect 내에서 setState 하면 무한루프 돌아버림 
-    * useEffect(... , [changeFilter]) : changeFilter는 select 태그의 onChange 이벤트 함수, 그냥 그 안에서 filter 찍으면 한 박자씩 느려서 useEffect 쓰던거였음
-    
-  * redux 에서 변수 값 수정을 어떻게 하는건지 잘 모르겠음
-    * state 값 직접 변경 -> 하면 안됨 state는 읽기 전용이라 이렇게 하면 state mutation이 감지되었다고 에러 메세지 뜸
-    
-    * action 에 넣은 값 받아서 새 객체 만들고 그거 return -> state는 그대로 초기값에서 멈춰있는거 같음
-    
-      * 내가 다른 파일에서 테스트할 때는 새 객체 만들어서 return 하면 반영 되던데 여기선 왜 안되지 ^^...
-  
-  
+    * useEffect(... , [changeFilter]) : changeFilter는 select 태그의 onChange 이벤트 함수, 그냥 그 안에서 filter 찍으면 한 박자씩 느려서 useEffect 쓰던거였음  
 
 </details>
 
