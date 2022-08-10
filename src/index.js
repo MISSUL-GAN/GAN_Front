@@ -25,8 +25,7 @@ function myReducer(state = user, action){
       return {nick:action.user.nick, email:action.user.email, image:action.user.image, aToken:action.user.aToken, rToken:action.user.rToken};
     
     else if(action.type === '로그아웃')
-      return {nick:null, email:null, image:null, aToken:null, rToken:null};
-    
+      window.sessionStorage.clear();
     
     else if(action.type === '별명수정')
       return {...user, nick:action.user.nick};
