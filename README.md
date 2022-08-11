@@ -302,6 +302,33 @@ module.exports = function(app) {
 
 </details>
 
+
+<details>
+<summary> spa-gh-pages </summary>
+
+  * [참고](https://github.com/sujinleeme/spa-github-pages-ko)
+  * [참고 2](https://velog.io/@ausg/gh-pages-react-router)
+  * 왜 써야하는지 
+    * > ... 깃허브 페이지는 SPA를 지원하지 않습니다. 예를 들어 URL이 example.tld/foo이고 /foo가 프론트엔드 경로인 경우, 깃허브 페이지 서버는 /foo를 모르기 때문에 404 에러를 반환합니다. ...
+
+    * 지금 배포해둔 https://missulgan.art 에서도 /home 에서 새고하면 404 발생
+    
+      ![image](https://user-images.githubusercontent.com/87255462/184100999-b597cb43-b752-4ac7-a8c5-70784e132f19.png)
+
+  * 어떻게 수정할건지 (이미 해서 pr 올려주셨음 ^^,,,, 허거덩덩,,,,)
+  0. 404.html 추가 - /home 같은 url을 쿼리로 변경
+  1. index.html 수정 - 🔼 그걸 여기서 받아서 올바른 url로 변경함
+  2. Router.js 수정 (커스텀 도메인 없이 배포 할 때 해야 하는 과정, 지금은 필요 X)<br/>
+
+  ```javascript
+  return( 
+        <Router basename="/reponame">
+        </Router>
+    );
+  ```
+</details>
+
+
 </details>
 
 
