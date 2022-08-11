@@ -12,7 +12,176 @@ function Home() {
     const dispatch = useDispatch();
     const [filter, setFilter] = useState("mostlike");
     
-    const pictures = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]; 
+    let testpic = [
+        {
+          "createdAt": "2022-08-11 20:32:00",
+          "description": "망고.. 맛있음",
+          "fileName": "filename1",
+          "id": 1,
+          "member": {
+            "accountEmail": "vipyoujin@daum.net",
+            "id": 1,
+            "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+            "profileNickname": "유진",
+            "userNickname": "이유진"
+          },
+          "tags": [
+            {
+              "id": 1,
+              "name": "어두운"
+            },
+            {
+                "id": 2,
+                "name": "화사한"
+            }
+          ],
+          "title": "첫번째 그림"
+    },
+    {
+        "createdAt": "2022-08-11 20:32:00",
+        "description": "망고.. 맛있음",
+        "fileName": "filename1",
+        "id": 1,
+        "member": {
+          "accountEmail": "vipyoujin@daum.net",
+          "id": 1,
+          "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+          "profileNickname": "유진",
+          "userNickname": "이유진"
+        },
+        "tags": [
+          {
+            "id": 1,
+            "name": "어두운"
+          },
+          {
+              "id": 2,
+              "name": "화사한"
+          }
+        ],
+        "title": "두번째 그림"
+    },
+    {
+        "createdAt": "2022-08-11 20:32:00",
+        "description": "망고.. 맛있음",
+        "fileName": "filename1",
+        "id": 1,
+        "member": {
+          "accountEmail": "vipyoujin@daum.net",
+          "id": 1,
+          "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+          "profileNickname": "유진",
+          "userNickname": "이유진"
+        },
+        "tags": [
+          {
+            "id": 1,
+            "name": "어두운"
+          },
+          {
+              "id": 2,
+              "name": "화사한"
+          }
+        ],
+        "title": "세번째 그림"
+    },
+    {
+        "createdAt": "2022-08-11 20:32:00",
+        "description": "망고.. 맛있음",
+        "fileName": "filename1",
+        "id": 1,
+        "member": {
+          "accountEmail": "vipyoujin@daum.net",
+          "id": 1,
+          "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+          "profileNickname": "유진",
+          "userNickname": "이유진"
+        },
+        "tags": [
+          {
+            "id": 1,
+            "name": "어두운"
+          },
+          {
+              "id": 2,
+              "name": "화사한"
+          }
+        ],
+        "title": "네번째 그림"
+    },
+    {
+        "createdAt": "2022-08-11 20:32:00",
+        "description": "망고.. 맛있음",
+        "fileName": "filename1",
+        "id": 1,
+        "member": {
+          "accountEmail": "vipyoujin@daum.net",
+          "id": 1,
+          "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+          "profileNickname": "유진",
+          "userNickname": "이유진"
+        },
+        "tags": [
+          {
+            "id": 1,
+            "name": "어두운"
+          },
+          {
+              "id": 2,
+              "name": "화사한"
+          }
+        ],
+        "title": "다섯번째 그림"
+    },
+    {
+        "createdAt": "2022-08-11 20:32:00",
+        "description": "망고.. 맛있음",
+        "fileName": "filename1",
+        "id": 1,
+        "member": {
+          "accountEmail": "vipyoujin@daum.net",
+          "id": 1,
+          "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+          "profileNickname": "유진",
+          "userNickname": "이유진"
+        },
+        "tags": [
+          {
+            "id": 1,
+            "name": "어두운"
+          },
+          {
+              "id": 2,
+              "name": "화사한"
+          }
+        ],
+        "title": "여섯번째 그림"
+    },
+    {
+        "createdAt": "2022-08-11 20:32:00",
+        "description": "망고.. 맛있음",
+        "fileName": "filename1",
+        "id": 1,
+        "member": {
+          "accountEmail": "vipyoujin@daum.net",
+          "id": 1,
+          "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
+          "profileNickname": "유진",
+          "userNickname": "이유진"
+        },
+        "tags": [
+          {
+            "id": 1,
+            "name": "어두운"
+          },
+          {
+              "id": 2,
+              "name": "화사한"
+          }
+        ],
+        "title": "일곱번째 그림"
+    }
+    ];
 
     useEffect(() => {
         dispatch({ type: '로그인'})
@@ -105,9 +274,9 @@ function Home() {
 
                 <div className="drawingBox">
                     {
-                        pictures.map((element) => 
-                            <div className="drawing">
-                                <Drawing key = {element} imgsrc="/img/logo.png" name = {element}/>
+                        testpic.map((element, index) => 
+                            <div className="drawing-container">
+                                <Drawing key={element.id} ind={index} drawing={element}/>
                             </div>
                         )
                     }

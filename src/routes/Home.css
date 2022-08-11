@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 90vh;
     font-family: 'Spoqa Han Sans Neo';
 }
 
@@ -83,6 +82,7 @@
     overflow-x: scroll;
     margin-top: 1%;
     justify-content: space-between;
+    height: 55vh;
 }
 
 .img-thumbnail:hover {
@@ -95,9 +95,9 @@
     cursor: pointer;
 }
 
-.drawing {
-    min-width: 35%;
-    height: auto;
+.drawing-container {
+    height: 100%;
+    margin-right: 1.5vw;
 }
 
 

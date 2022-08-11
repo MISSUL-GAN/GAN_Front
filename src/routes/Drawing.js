@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { AUTH_URL } from '../LoginKey';
 import './Drawing.css';
 
-function Drawing({imgsrc, name}){
+function Drawing({ind, drawing}){
 
     const code = useSelector( (state) => state );
     const [like, setLike] = useState(false);
@@ -11,16 +11,17 @@ function Drawing({imgsrc, name}){
     const [seeNFT, setSeeNFT] = useState(true);
 
     function clickImg(){
-        const modal = document.getElementsByClassName("drawing-modal")[name];
+        const modal = document.getElementsByClassName("drawing-modal")[ind];
         modal.style.display = "flex";
         modal.style.top = `${window.scrollY}px`;
         document.body.style.overflow = "hidden";
     }
 
     function clickClose() {
-        const modal = document.getElementsByClassName("drawing-modal")[name];
+        const modal = document.getElementsByClassName("drawing-modal")[ind];
         modal.style.display = "none";
         document.body.style.overflow = "unset";
+        if(!seeNFT) clickNFT();
     }
 
     function clickAlertClose() {
@@ -35,6 +36,7 @@ function Drawing({imgsrc, name}){
         
         else {
             const modal = document.getElementById("alert-modal");
+            modal.style.top = `${window.scrollY}px`;
             modal.style.display = "flex";
         }
     }
@@ -45,13 +47,14 @@ function Drawing({imgsrc, name}){
     
         else {
             const modal = document.getElementById("alert-modal");
+            modal.style.top = `${window.scrollY}px`;
             modal.style.display = "flex";
         }
     }
 
     function clickNFT() {
         setSeeNFT(!seeNFT);
-        const NFTInfo = document.getElementsByClassName("NFTBox")[name];
+        const NFTInfo = document.getElementsByClassName("NFTBox")[ind];
         let see = seeNFT ? "inline" : "none";
         NFTInfo.style.display = see;
     }
@@ -59,9 +62,9 @@ function Drawing({imgsrc, name}){
     return(
         <>
             <div className="drawing">
-                <img src={imgsrc} alt="" className="img-thumbnail" onClick = {clickImg}/>
+                <div id="img-thumbnail-wrapper"> <img src={drawing.member.profileImage} alt="" className="img-thumbnail" onClick = {clickImg}/> </div>
                 <div className="titleBox">
-                    <p> 그림 {name} </p> 
+                    <p> {drawing.title} </p> 
                     <div>
                         <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt=""/> </button>
                         <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt=""/> </button>
@@ -71,22 +74,25 @@ function Drawing({imgsrc, name}){
 
             <div id="zoom-modal" className="drawing-modal">
                 <div className="drawing-modal-window">
-                    <div className="drawing-modal-left"> <img className="large-drawing" src={imgsrc} alt=""/> </div>
+                    <div className="drawing-modal-left"> <img className="large-drawing" src={drawing.member.profileImage} alt=""/> </div>
                 
                     <div>
                         <p className="drawing-modal-close" onClick={clickClose}> x </p>
                         <div className="drawing-modal-right">
-                            
+                            <div>
                             <div className="userInfo">
-                                <img src={imgsrc} alt="" className="profileImg" width={50} height={50}/>
-                                <p className="author"> 사용자 닉네임 </p>
+                                <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50}/>
+                                <p className="author"> {drawing.member.profileNickname} </p>
                             </div>
                             
-                            <p className="drawing-title"> 그림 {name} </p>
+                            <p className="drawing-title"> {drawing.title} </p>
 
-                            <p className="description"> 그림 {name} 설명입니다 이 작품은 사람의 간을 본따서 만든 로고인데요 아주 귀엽게 생겼습니다 으아아아아아아아아아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ </p>
+                            <p className="description"> {drawing.description} 이 작품은 사람의 간을 본따서 만든 로고인데요 아주 귀엽게 생겼습니다 으아아아아아아아아아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ </p>
                         
-                            <p className="drawing-tag"> #태그1 #태그2 #태그3 </p>
+                            <div className="drawing-tag">
+                                { drawing.tags.map((t) => <p> #{t.name} </p>)}
+                            </div>
+                            </div>
                             
                             <div className="buttonBox">
                                 <button style={{border:"none", backgroundColor:"rgb(0,0,0,0)"}}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt=""/> </a> </button>
