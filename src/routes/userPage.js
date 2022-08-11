@@ -3,12 +3,6 @@ import Navigation from "../components/Navigation";
 import { useDispatch } from 'react-redux';
 
 function UserPage() {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch({ type: '로그인'})
-    }, []);
-
     return(
         <>
         <Navigation/>

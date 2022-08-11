@@ -29,6 +29,11 @@ function Navigation() {
             window.location.href = AUTH_URL;
     }
     
+    function clickImg() {
+        const modal = document.getElementById("my-modal");
+        modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
+    }
+
     function clickAlertClose() {
         const modal = document.getElementById("alert-modal");
         modal.style.display = "none";
@@ -45,11 +50,16 @@ function Navigation() {
                     <a className="navItem" href='/home'> 미슐간 </a>
                     
                     { user.image 
-                    ? <div id="img-wrapper"><img src={user.image} onClick={changeLogin}/> </div> 
+                    ? <div id="img-wrapper"> <img src={user.image} onClick={clickImg} alt=""/> </div> 
                     : <a className="navItem" href={AUTH_URL}> 로그인 </a>
                     }
                 </div>
             </nav>
+
+            <div id="my-modal">
+                <button className="smallMenu" onClick={checkLogin} value="/myPage"> MY </button>
+                <button className="smallMenu" onClick={changeLogin}> 로그아웃 </button>
+            </div>
 
             <div id="alert-modal" className="warning-modal">
                 <div className="warning-modal-window">

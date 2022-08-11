@@ -63,6 +63,45 @@
 }
 
 
+#my-modal::before {
+    content: "\00a0\00a0\00a0\00a0\00a0";
+    position: absolute;
+    top: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+    border: 12px solid transparent;
+	border-bottom-color: #E7E7E7;
+	border-top: 0;
+	margin-left: -12px;
+	margin-top: -12px;
+}
+
+#my-modal {
+    display: none;
+    flex-direction: column;
+    width: 5%;
+    margin-left: 90.2vw;
+    position: absolute;
+    top: 9.5vh;
+    border-radius: 10px;
+    background-color: #E7E7E7;
+    border: 1.5px solid #E7E7E7;
+    padding: 0.5% 0 0.5% 0;
+}
+
+#my-modal .smallMenu {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: #9F9F9F;
+}
+
+#my-modal .smallMenu:hover {
+    color: #3C6B50;
+}
+
+
+
 #alert-modal.warning-modal {
     width: 100vw;
     height: 100vh;
