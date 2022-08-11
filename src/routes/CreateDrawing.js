@@ -102,26 +102,24 @@ function CreateDrawing() {
         var flag = false;
         var refusal;
 
-        if(files[0] === undefined) refusal = "원본 사진 업로드 안 하셨네요";
-        else if(selectedStyle === "" && subImg.current.value === "") refusal = "화풍 선택 안해놓고 서브 이미지도 안 올림";
-        else if(!(document.getElementById("warning").checked)) refusal = "주의사항 안 읽음 괘씸죄 추가";
+        if(files[0] === undefined) refusal = "변환하고 싶은 사진을 선택해주세요.";
+        else if(selectedStyle === "" && subImg.current.value === "") refusal = "화풍을 선택하거나, 원하는 화풍의 사진을 선택해주세요.";
+        else if(!(document.getElementById("warning").checked)) refusal = "주의사항을 확인해주세요.";
         else flag = true;
 
         if(flag){
             const formData = new FormData();
-            let today = new Date();
-            let time = today.getFullYear() + " " + (today.getMonth() + 1) + " " + today.getDate() + " " + today.getHours() + ":" + today.getMinutes();
             formData.append('uploadKey', files[0]);
     
-            const config = {
-                Headers: {
-                    'content-type': 'multipart/form-data',
-                },
+            var item = {
+                "convert_tag" : (selectedStyle !== "") ? selectedStyle : null,
+                "origin_img" : files[0],
+                "style_img" : (subImg.current.value !== "") ? subImg.current.value : null,
+                "token" : "useSelector로 사용자 정보 가져오는거 추가하고 aToken 갖다 넣으면 됨"
             };
-    
-            console.log(`사용자 : ${code}` + "\n" + '생성시간 : ' + time + " \n" + '원본 : ' + files[0] + "\n" + '화풍 : ' + selectedStyle);
-    
-            axios.post('서버api주소', formData, config);
+
+            console.log(item);
+            //환곤이 서버로 보내는 코드 + fileName 리턴 받아서 저장하는 코드 추가하기
             document.getElementsByClassName("uploadOriginImg")[0].style.display = "none";
             setResult(true);
         }
@@ -172,18 +170,29 @@ function CreateDrawing() {
         if(document.getElementsByClassName("titleBox")[0].value === "")
             alert("작품명은 필수적으로 입력해야합니다.");
         else {
-            console.log("제목 : " + document.getElementsByClassName("titleBox")[0].value);
-            console.log("설명 : " + document.getElementsByClassName("descriptionBox")[0].value);
-
+            const tags = [];
             const tagBox = document.getElementsByName("tagBox");
-            tagBox.forEach(tag => { if(tag.checked) console.log(tag.value); });
+            tagBox.forEach(tag => { 
+                if(tag.checked) 
+                    tags.push(parseInt(tag.id)); 
+            });
+
+            var result = {
+                "description": document.getElementsByClassName("descriptionBox")[0].value,
+                "fileName": "환곤이한테 받은 fileName",
+                "tagIds": tags,
+                "title": document.getElementsByClassName("titleBox")[0].value
+            };
+            console.log(result);
         }
     }
 
     return(
         <>
         <Navigation/>
+
         <div className="logo"> <img src="/img/textLogo.png"/> </div>
+
         <div className="page-content">
             <div className="originBox">
                 { img === '' ? <p> 변환하고 싶은<br/>사진 및 그림을 넣어주세요 </p> : <><img src={img} alt=''/><br/></> }
