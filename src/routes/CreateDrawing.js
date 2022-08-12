@@ -5,29 +5,26 @@ import axios from "axios";
 import './CreateDrawing.css';
 
 function CreateDrawing() {
-    var selectedStyle = "";
 
     const dispatch = useDispatch();
-    const code = useSelector( (state) => state );
     const [img, setImg] = useState('');
     const [files, setFiles] = useState('');
+    const [style, setStyle] = useState('');
     const [result, setResult] = useState(false);
     const subImg = useRef();
-
-    useEffect(() => {
-        dispatch({ type: '로그인'})
-    }, []);
 
     const onUploadImg = (e) => {
         const file = e.target.files;
         setFiles(file);
-
+        
         const reader = new FileReader();
         reader.onload = () => ( setImg(reader.result) );
         reader.readAsDataURL(file[0]);
     }
     
-    const onUploadSubImg = () => {
+    const onUploadSubImg = (e) => {
+        setFiles([...files, e.target.files[0]]);
+
         const styleButton = document.getElementsByName("styleButton");
         styleButton.forEach((b) => {
             b.style.backgroundColor = "#ced4da"; 
@@ -41,7 +38,7 @@ function CreateDrawing() {
     }
 
     const clickStyle = (e) => {
-        if(selectedStyle === e.target.value){
+        if(style === e.target.value){
             document.getElementById(e.target.id).style.background = "#F4F4F4";
             document.getElementById(e.target.id).style.color = "#3C6B50";
 
@@ -55,7 +52,7 @@ function CreateDrawing() {
             document.getElementsByClassName("deleteSubImg")[0].style.color = "#3C6B50";
             document.getElementsByClassName("deleteSubImg")[0].style.cursor = "pointer";
 
-            selectedStyle = "";
+            setStyle('');
         }
 
         else {
@@ -80,7 +77,7 @@ function CreateDrawing() {
             document.getElementsByClassName("deleteSubImg")[0].style.color = "#868e96";
             document.getElementsByClassName("deleteSubImg")[0].style.cursor = "not-allowed";
 
-            selectedStyle = e.target.value;
+            setStyle(e.target.value);
         }
     }
 
@@ -103,7 +100,7 @@ function CreateDrawing() {
         var refusal;
 
         if(files[0] === undefined) refusal = "변환하고 싶은 사진을 선택해주세요.";
-        else if(selectedStyle === "" && subImg.current.value === "") refusal = "화풍을 선택하거나, 원하는 화풍의 사진을 선택해주세요.";
+        else if(style === "" && subImg.current.value === "") refusal = "화풍을 선택하거나, 원하는 화풍의 사진을 선택해주세요.";
         else if(!(document.getElementById("warning").checked)) refusal = "주의사항을 확인해주세요.";
         else flag = true;
 
@@ -112,9 +109,9 @@ function CreateDrawing() {
             formData.append('uploadKey', files[0]);
     
             var item = {
-                "convert_tag" : (selectedStyle !== "") ? selectedStyle : null,
+                "convert_tag" : (style !== "") ? style : "cnn",
                 "origin_img" : files[0],
-                "style_img" : (subImg.current.value !== "") ? subImg.current.value : null,
+                "style_img" : (subImg.current.value !== "") ? files[files.length-1] : null,
                 "token" : "useSelector로 사용자 정보 가져오는거 추가하고 aToken 갖다 넣으면 됨"
             };
 
@@ -129,7 +126,7 @@ function CreateDrawing() {
     }
     
     const clickWarning = () => {
-        if(img !== '' && ((selectedStyle !== "" && subImg.current.value === "") || (selectedStyle === "" && subImg.current.value !== ""))){
+        if(img !== '' && ((style !== "" && subImg.current.value === "") || (style === "" && subImg.current.value !== ""))){
             if(document.getElementById("warning").checked)
                 document.getElementsByClassName("submitButton")[0].style.opacity = "100%";
             
@@ -172,10 +169,14 @@ function CreateDrawing() {
         else {
             const tags = [];
             const tagBox = document.getElementsByName("tagBox");
+            
             tagBox.forEach(tag => { 
                 if(tag.checked) 
                     tags.push(parseInt(tag.id)); 
             });
+            
+            if(style !== null)
+                tags.push(parseInt(style)); 
 
             var result = {
                 "description": document.getElementsByClassName("descriptionBox")[0].value,
@@ -209,10 +210,10 @@ function CreateDrawing() {
                     <p> 원하는 화풍을 선택해주세요 </p>
                     
                     <div id="styles">
-                        <button className="styleButton" name='styleButton' id="1" value="반고흐" onClick={clickStyle}> 반 고흐 </button>
-                        <button className="styleButton" name='styleButton' id="2" value="클로드모네" onClick={clickStyle}> 클로드 모네 </button>
-                        <button className="styleButton" name='styleButton' id="3" value="폴세잔" onClick={clickStyle}> 폴 세잔 </button>
-                        <button className="styleButton" name='styleButton' id="4" value="우키요에" onClick={clickStyle}> 우키요에 </button> <br/>
+                        <button className="styleButton" name='styleButton' id="8" value="8" onClick={clickStyle}> 반 고흐 </button>
+                        <button className="styleButton" name='styleButton' id="9" value="9" onClick={clickStyle}> 클로드 모네 </button>
+                        <button className="styleButton" name='styleButton' id="10" value="10" onClick={clickStyle}> 폴 세잔 </button>
+                        <button className="styleButton" name='styleButton' id="11" value="11" onClick={clickStyle}> 우키요에 </button> <br/>
                     </div>
                     
                     <div className="subImgBox">
@@ -241,18 +242,18 @@ function CreateDrawing() {
                     <div className="tagBox">
                         <div> 태그를 선택해주세요. (최대 3개) </div><hr/>
 
-                        <button className="100" onClick={checkTag}> <input id="100" name="tagBox" type="checkbox" value="어두운"/> 어두운 </button>
-                        <button className="200" onClick={checkTag}> <input id="200" name="tagBox" type="checkbox" value="화사한"/> 화사한 </button>
-                        <button className="300" onClick={checkTag}> <input id="300" name="tagBox" type="checkbox" value="다채로운"/> 다채로운 </button>
-                        <button className="400" onClick={checkTag}> <input id="400" name="tagBox" type="checkbox" value="차분한"/> 차분한 </button>
-                        <button className="500" onClick={checkTag}> <input id="500" name="tagBox" type="checkbox" value="강렬한"/> 강렬한 </button><br/><br/>
+                        <button className="1" onClick={checkTag}> <input id="1" name="tagBox" type="checkbox" value="어두운"/> 어두운 </button>
+                        <button className="2" onClick={checkTag}> <input id="2" name="tagBox" type="checkbox" value="화사한"/> 화사한 </button>
+                        <button className="3" onClick={checkTag}> <input id="3" name="tagBox" type="checkbox" value="다채로운"/> 다채로운 </button>
+                        <button className="4" onClick={checkTag}> <input id="4" name="tagBox" type="checkbox" value="차분한"/> 차분한 </button>
+                        <button className="5" onClick={checkTag}> <input id="5" name="tagBox" type="checkbox" value="강렬한"/> 강렬한 </button><br/><br/>
 
-                        <button className="600" onClick={checkTag}> <input id="600" name="tagBox" type="checkbox" value="차가운"/> 차가운 </button>
-                        <button className="700" onClick={checkTag}> <input id="700" name="tagBox" type="checkbox" value="따뜻한"/> 따뜻한 </button>
-                        <button className="800" onClick={checkTag}> <input id="800" name="tagBox" type="checkbox" value="풍경"/> 풍경 </button>
-                        <button className="900" onClick={checkTag}> <input id="900" name="tagBox" type="checkbox" value="동물"/> 동물 </button>
-                        <button className="1000" onClick={checkTag}> <input id="1000" name="tagBox" type="checkbox" value="인물"/> 인물 </button>
-                        <button className="1100" onClick={checkTag}> <input id="1100" name="tagBox" type="checkbox" value="기타"/> 기타 </button>
+                        <button className="6" onClick={checkTag}> <input id="6" name="tagBox" type="checkbox" value="차가운"/> 차가운 </button>
+                        <button className="7" onClick={checkTag}> <input id="7" name="tagBox" type="checkbox" value="따뜻한"/> 따뜻한 </button>
+                        <button className="12" onClick={checkTag}> <input id="12" name="tagBox" type="checkbox" value="풍경"/> 풍경 </button>
+                        <button className="13" onClick={checkTag}> <input id="13" name="tagBox" type="checkbox" value="동물"/> 동물 </button>
+                        <button className="14" onClick={checkTag}> <input id="14" name="tagBox" type="checkbox" value="인물"/> 인물 </button>
+                        <button className="15" onClick={checkTag}> <input id="15" name="tagBox" type="checkbox" value="기타"/> 기타 </button>
                     </div>
 
                     <br/>
