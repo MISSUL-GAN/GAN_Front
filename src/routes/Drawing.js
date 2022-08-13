@@ -82,7 +82,9 @@ function Drawing({ind, drawing}){
                             <div>
                             <div className="userInfo">
                                 <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50}/>
-                                <p className="author"> {drawing.member.profileNickname} </p>
+                                <p className="author" onClick={() => { window.location.href="/userPage?member="+drawing.member.userNickname+"&img="+drawing.member.profileImage+"&id="+drawing.member.id}}> 
+                                    {drawing.member.userNickname} 
+                                </p>
                             </div>
                             
                             <p className="drawing-title"> {drawing.title} </p>

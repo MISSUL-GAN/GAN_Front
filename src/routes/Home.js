@@ -23,7 +23,7 @@ function Home() {
             "id": 1,
             "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
             "profileNickname": "유진",
-            "userNickname": "이유진"
+            "userNickname": "작가1"
           },
           "tags": [
             {
@@ -44,10 +44,10 @@ function Home() {
         "id": 1,
         "member": {
           "accountEmail": "vipyoujin@daum.net",
-          "id": 1,
+          "id": 2,
           "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
           "profileNickname": "유진",
-          "userNickname": "이유진"
+          "userNickname": "작가2"
         },
         "tags": [
           {
@@ -68,10 +68,10 @@ function Home() {
         "id": 1,
         "member": {
           "accountEmail": "vipyoujin@daum.net",
-          "id": 1,
+          "id": 3,
           "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
           "profileNickname": "유진",
-          "userNickname": "이유진"
+          "userNickname": "작가3"
         },
         "tags": [
           {
@@ -92,10 +92,10 @@ function Home() {
         "id": 1,
         "member": {
           "accountEmail": "vipyoujin@daum.net",
-          "id": 1,
+          "id": 4,
           "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
           "profileNickname": "유진",
-          "userNickname": "이유진"
+          "userNickname": "작가4"
         },
         "tags": [
           {
@@ -113,13 +113,13 @@ function Home() {
         "createdAt": "2022-08-11 20:32:00",
         "description": "망고.. 맛있음",
         "fileName": "filename1",
-        "id": 1,
+        "id": 5,
         "member": {
           "accountEmail": "vipyoujin@daum.net",
           "id": 1,
           "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
           "profileNickname": "유진",
-          "userNickname": "이유진"
+          "userNickname": "작가5"
         },
         "tags": [
           {
@@ -140,10 +140,10 @@ function Home() {
         "id": 1,
         "member": {
           "accountEmail": "vipyoujin@daum.net",
-          "id": 1,
+          "id": 6,
           "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
           "profileNickname": "유진",
-          "userNickname": "이유진"
+          "userNickname": "작가6"
         },
         "tags": [
           {
@@ -164,10 +164,10 @@ function Home() {
         "id": 1,
         "member": {
           "accountEmail": "vipyoujin@daum.net",
-          "id": 1,
+          "id": 7,
           "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
           "profileNickname": "유진",
-          "userNickname": "이유진"
+          "userNickname": "작가7"
         },
         "tags": [
           {
