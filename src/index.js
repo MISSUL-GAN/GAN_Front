@@ -8,6 +8,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storageSession from 'redux-persist/lib/storage/session';
 import { applyMiddleware } from 'redux'; 
 import { PersistGate } from 'redux-persist/integration/react'; 
+import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -27,8 +28,18 @@ function myReducer(state = user, action){
     else if(action.type === '로그아웃')
       window.sessionStorage.clear();
     
-    else if(action.type === '별명수정')
-      return {...user, nick:action.user.nick};
+    else if(action.type === '별명수정'){
+      axios.put("/member/nickname", {
+        headers: {
+          Authorization: `Bearer ${state. aToken}`
+        },
+        params: {
+          userNickname: `${action.user.nick}`
+        }
+      }); // 이게 맞는진 확신이 ㅓㅄ음
+
+      return {...state, nick:action.user.nick};
+    }
 
     else
       return state;
