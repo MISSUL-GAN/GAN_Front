@@ -134,7 +134,18 @@ function Drawing({ind, drawing}){
                     <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
                     <div className="alert-content">
                         <p> 로그인이 필요한 서비스입니다. </p>
-                        <a href={AUTH_URL}> <img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width={"222"} alt="카카오 로그인" /> </a>
+
+                        <div>
+                            <button id="kakaoLogin" onClick={() => {window.location.href={AUTH_URL};}}> <img src="/img/kakao.png" alt="" /> </button>
+                            <button id="googleLogin" onClick={() => {window.location.href={AUTH_URL};}}> <img src="/img/google.png" alt="" /> </button>
+                            <button id="naverLogin" onClick={() => {window.location.href={AUTH_URL};}}> <img src="/img/naver.png" alt="" /> </button>
+                        </div>
+
+                        <div>
+                            <p> 카카오 로그인 </p>
+                            <p> 구글 로그인 </p>
+                            <p> 네이버 로그인 </p>
+                        </div>
                     </div>
                 </div>
             </div>  
