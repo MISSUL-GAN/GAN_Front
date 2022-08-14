@@ -12,7 +12,8 @@ import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const user = {nick:null, email:null, image:null, aToken:null, rToken:null};
+//const user = {nick:null, email:null, image:null, aToken:null, rToken:null};
+const user = {nick:"이유진", email:"y@d.n", image:"/img/logo.png", aToken:"1", rToken:"2"};
 
 const persistConfig = {
   key : root,
