@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import './Join.css';
 
 function Join() {
-
     const user = useSelector( (state) => state );
     const dispatch = useDispatch();
 
@@ -45,18 +44,18 @@ function Join() {
     }
 
     useEffect(() => {
-        console.log(user.nick + " / " + user.email + " / " + user.image)
+        console.log(user.name + " / " + user.accountEmail + " / " + user.profileImage)
     }, []);
 
     const submitNick = () => {
         let newNick = document.getElementById("input").value;
         
         if(newNick.length === 0)
-            newNick = `${user.nick}`; // 입력된 값 없으면 그냥 지금 이름 가져감
+            newNick = `${user.name}`;
         
         dispatch({ 
             type:'별명수정',
-            user : {nick : newNick, email : user.accountEmail, image : user.profileImage, aToken : user.aToken, rToken : user.rToken}
+            user : {id:user.id, name:newNick, accountEmail:user.accountEmail, profileImage:user.profileImage, aToken:user.aToken}
         });
 
         window.location.href = "/home";
@@ -72,7 +71,7 @@ function Join() {
             <div className="nicknameGuide">‘Missul;GAN’에서 사용할 별명을 적어주세요.</div>
 
             <div id="nicknameBox">
-                <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder={user.nick}/>
+                <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder={user.name}/>
                 <button id="submitButton" onClick={submitNick}> 별명 설정 완료 </button>
             </div>
 

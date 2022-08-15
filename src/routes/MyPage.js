@@ -1,10 +1,12 @@
+import axios from "axios";
 import React, { useState } from "react";
 import Navigation from "../components/Navigation";
 import UserDrawing from '../routes/UserDrawing';
-
+import { useSelector } from 'react-redux';
 import './MyPage.css';
 
 function MyPage() {
+    const user = useSelector(state => state);
     const [option, setOption] = useState("my");
     const [testpic, setTestPic] = useState([
         {
@@ -15,7 +17,7 @@ function MyPage() {
             "id": 1,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 1,
+                "id": 5,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가1"
@@ -278,13 +280,12 @@ function MyPage() {
             "title": "아홉번째 그림"
         }
     ]);
-
     const [testpic2, setTestPic2] = useState([
         {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 10,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 1,
@@ -314,7 +315,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 11,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 2,
@@ -344,7 +345,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 12,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 3,
@@ -374,7 +375,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 13,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 4,
@@ -404,7 +405,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 5,
+            "id": 14,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 1,
@@ -434,7 +435,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 15,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 6,
@@ -464,7 +465,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 16,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 7,
@@ -494,7 +495,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 17,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 7,
@@ -524,7 +525,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
-            "id": 1,
+            "id": 18,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
                 "id": 7,
@@ -566,8 +567,13 @@ function MyPage() {
     }
 
     const clickDelete = (id) => {
-        setTestPic(testpic.filter((item)=> item.id != id));
-        // delete + /drawing/{id}
+        setTestPic(testpic.filter((item)=> item.id !== id));
+        
+        axios.delete(`/drawing/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.aToken}`,
+            }
+        });
     }
 
     return (

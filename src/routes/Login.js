@@ -22,7 +22,7 @@ function Login() {
         .then(function (res) {
           dispatch({ 
             type : '로그인',
-            user : {nick : res.data.userNickname, email : res.data.accountEmail, image : res.data.profileImage, aToken : aToken, rToken : rToken}
+            user : {id:res.data.id, name:res.data.name, accountEmail:res.data.accountEmail, profileImage:res.data.profileImage, aToken:aToken}
           });
 
           if(true) //isFirstTime 들어갈 자리

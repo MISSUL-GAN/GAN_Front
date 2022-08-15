@@ -12,8 +12,8 @@ import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-//const user = {nick:null, email:null, image:null, aToken:null, rToken:null};
-const user = {nick:"이유진", email:"y@d.n", image:"/img/logo.png", aToken:"1", rToken:"2"};
+const user = {id:null, name:null, profileImage:null, accountEmail:null, aToken:null};
+//const user = {id:-1, name:"이유진", profileImage:"/img/logo.png", accountEmail:"y@d.n"};
 
 const persistConfig = {
   key : root,
@@ -23,23 +23,23 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, myReducer);
 
 function myReducer(state = user, action){
-    if(action.type === '로그인')
-      return {nick:action.user.nick, email:action.user.email, image:action.user.image, aToken:action.user.aToken, rToken:action.user.rToken};
-    
+    if(action.type === '로그인'){
+      return {id:action.user.id, name:action.user.name, accountEmail:action.user.accountEmail, profileImage:action.user.profileImage, aToken:action.user.aToken};
+    }
     else if(action.type === '로그아웃')
       window.sessionStorage.clear();
     
     else if(action.type === '별명수정'){
-      axios.put("/member/nickname", {
+      axios.put("/member/name", {
         headers: {
-          Authorization: `Bearer ${state. aToken}`
+          Authorization: `Bearer ${state.aToken}`
         },
         params: {
-          userNickname: `${action.user.nick}`
+          name: `${action.user.name}`
         }
-      }); // 이게 맞는진 확신이 ㅓㅄ음
+      });
 
-      return {...state, nick:action.user.nick};
+      return {...state, name:action.user.name};
     }
 
     else

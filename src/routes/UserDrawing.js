@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { AUTH_URL } from '../LoginKey';
+import { useSelector } from 'react-redux';
 import './UserDrawing.css';
 
 function UserDrawing({ ind, drawing, mine, clickDelete }) {
-
+    const user = useSelector(state => state);
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
@@ -29,16 +31,31 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
 
     function clickLike() {
-        if (true){
-            setLike(!like);
-
-            if(!like){
-                drawing.heartCount++;
-                // post + /heart/{drawing.id}
-            }
+        if(user.name !== null){
+            if(user.id === drawing.member.id)
+                alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
+            
             else {
-                drawing.heartCount--;
-                // delete + /heart/{drawing.id}
+                setLike(!like);
+
+                if(!like){
+                    drawing.heartCount++;
+    
+                    axios.post(`/heart/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+                else {
+                    drawing.heartCount--;
+                    
+                    axios.delete(`/heart/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
             }
         }
         else {
@@ -49,16 +66,31 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
 
     function clickBookmark() {
-        if (true){
-            setBookmark(!bookmark);
+        if (user.name !== null){
+            if(user.id === drawing.member.id)
+                alert("본인이 만든 작품은 스크랩할 수 없습니다.");
 
-            if(!bookmark){
-                drawing.scrapCount++;
-                // post + /scrap/{drawing.id}
-            }
             else {
-                drawing.scrapCount--;
-                // delete + /scrap/{drawing.id}
+                setBookmark(!bookmark);
+
+                if(!bookmark){
+                    drawing.scrapCount++;
+    
+                    axios.post(`/scrap/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+                else {
+                    drawing.scrapCount--;
+    
+                    axios.delete(`/scrap/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
             }
         }
         else {
@@ -83,7 +115,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     return (
         <>
             <div className="imgwrapper">
-                <img src="/img/logo.png" width={100} height="auto" />
+                <img src="/img/logo.png" alt=""/>
 
                 <div className="shadow" onClick={clickImg} />
 
@@ -108,7 +140,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
-                                    <img src="/img/logo.png" alt="" className="profileImg" width={50} height={50} />
+                                    <img src="/img/logo.png" className="profileImg" width={50} height={50} alt=""/>
                                     <p className="author">
                                         {drawing.member.userNickname}
                                     </p>
