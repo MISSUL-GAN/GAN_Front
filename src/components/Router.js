@@ -13,7 +13,7 @@ function GalleryRouter(){
                 <Route exact path = '/' element = { <Start/> }/>
                 <Route exact path = '/login' element = { <Login/> }/>
                 <Route exact path = '/home' element = { <Home/> } />
-                <Route exact path = '/myPage' element = { <UserPage/> }/>
+                <Route exact path = '/userPage' element = { <UserPage/> }/>
                 <Route exact path = '/create' element = { <CreateDrawing/> }/>
             </Routes>
         </Router>
