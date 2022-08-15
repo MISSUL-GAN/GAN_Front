@@ -1,52 +1,216 @@
-.like:active {
-    background-color: tomato
+
+.drawing {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.bookmark:active {
-    background-color: aquamarine;
+#img-thumbnail-wrapper {
+    width: 22vw;
+    height: 22vw;
 }
 
-.img-modal {
+#img-thumbnail-wrapper .img-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.titleBox {
+    width: 100%;
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.like, .bookmark {
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
+}
+
+.like:visited, .bookmark:visited {
+    border: none;
+}
+
+
+
+
+
+#zoom-modal.drawing-modal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
     display: none;
-    z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(0,0,0,0.4);
+    z-index: 100;
+}
+
+#zoom-modal .drawing-modal-window {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 60%;
+    height: fit-content;
+    position: relative;
+    top: 1%;
+    margin: 0 30px 0 30px;
     padding: 10px;
-    width: 10%;
-    height: 10%;
-    overflow: auto;
-    background-color: rgb(248, 185, 185);
+    display: flex;
+    justify-content: space-between;
 }
 
-.large-img {
-    margin: auto;
-    display: block;
-    width: 80%;
+#zoom-modal .drawing-modal-left {
+    width: 230%;
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
+    margin-right: 1vw;
 }
 
-.large-img, #title {
-    animation-name: zoom;
-    animation-duration: 0.6s;
+#zoom-modal .drawing-modal-window .large-drawing {
+    width: 100%;
+    height: auto;
 }
 
-@keyframes zoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
+#zoom-modal .drawing-modal-right {
+    margin-left: 2%;
+    height: 68vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.title {
-    margin: auto;
-    display: block;
+#zoom-modal .drawing-modal-close {
+    width: fit-content;
+    height: auto;
+    font-size: 20px;
+    margin-left: 96%;
+}
+
+#zoom-modal .userInfo {
+    display: flex;
+    margin: 0 0 1% 0;
+}
+
+#zoom-modal .profileImg{
+    border-radius: 30%;
+    object-fit: cover;
+}
+
+#zoom-modal .author {
+    margin-left: 8px;
+    margin-top: 13px;
+}
+
+#zoom-modal .drawing-title {
+    font-size: 30px;
+}
+
+#zoom-modal .description {
+    font-size: 18px;
+    width: 95%;
+}
+
+#zoom-modal .drawing-tag {
+    color: rgb(98, 98, 98);    
+    display: flex;   
+}
+
+#zoom-modal .drawing-tag p {
+    margin-right: 0.5vw;
+}
+
+#zoom-modal .buttonBox {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+#zoom-modal .likeBox, .bookmarkBox {
+    height: fit-content;
+    margin-top: 10px;
+    font-size: smaller;
     text-align: center;
 }
 
-.close {
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
+#zoom-modal .NFTBox {
+    display: none;
 }
 
-.close:hover{
-    cursor: pointer;
+
+
+
+
+#alert-modal.warning-modal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0,0,0,0.4);
+    z-index: 101;
+}
+
+#alert-modal .warning-modal-window {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+}
+
+#alert-modal .warning-modal-close {
+    width: fit-content;
+    height: auto;
+    font-size: 20px;
+    margin-left: 400px;
+}
+
+#alert-modal .warning-modal-window .alert-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#alert-modal .warning-modal-window .alert-content >:nth-child(2) {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#alert-modal .warning-modal-window .alert-content >:nth-child(3) {
+    width: 82%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#kakaoLogin, #googleLogin, #naverLogin{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#kakaoLogin { 
+    background: #FAE100;
+}
+
+#naverLogin{
+    background: #53B434;
+}
+
+#alert-modal .warning-modal-window .alert-content >:nth-child(2) > button  > img{
+    width: 35%;
 }

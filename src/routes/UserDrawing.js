@@ -99,14 +99,14 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
             modal.style.display = "flex";
         }
     }
-    
+
     function clickNFT() {
         setSeeNFT(!seeNFT);
         const NFTInfo = document.getElementsByClassName("NFTBox")[ind];
         let see = seeNFT ? "inline" : "none";
         NFTInfo.style.display = see;
     }
-    
+
     function requestDelete() {
         clickClose();
         clickDelete(drawing.id);
@@ -158,6 +158,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                             <div className="buttonBox">
                                 <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <button> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
+                                
                                 { mine &&
                                     <>
                                         <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
@@ -165,6 +166,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                                     </>
 
                                 }
+                                
                                 <button style={{
                                     backgroundColor: "#3C6B50",
                                     border: "none", borderRadius: "8px",

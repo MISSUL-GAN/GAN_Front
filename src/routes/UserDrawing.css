@@ -19,6 +19,7 @@
     border: none;
     background-color: rgba(0, 0, 0, 0);
 }
+
 .imgwrapper .titleBox {
     color: white;
     position: absolute;
@@ -30,7 +31,6 @@
     height: fit-content;
     align-items: center;
     justify-content: space-between;
-}
 
 .imgwrapper .titleBox button {
     border: none;
@@ -43,3 +43,4 @@
     border: none;
     background-color: rgba(0, 0, 0, 0);
 }
+
