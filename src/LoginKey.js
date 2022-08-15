@@ -1,1 +1,3 @@
-export const AUTH_URL = `https://api.missulgan.art/oauth2/authorization/kakao?redirect_uri='http://localhost:3000/login/oauth2/code/kakao`;
+const currentLocation = window.location;
+const baseUrl = currentLocation.protocol + "//" + currentLocation.host;
+export const AUTH_URL = `https://api.missulgan.art/oauth2/authorization/kakao?redirect_uri=${baseUrl}/login/oauth2/code/kakao`;
