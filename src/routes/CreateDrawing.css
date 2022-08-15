@@ -1,6 +1,6 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
-.page-content {
+.create-page-content {
   min-height: 77vh;
   display: flex;
   flex-wrap: nowrap;
@@ -11,7 +11,7 @@
 }
 
 .logo {
-  margin-top: 2%;
+  margin-top: 1%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -26,9 +26,11 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-color: #F4F4F4;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.originBox p, .optionBox p {
+.originBox p, .create-optionBox p {
   text-align: center;
   color: #7e7e7e;
 }
@@ -51,8 +53,7 @@
   height: 200px;
 }
 
-.optionBox {
-  border: 1px solid;
+.create-optionBox {
   width: 550px;
   height: 670px;
   display: flex;
@@ -106,8 +107,10 @@
   color:#F4F4F4;
 }
 
-.warning {
+.create-warning {
   width: 90%;
+  font-weight: 300;
+  color: #505458;
 }
 
 .submitButton {
@@ -141,23 +144,23 @@
   font-size: 26px;
 }
 
-.tagBox div {
+.create-tagBox div {
   color: #9F9F9F;
   font-size: 20px;
 }
 
-.tagBox button {
+.create-tagBox button {
   background-color: #F4F4F4;
   color: #3C6B50;
   border: none;
   border-radius: 40px;
   font-weight: 400;
   font-size: 18px;  
-  width: 80px;
+  width: 85px;
   margin-right: 5px;
 }
 
-.tagBox button input {
+.create-tagBox button input {
   display: none;
 }
 
