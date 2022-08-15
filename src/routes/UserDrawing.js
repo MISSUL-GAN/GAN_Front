@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { AUTH_URL } from '../LoginKey';
+import { useSelector } from 'react-redux';
 import './UserDrawing.css';
 
-function UserDrawing({ ind, drawing }) {
-
+function UserDrawing({ ind, drawing, mine, clickDelete }) {
+    const user = useSelector(state => state);
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
@@ -29,9 +31,33 @@ function UserDrawing({ ind, drawing }) {
     }
 
     function clickLike() {
-        if (true)
-            setLike(!like);
+        if(user.name !== null){
+            if(user.id === drawing.member.id)
+                alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
+            
+            else {
+                setLike(!like);
 
+                if(!like){
+                    drawing.heartCount++;
+    
+                    axios.post(`/heart/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+                else {
+                    drawing.heartCount--;
+                    
+                    axios.delete(`/heart/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+            }
+        }
         else {
             const modal = document.getElementById("alert-modal");
             modal.style.top = `${window.scrollY}px`;
@@ -40,9 +66,33 @@ function UserDrawing({ ind, drawing }) {
     }
 
     function clickBookmark() {
-        if (true)
-            setBookmark(!bookmark);
+        if (user.name !== null){
+            if(user.id === drawing.member.id)
+                alert("본인이 만든 작품은 스크랩할 수 없습니다.");
 
+            else {
+                setBookmark(!bookmark);
+
+                if(!bookmark){
+                    drawing.scrapCount++;
+    
+                    axios.post(`/scrap/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+                else {
+                    drawing.scrapCount--;
+    
+                    axios.delete(`/scrap/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+            }
+        }
         else {
             const modal = document.getElementById("alert-modal");
             modal.style.top = `${window.scrollY}px`;
@@ -57,17 +107,25 @@ function UserDrawing({ ind, drawing }) {
         NFTInfo.style.display = see;
     }
 
+    function requestDelete() {
+        clickClose();
+        clickDelete(drawing.id);
+    }
+
     return (
         <>
             <div className="imgwrapper">
-                <img src="/img/logo.png" width={100} height="auto" />
+                <img src="/img/logo.png" alt=""/>
 
                 <div className="shadow" onClick={clickImg} />
+
+                { mine && <button id="delete" onClick={requestDelete}> <img src="/img/deleteIcon.png" width={28} alt="" /> </button> }
+                
                 <div className="titleBox">
-                    <p className="titleText"> 제목 {ind} </p>
+                    <p className="titleText"> {drawing.title} </p>
                     <div>
-                        <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                        <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
+                        <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/whiteLike.png"} width={32} alt="" /> </button>
+                        { !mine && <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/whiteBookmark.png"} width={28} alt="" /> </button> }
                     </div>
                 </div>
             </div>
@@ -82,25 +140,33 @@ function UserDrawing({ ind, drawing }) {
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
-                                    <img src="/img/logo.png" alt="" className="profileImg" width={50} height={50} />
+                                    <img src="/img/logo.png" className="profileImg" width={50} height={50} alt=""/>
                                     <p className="author">
-                                        작가
+                                        {drawing.member.userNickname}
                                     </p>
                                 </div>
 
-                                <p className="drawing-title"> 제목 {ind} </p>
+                                <p className="drawing-title"> {drawing.title} </p>
 
-                                <p className="description"> 설명 이 작품은 사람의 간을 본따서 만든 로고인데요 아주 귀엽게 생겼습니다 으아아아아아아아아아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ </p>
+                                <p className="description"> {drawing.description} </p>
 
                                 <div className="drawing-tag">
-                                    <p> #태그1 </p> <p> #태그2 </p> <p> #태그3 </p>
+                                    { drawing.tags.map((t) => <p> #{t.name} </p>)}
                                 </div>
                             </div>
 
                             <div className="buttonBox">
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
+                                <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
+                                
+                                { mine &&
+                                    <>
+                                        <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                        <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                    </>
 
+                                }
+                                
                                 <button style={{
                                     backgroundColor: "#3C6B50",
                                     border: "none", borderRadius: "8px",
@@ -111,12 +177,12 @@ function UserDrawing({ ind, drawing }) {
 
                                 <div className="likeBox">
                                     <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                    <p> 1234 </p>
+                                    <p> {drawing.heartCount} </p>
                                 </div>
 
                                 <div className="bookmarkBox">
                                     <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                    <p> 1234 </p>
+                                    <p> {drawing.scrapCount} </p>
                                 </div>
                             </div>
 
@@ -152,6 +218,10 @@ function UserDrawing({ ind, drawing }) {
             </div>
         </>
     );
+}
+
+UserDrawing.defaultProps = {
+    mine: false
 }
 
 export default UserDrawing;

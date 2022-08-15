@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import './Home.css';
 import Drawing from './Drawing';
-import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 
 function Home() {
-
-    let code = new URL(window.location.href).searchParams.get("code");
     //const code = useSelector( (state) => state );
     const dispatch = useDispatch();
     const [filter, setFilter] = useState("mostlike");
@@ -184,16 +181,7 @@ function Home() {
     ];
 
     useEffect(() => {
-        dispatch({ type: '로그인'})
         document.getElementById("mostlike").style.color = "#3C6B50";
-
-        if(!(code == null)) {
-            axios.post('서버api주소', {
-                code : code
-            });
-            
-            console.log(`서버로 다음 인가코드 전송함 : ${code}`);
-        }
     }, []);
 
     const changeFilter = (e) => {
@@ -210,7 +198,7 @@ function Home() {
     }
 
     useEffect(() => {
-        //filter 변수 값이 변경될 때마다 호출되는 함수, 여기서 이미지 서버에 요청 보내면 됨
+        //filter 변수 값이 변경될 때마다 호출되는 함수
         filter === "random" ? console.log("랜덤정렬") : console.log("좋아요순");
     }, [changeFilter]);
 

@@ -1,13 +1,9 @@
-import React, { useEffect }  from "react";
+import React from "react";
 import Navigation from "../components/Navigation";
 import { useDispatch } from 'react-redux';
 
 function CreateDrawing() {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch({ type: '로그인'})
-    }, []);
     
     return(
         <>

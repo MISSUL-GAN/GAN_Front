@@ -1,4 +1,3 @@
-const REST_API_KEY = '92b188823eea03220976d3e695f0f57c';
-const REDIRECT_URI = 'http://localhost:3000/home';
-
-export const AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const currentLocation = window.location;
+const baseUrl = currentLocation.protocol + "//" + currentLocation.host;
+export const AUTH_URL = `https://api.missulgan.art/oauth2/authorization/kakao?redirect_uri=${baseUrl}/login/oauth2/code/kakao`;
