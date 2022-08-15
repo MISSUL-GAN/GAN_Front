@@ -29,9 +29,18 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
 
     function clickLike() {
-        if (true)
+        if (true){
             setLike(!like);
 
+            if(!like){
+                drawing.heartCount++;
+                // post + /heart/{drawing.id}
+            }
+            else {
+                drawing.heartCount--;
+                // delete + /heart/{drawing.id}
+            }
+        }
         else {
             const modal = document.getElementById("alert-modal");
             modal.style.top = `${window.scrollY}px`;
@@ -40,9 +49,18 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
 
     function clickBookmark() {
-        if (true)
+        if (true){
             setBookmark(!bookmark);
 
+            if(!bookmark){
+                drawing.scrapCount++;
+                // post + /scrap/{drawing.id}
+            }
+            else {
+                drawing.scrapCount--;
+                // delete + /scrap/{drawing.id}
+            }
+        }
         else {
             const modal = document.getElementById("alert-modal");
             modal.style.top = `${window.scrollY}px`;
@@ -92,16 +110,16 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                                 <div className="userInfo">
                                     <img src="/img/logo.png" alt="" className="profileImg" width={50} height={50} />
                                     <p className="author">
-                                        작가
+                                        {drawing.member.userNickname}
                                     </p>
                                 </div>
 
-                                <p className="drawing-title"> 제목 {ind} </p>
+                                <p className="drawing-title"> {drawing.title} </p>
 
-                                <p className="description"> 설명 이 작품은 사람의 간을 본따서 만든 로고인데요 아주 귀엽게 생겼습니다 으아아아아아아아아아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ </p>
+                                <p className="description"> {drawing.description} </p>
 
                                 <div className="drawing-tag">
-                                    <p> #태그1 </p> <p> #태그2 </p> <p> #태그3 </p>
+                                    { drawing.tags.map((t) => <p> #{t.name} </p>)}
                                 </div>
                             </div>
 
@@ -125,12 +143,12 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
                                 <div className="likeBox">
                                     <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                    <p> 1234 </p>
+                                    <p> {drawing.heartCount} </p>
                                 </div>
 
                                 <div className="bookmarkBox">
                                     <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                    <p> 1234 </p>
+                                    <p> {drawing.scrapCount} </p>
                                 </div>
                             </div>
 

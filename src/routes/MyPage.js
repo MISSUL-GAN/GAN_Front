@@ -11,6 +11,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
+            "heartCount": 0,
             "id": 1,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
@@ -19,6 +20,11 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가1"
             },
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -35,6 +41,7 @@ function MyPage() {
             "createdAt": "2022-08-11 20:32:00",
             "description": "망고.. 맛있음",
             "fileName": "filename1",
+            "heartCount": 0,
             "id": 2,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
@@ -43,6 +50,11 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가2"
             },
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -67,6 +79,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가3"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -91,6 +109,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가4"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -115,6 +139,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가5"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -139,6 +169,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가6"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -163,6 +199,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가7"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -187,6 +229,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가8"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -211,6 +259,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가9"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -238,6 +292,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가1"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -262,6 +322,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가2"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -286,6 +352,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가3"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -310,6 +382,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가4"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -334,6 +412,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가5"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -358,6 +442,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가6"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -382,6 +472,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가7"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -406,6 +502,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가8"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -430,6 +532,12 @@ function MyPage() {
                 "profileNickname": "유진",
                 "userNickname": "작가9"
             },
+            "heartCount": 0,
+            "nft": {
+                "assetContractAddress": "string",
+                "tokenId": "string"
+              },
+            "scrapCount": 0,
             "tags": [
                 {
                     "id": 1,
@@ -459,7 +567,7 @@ function MyPage() {
 
     const clickDelete = (id) => {
         setTestPic(testpic.filter((item)=> item.id != id));
-        //여기서만 지울게 아니라 서버에 지워달라고 보내야함
+        // delete + /drawing/{id}
     }
 
     return (
