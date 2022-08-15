@@ -5,8 +5,6 @@ import Drawing from './Drawing';
 import axios from "axios";
 
 function Home() {
-    //const code = useSelector( (state) => state );
-    const dispatch = useDispatch();
     const [filter, setFilter] = useState("mostlike");
     
     let testpic = [
@@ -22,6 +20,12 @@ function Home() {
             "profileNickname": "유진",
             "userNickname": "작가1"
           },
+          "heartCount": 0,
+          "nft": {
+              "assetContractAddress": "string",
+              "tokenId": "string"
+            },
+          "scrapCount": 0,
           "tags": [
             {
               "id": 1,
@@ -46,6 +50,12 @@ function Home() {
           "profileNickname": "유진",
           "userNickname": "작가2"
         },
+        "heartCount": 0,
+        "nft": {
+            "assetContractAddress": "string",
+            "tokenId": "string"
+          },
+        "scrapCount": 0,
         "tags": [
           {
             "id": 1,
@@ -70,6 +80,12 @@ function Home() {
           "profileNickname": "유진",
           "userNickname": "작가3"
         },
+        "heartCount": 0,
+        "nft": {
+            "assetContractAddress": "string",
+            "tokenId": "string"
+          },
+        "scrapCount": 0,
         "tags": [
           {
             "id": 1,
@@ -94,6 +110,12 @@ function Home() {
           "profileNickname": "유진",
           "userNickname": "작가4"
         },
+        "heartCount": 0,
+        "nft": {
+            "assetContractAddress": "string",
+            "tokenId": "string"
+          },
+        "scrapCount": 0,
         "tags": [
           {
             "id": 1,
@@ -118,6 +140,12 @@ function Home() {
           "profileNickname": "유진",
           "userNickname": "작가5"
         },
+        "heartCount": 0,
+        "nft": {
+            "assetContractAddress": "string",
+            "tokenId": "string"
+          },
+        "scrapCount": 0,
         "tags": [
           {
             "id": 1,
@@ -142,6 +170,12 @@ function Home() {
           "profileNickname": "유진",
           "userNickname": "작가6"
         },
+        "heartCount": 0,
+        "nft": {
+            "assetContractAddress": "string",
+            "tokenId": "string"
+          },
+        "scrapCount": 0,
         "tags": [
           {
             "id": 1,
@@ -166,6 +200,12 @@ function Home() {
           "profileNickname": "유진",
           "userNickname": "작가7"
         },
+        "heartCount": 0,
+        "nft": {
+            "assetContractAddress": "string",
+            "tokenId": "string"
+          },
+        "scrapCount": 0,
         "tags": [
           {
             "id": 1,

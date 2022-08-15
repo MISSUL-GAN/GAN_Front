@@ -1,11 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
-import { AUTH_URL } from '../LoginKey';
 import './Drawing.css';
 
 function Drawing({ind, drawing}){
 
-    const code = useSelector( (state) => state );
+    const user = useSelector( (state) => state );
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
@@ -24,16 +24,34 @@ function Drawing({ind, drawing}){
         if(!seeNFT) clickNFT();
     }
 
-    function clickAlertClose() {
-        const modal = document.getElementById("alert-modal");
-        modal.style.display = "none";
-        document.body.style.overflow = "unset";
-    }
-
     function clickLike() {
-        if(code !== null) 
-            setLike(!like);
-        
+        if(user.name !== null){
+            if(user.id === drawing.member.id)
+                alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
+            
+            else {
+                setLike(!like);
+
+                if(!like){
+                    drawing.heartCount++;
+    
+                    axios.post(`/heart/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+                else {
+                    drawing.heartCount--;
+                    
+                    axios.delete(`/heart/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+            }
+        }
         else {
             const modal = document.getElementById("alert-modal");
             modal.style.top = `${window.scrollY}px`;
@@ -42,9 +60,33 @@ function Drawing({ind, drawing}){
     }
 
     function clickBookmark() {
-        if(code !== null) 
-            setBookmark(!bookmark);
+        if (user.name !== null){
+            if(user.id === drawing.member.id)
+                alert("본인이 만든 작품은 스크랩할 수 없습니다.");
+
+            else {
+                setBookmark(!bookmark);
+
+                if(!bookmark){
+                    drawing.scrapCount++;
     
+                    axios.post(`/scrap/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+                else {
+                    drawing.scrapCount--;
+    
+                    axios.delete(`/scrap/${drawing.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${user.aToken}`,
+                        }
+                    });
+                }
+            }
+        }
         else {
             const modal = document.getElementById("alert-modal");
             modal.style.top = `${window.scrollY}px`;
@@ -110,12 +152,12 @@ function Drawing({ind, drawing}){
 
                                 <div className="likeBox">
                                     <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt=""/> </button>
-                                    <p> 1234 </p>
+                                    <p> {drawing.heartCount} </p>
                                 </div>
 
                                 <div className="bookmarkBox">
                                     <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt=""/> </button>
-                                    <p> 1234 </p>
+                                    <p> {drawing.scrapCount} </p>
                                 </div>
                             </div>
 
@@ -128,27 +170,6 @@ function Drawing({ind, drawing}){
                     </div>
                 </div>
             </div>        
-
-            <div id="alert-modal" className="warning-modal">
-                <div className="warning-modal-window">
-                    <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
-                    <div className="alert-content">
-                        <p> 로그인이 필요한 서비스입니다. </p>
-
-                        <div>
-                            <button id="kakaoLogin" onClick={() => {window.location.href={AUTH_URL};}}> <img src="/img/kakao.png" alt="" /> </button>
-                            <button id="googleLogin" onClick={() => {window.location.href={AUTH_URL};}}> <img src="/img/google.png" alt="" /> </button>
-                            <button id="naverLogin" onClick={() => {window.location.href={AUTH_URL};}}> <img src="/img/naver.png" alt="" /> </button>
-                        </div>
-
-                        <div>
-                            <p> 카카오 로그인 </p>
-                            <p> 구글 로그인 </p>
-                            <p> 네이버 로그인 </p>
-                        </div>
-                    </div>
-                </div>
-            </div>  
         </>
     );
 }

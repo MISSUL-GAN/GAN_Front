@@ -23,6 +23,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가1"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -39,7 +45,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 2,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 2,
@@ -47,6 +53,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가2"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -63,7 +75,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 3,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 3,
@@ -71,6 +83,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가3"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -87,7 +105,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 4,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 4,
@@ -95,6 +113,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가4"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -119,6 +143,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가5"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -135,7 +165,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 6,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 6,
@@ -143,6 +173,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가6"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -159,7 +195,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 7,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 7,
@@ -167,6 +203,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가7"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -183,7 +225,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 8,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 7,
@@ -191,6 +233,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가8"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -207,7 +255,7 @@ function UserPage() {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
       "fileName": "filename1",
-      "id": 1,
+      "id": 9,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 7,
@@ -215,6 +263,12 @@ function UserPage() {
         "profileNickname": "유진",
         "userNickname": "작가9"
       },
+      "heartCount": 0,
+      "nft": {
+        "assetContractAddress": "string",
+        "tokenId": "string"
+      },
+      "scrapCount": 0,
       "tags": [
         {
           "id": 1,
@@ -246,7 +300,7 @@ function UserPage() {
           <div id="drawingBox1">
             {
               testpic.slice(0, 4).map((element, index) =>
-                <UserDrawing ind={index} />
+                <UserDrawing key={element.id} ind={index} drawing={element} />
               )
             }
           </div>
@@ -254,7 +308,7 @@ function UserPage() {
           <div id="drawingBox2">
             {
               testpic.slice(4, 6).map((element, index) =>
-                <UserDrawing ind={index + 4} />
+                <UserDrawing key={element.id} ind={index + 4} drawing={element} />
               )
             }
           </div>
@@ -262,7 +316,7 @@ function UserPage() {
           <div id="drawingBox3">
             {
               testpic.slice(6,).map((element, index) =>
-                <UserDrawing ind={index + 6} />
+                <UserDrawing key={element.id} ind={index + 6} drawing={element} />
               )
             }
           </div>

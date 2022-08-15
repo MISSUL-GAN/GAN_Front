@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { AUTH_URL } from '../LoginKey';
 import { useSelector } from 'react-redux';
 import './UserDrawing.css';
 
@@ -22,12 +21,6 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
         modal.style.display = "none";
         document.body.style.overflow = "unset";
         if (!seeNFT) clickNFT();
-    }
-
-    function clickAlertClose() {
-        const modal = document.getElementById("alert-modal");
-        modal.style.display = "none";
-        document.body.style.overflow = "unset";
     }
 
     function clickLike() {
@@ -191,27 +184,6 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                                 이 작품의 NFT 가격!! 247239857198321093원<br />
                                 아무튼 통계 정보~~~ 들어갈 자리~~~
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="alert-modal" className="warning-modal">
-                <div className="warning-modal-window">
-                    <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
-                    <div className="alert-content">
-                        <p> 로그인이 필요한 서비스입니다. </p>
-
-                        <div>
-                            <button id="kakaoLogin" onClick={() => { window.location.href = { AUTH_URL }; }}> <img src="/img/kakao.png" alt="" /> </button>
-                            <button id="googleLogin" onClick={() => { window.location.href = { AUTH_URL }; }}> <img src="/img/google.png" alt="" /> </button>
-                            <button id="naverLogin" onClick={() => { window.location.href = { AUTH_URL }; }}> <img src="/img/naver.png" alt="" /> </button>
-                        </div>
-
-                        <div>
-                            <p> 카카오 로그인 </p>
-                            <p> 구글 로그인 </p>
-                            <p> 네이버 로그인 </p>
                         </div>
                     </div>
                 </div>
