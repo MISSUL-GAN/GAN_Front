@@ -10,7 +10,7 @@ function Login() {
 
     let aToken = new URL(window.location.href).searchParams.get("accessToken");
     let rToken = new URL(window.location.href).searchParams.get("refreshToken");
-    let profileNickname = new URL(window.location.href).searchParams.get("profileNickname");
+    let name = new URL(window.location.href).searchParams.get("name");
     let isFirstTime = new URL(window.location.href).searchParams.get("firstTime");
 
     useEffect(() => {
