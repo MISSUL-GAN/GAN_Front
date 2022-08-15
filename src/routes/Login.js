@@ -1,37 +1,37 @@
-import React from "react";
-import { Link } from 'react-router-dom';
-import { AUTH_URL } from '../LoginKey';
-import Navigation from "../components/Navigation";
-import { useSelector } from 'react-redux';
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';  
+import { useDispatch } from 'react-redux';
 
 function Login() {
-    const code = useSelector( (state) => state ); 
-    return(
-        <>
-        <Navigation/>
-        <div> 여기는 카톡 로그인 페이지...🙃 </div>
-        <br/><br/>
 
-        { 
-        (code == null) ? 
-            <a id="custom-login-btn" href = { AUTH_URL }>
-            <img
-                src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-                width="222"
-                alt="카카오 로그인"
-            />
-            </a>
-        : <p> 이미 로그인 중이세요..<br/> 현재 인가코드 : { code } </p> 
-        }
-        
-        <br/><br/><br/>
-        <Link to = '/home'> 
-            <button type="button" className="btn btn-dark"> 로그인 없이 둘러볼래요 </button>
-        </Link>
-        { /* 어차피 시작 - 로그인 - 갤러리 에서 시작 - 갤러리 (로그인은 네비바 접근) 으로 바뀔거라 이 버튼 나중에 지워야함 */ }
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
 
-        </>
-    );
+    let aToken = new URL(window.location.href).searchParams.get("accessToken");
+    let rToken = new URL(window.location.href).searchParams.get("refreshToken");
+    let name = new URL(window.location.href).searchParams.get("name");
+    let isFirstTime = new URL(window.location.href).searchParams.get("firstTime");
+
+    useEffect(() => {
+        axios.get("/member/me", {
+          headers: {
+            Authorization: `Bearer ${aToken}`,
+          },
+        })
+        .then(function (res) {
+          dispatch({ 
+            type : '로그인',
+            user : {id:res.data.id, name:res.data.name, accountEmail:res.data.accountEmail, profileImage:res.data.profileImage, aToken:aToken}
+          });
+
+          if(true) //isFirstTime 들어갈 자리
+            navigate('/join'); 
+
+          else 
+            navigate('/home'); 
+        });
+    }, []);
 }
 
 export default Login;

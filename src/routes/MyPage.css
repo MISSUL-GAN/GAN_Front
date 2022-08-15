@@ -1,37 +1,63 @@
-
-.drawing {
-    width: fit-content;
-    height: 100%;
+#my-page-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#img-thumbnail-wrapper {
-    width: 22vw;
-    height: 22vw;
-}
-
-#img-thumbnail-wrapper .img-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.titleBox {
-    width: 100%;
-    margin-top: 3%;
+#tabBox {
     display: flex;
+    width: 80%;
+    justify-content: center;
+    margin-top: 3vw;
+}
+
+#tabBox #my, #tabBox #bookmark {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #9F9F9F;
+    background-color: rgb(0,0,0,0);
+    border: none;
+    font-size: 24px;
+}
+
+#tabBox #my {
+    color: #3C6B50;
+}
+
+#my > hr, #bookmark > hr {
+    width: 97%;
+    margin-bottom: 3vw;
+}
+
+#myDrawingBox {
+    border: 1px solid tomato;
+    width: 79.5%;
+}
+
+#bookmarkDrawingBox {
+    border: 1px solid aqua;
+    width: 79.5%;
+}
+
+
+
+#drawing-container {
+    display: flex;
+    width: 78%;
     justify-content: space-between;
 }
 
-.like, .bookmark {
-    border: none;
-    background-color: rgb(0, 0, 0, 0);
-}
+#drawingBox1 { width: 23%; }
+#drawingBox1 > div > img { width: 100%; }
 
-.like:visited, .bookmark:visited {
-    border: none;
-}
+#drawing-container #drawingBox2 { width: 41% }
+#drawingBox2 > div > img { width: 100%; }
+
+#drawing-container #drawingBox3 { width: 32% }
+#drawingBox3 > div > img { width: 100%; }
 
 
 
