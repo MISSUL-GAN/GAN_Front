@@ -484,11 +484,11 @@ function MyPage() {
                         {option === "my"
                             ?
                             testpic.slice(0, 4).map((element, index) =>
-                                <UserDrawing ind={index} drawing={element} mine={true} clickDelete={clickDelete}/>
+                                <UserDrawing key={element.id} ind={index} drawing={element} mine={true} clickDelete={clickDelete}/>
                             )
                             :
                             testpic2.slice(0, 4).map((element, index) =>
-                                <UserDrawing ind={index} drawing={element}/>
+                                <UserDrawing key={element.id} ind={index} drawing={element}/>
                             )
                         }
                     </div>
@@ -497,11 +497,11 @@ function MyPage() {
                         {option === "my"
                             ?
                             testpic.slice(4, 6).map((element, index) =>
-                                <UserDrawing ind={index + 4} drawing={element} mine={true} clickDelete={clickDelete}/>
+                                <UserDrawing key={element.id} ind={index + 4} drawing={element} mine={true} clickDelete={clickDelete}/>
                             )
                             :
                             testpic2.slice(4, 6).map((element, index) =>
-                                <UserDrawing ind={index + 4} drawing={element} />
+                                <UserDrawing key={element.id} ind={index + 4} drawing={element} />
                             )
                         }
                     </div>
@@ -510,11 +510,11 @@ function MyPage() {
                         {option === "my"
                             ?
                             testpic.slice(6,).map((element, index) =>
-                                <UserDrawing ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete}/>
+                                <UserDrawing key={element.id} ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete}/>
                             )
                             :
                             testpic2.slice(6,).map((element, index) =>
-                                <UserDrawing ind={index + 6} drawing={element}/>
+                                <UserDrawing key={element.id} ind={index + 6} drawing={element}/>
                             )
                         }
                     </div>

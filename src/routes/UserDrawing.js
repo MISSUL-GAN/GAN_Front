@@ -49,7 +49,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
             modal.style.display = "flex";
         }
     }
-
+    
     function clickNFT() {
         setSeeNFT(!seeNFT);
         const NFTInfo = document.getElementsByClassName("NFTBox")[ind];
@@ -58,6 +58,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
     
     function requestDelete() {
+        clickClose();
         clickDelete(drawing.id);
     }
 
@@ -105,12 +106,12 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                             </div>
 
                             <div className="buttonBox">
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
+                                <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
                                 { mine &&
                                     <>
-                                        <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
-                                        <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                        <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                        <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
                                     </>
 
                                 }
