@@ -17,7 +17,7 @@ function MyPage() {
             "id": 1,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 5,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가1"
@@ -47,7 +47,7 @@ function MyPage() {
             "id": 2,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 2,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가2"
@@ -76,7 +76,7 @@ function MyPage() {
             "id": 3,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 3,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가3"
@@ -136,7 +136,7 @@ function MyPage() {
             "id": 5,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 1,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가5"
@@ -166,7 +166,7 @@ function MyPage() {
             "id": 6,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 6,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가6"
@@ -196,7 +196,7 @@ function MyPage() {
             "id": 7,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 7,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가7"
@@ -226,7 +226,7 @@ function MyPage() {
             "id": 8,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 7,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가8"
@@ -256,7 +256,7 @@ function MyPage() {
             "id": 9,
             "member": {
                 "accountEmail": "vipyoujin@daum.net",
-                "id": 7,
+                "id": 4,
                 "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
                 "profileNickname": "유진",
                 "userNickname": "작가9"
@@ -580,14 +580,14 @@ function MyPage() {
         <>
             <Navigation />
 
-            <div id="page-content">
-                <div id="viewOptionBox">
-                    <button className="viewOption" id="my" onClick={clickOption}>
+            <div id="my-page-content">
+                <div id="tabBox">
+                    <button id="my" onClick={clickOption}>
                         내 작품
                         <hr />
                     </button>
 
-                    <button className="viewOption" id="bookmark" onClick={clickOption}>
+                    <button id="bookmark" onClick={clickOption}>
                         스크랩한 작품
                         <hr />
                     </button>
