@@ -113,7 +113,28 @@ main<br/>
  
 * 필터 값 바뀌면 -> 서버에서 이미지 받아와서 -> pictures 배열에 세팅하고 싶은데 useEffect 내에서 setState 하면 무한루프 돌아버림 
     * useEffect(... , [changeFilter]) : changeFilter는 select 태그의 onChange 이벤트 함수, 그냥 그 안에서 filter 찍으면 한 박자씩 느려서 useEffect 쓰던거였음  
+
+* 네비게이션 선택된 메뉴 색상 변경
+
+    * 원인/해결
     
+      * [참고](https://blog.hoseung.me/2021-12-07-do-not-use-link/)
+      
+      > react-router에서 내부적으로 사용하는 RouterContext때문에 history change event가 일어날 때마다 계속 리렌더링이 일어난다는 겁니다. (...) __Navigation이나 Tab Bar같이 Switch 바깥에 있는 UI 컴포넌트들은 이런 문제에 영향을 크게 받을 수 있습니다__
+      
+      * Navigation.js 에서 useNavigate()를 사용중. 근데 그걸 사용하는 컴포넌트는 __무조건 Router 안에 존재해야함__
+        
+      * 아직 해결 못함 ^^.. 결국 네비게이션의 리렌더링을 막아야 된다는건 알았음 
+      
+  * 삽질 과정
+  
+      * i) 원래 소개 페이지(Start.js)에는 네비게이션이 없어서, 거길 제외한 각 컴포넌트에서 매번 Navigation을 import 해서 쓰던 중<br/>
+      ➡ 각 페이지마다 네비게이션이 달려있는 것 때문에 페이지 바뀔 때마다 네비게이션도 같이 리렌더링 되는 줄 알았음<br/>
+      ➡ 페이지 내부의 Navigation을 지우고 Router.js 에서 한번만 넣어줌<br/>
+      (Start.js 에서 네비게이션이 보이는건 position:absolute + top:0 + left:0 으로 배경 사진이 네비게이션을 가리게 함)
+     
+      
+
 * ~~redux : dispatch로 변수 값 수정했는데 유지가 안 됨~~
     * 삽질 과정
     
