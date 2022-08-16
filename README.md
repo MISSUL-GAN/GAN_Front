@@ -315,6 +315,9 @@ module.exports = function(app) {
   ```
   자세한 방법은 login 브랜치 PR -> 커밋 [e492c69](https://github.com/MISSUL-GAN/GAN_Front/commit/e492c69b1b0071362734352a0c1f598a5697657a) 코멘트 참고 
 
+  * [참고](https://about-tech.tistory.com/entry/Programming-CORS%EB%9E%80-preflight-OPTIONS-%EB%A9%94%EC%86%8C%EB%93%9C)
+  
+    * 프론트에서 미들웨어 안 쓸거면 백엔드에서 해결 가능이다 이열....
 </details>
 
 
