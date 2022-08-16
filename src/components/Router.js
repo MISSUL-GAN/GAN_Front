@@ -14,7 +14,7 @@ function GalleryRouter(){
         <Router>
             <Routes>
                 <Route exact path = "/login/oauth2/code/kakao" element = { <Login/> }/>
-                <Route exact path = "/join" element = { <Join/> }/>
+                <Route exact path = "/join/:initialName" element = { <Join/> }/>
                 <Route exact path = '/' element = { <Start/> }/>
                 <Route exact path = '/home' element = { <Home/> } />
                 <Route exact path = '/myPage' element = { <MyPage/> }/>
