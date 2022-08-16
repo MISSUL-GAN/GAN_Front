@@ -73,7 +73,7 @@ function Join() {
             <div className="nicknameGuide">‘Missul;GAN’에서 사용할 별명을 적어주세요.</div>
 
             <div id="nicknameBox">
-                <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder={initialName}/>
+                <input id="input" onChange={onChange} type="text" minLength={2} maxLength={12} placeholder={initialName} autoComplete="off"/>
                 <button id="submitButton" onClick={submitNick}> 별명 설정 완료 </button>
             </div>
 
