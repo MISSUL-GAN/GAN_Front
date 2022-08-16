@@ -52,7 +52,7 @@ function Navigation() {
     return (
         <>
             <nav className="navbar">
-                <a className="navLogo" href='/'> <img id="logoImg" alt="" src="/img/naviLogo.png" /> </a>
+                <a className="navLogo" href='/home'> <img id="logoImg" alt="" src="/img/naviLogo.png" /> </a>
 
                 <div id="menu">
                     <button className="navItem" onClick={checkLogin} value="/create"> GAN 사진 변환 </button>
