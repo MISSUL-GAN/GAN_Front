@@ -1,5 +1,5 @@
 const isLogin = () => {
-    const id = JSON.parse(window.sessionStorage.getItem("persist:[object Object]")).id;
+    const id = JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:[object Object]")).member).id;
     return id > 0 ? true : false;
 }
 
