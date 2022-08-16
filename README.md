@@ -21,7 +21,7 @@ main<br/>
 ㄴㄴ create<br/>
 
 의 느낌입니다<br/>
-(2022.08.15 login, gallery 브랜치 develop에 합침 - 기능 끝나서 합친거 아니고 너무 만든지 오래 돼서 ^^...)
+(2022.08.15 login, gallery 브랜치 develop에 합침 - 기능 끝나서 합친거 아니고 너무 만든지 오래 돼서 ^^...)<br/>
 (2022.08.17 create 브랜치도 develop에 합쳐버렸습니다,,,,,, 앞으로 PR은 짧게 자주 하겠ㅆ븐니다)
 </details>
 
