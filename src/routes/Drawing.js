@@ -5,7 +5,8 @@ import './Drawing.css';
 
 function Drawing({ind, drawing}){
 
-    const user = useSelector( (state) => state );
+    const member = useSelector(state => state.member);
+    const accessToken = useSelector(state => state.token.accessToken);
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
@@ -25,8 +26,8 @@ function Drawing({ind, drawing}){
     }
 
     function clickLike() {
-        if(user.name !== null){
-            if(user.id === drawing.member.id)
+        if(member.signed){
+            if(member.id === drawing.member.id)
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
             
             else {
@@ -37,7 +38,7 @@ function Drawing({ind, drawing}){
     
                     axios.post(`/heart/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
@@ -46,7 +47,7 @@ function Drawing({ind, drawing}){
                     
                     axios.delete(`/heart/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
@@ -60,8 +61,8 @@ function Drawing({ind, drawing}){
     }
 
     function clickBookmark() {
-        if (user.name !== null){
-            if(user.id === drawing.member.id)
+        if (member.signed){
+            if(member.id === drawing.member.id)
                 alert("본인이 만든 작품은 스크랩할 수 없습니다.");
 
             else {
@@ -72,7 +73,7 @@ function Drawing({ind, drawing}){
     
                     axios.post(`/scrap/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
@@ -81,7 +82,7 @@ function Drawing({ind, drawing}){
     
                     axios.delete(`/scrap/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
