@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 import UserDrawing from '../routes/UserDrawing';
 import { useSelector } from 'react-redux';
 import './MyPage.css';
+import isLogin from "../isLogin";
 
 function MyPage() {
     const accessToken = useSelector(state => state.token.accessToken);
@@ -576,64 +577,76 @@ function MyPage() {
         });
     }
 
+    const block = () => {
+        alert("정상적이지 않은 접근입니다.");
+        window.location.href = '/home';
+    }
+
     return (
         <>
-            <Navigation />
+        { isLogin()
+        ?
+        <>
+        <Navigation />
 
-            <div id="my-page-content">
-                <div id="tabBox">
-                    <button id="my" onClick={clickOption}>
-                        내 작품
-                        <hr />
-                    </button>
+        <div id="my-page-content">
+            <div id="tabBox">
+                <button id="my" onClick={clickOption}>
+                    내 작품
+                    <hr />
+                </button>
 
-                    <button id="bookmark" onClick={clickOption}>
-                        스크랩한 작품
-                        <hr />
-                    </button>
+                <button id="bookmark" onClick={clickOption}>
+                    스크랩한 작품
+                    <hr />
+                </button>
+            </div>
+
+            <div id="drawing-container">
+                <div id="drawingBox1">
+                    {option === "my"
+                        ?
+                        testpic.slice(0, 4).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index} drawing={element} mine={true} clickDelete={clickDelete}/>
+                        )
+                        :
+                        testpic2.slice(0, 4).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index} drawing={element}/>
+                        )
+                    }
                 </div>
 
-                <div id="drawing-container">
-                    <div id="drawingBox1">
-                        {option === "my"
-                            ?
-                            testpic.slice(0, 4).map((element, index) =>
-                                <UserDrawing key={element.id} ind={index} drawing={element} mine={true} clickDelete={clickDelete}/>
-                            )
-                            :
-                            testpic2.slice(0, 4).map((element, index) =>
-                                <UserDrawing key={element.id} ind={index} drawing={element}/>
-                            )
-                        }
-                    </div>
+                <div id="drawingBox2">
+                    {option === "my"
+                        ?
+                        testpic.slice(4, 6).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index + 4} drawing={element} mine={true} clickDelete={clickDelete}/>
+                        )
+                        :
+                        testpic2.slice(4, 6).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index + 4} drawing={element} />
+                        )
+                    }
+                </div>
 
-                    <div id="drawingBox2">
-                        {option === "my"
-                            ?
-                            testpic.slice(4, 6).map((element, index) =>
-                                <UserDrawing key={element.id} ind={index + 4} drawing={element} mine={true} clickDelete={clickDelete}/>
-                            )
-                            :
-                            testpic2.slice(4, 6).map((element, index) =>
-                                <UserDrawing key={element.id} ind={index + 4} drawing={element} />
-                            )
-                        }
-                    </div>
-
-                    <div id="drawingBox3">
-                        {option === "my"
-                            ?
-                            testpic.slice(6,).map((element, index) =>
-                                <UserDrawing key={element.id} ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete}/>
-                            )
-                            :
-                            testpic2.slice(6,).map((element, index) =>
-                                <UserDrawing key={element.id} ind={index + 6} drawing={element}/>
-                            )
-                        }
-                    </div>
+                <div id="drawingBox3">
+                    {option === "my"
+                        ?
+                        testpic.slice(6,).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete}/>
+                        )
+                        :
+                        testpic2.slice(6,).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index + 6} drawing={element}/>
+                        )
+                    }
                 </div>
             </div>
+        </div>
+        </>
+        :
+          block()
+        }
         </>
     );
 
