@@ -357,6 +357,32 @@ module.exports = function(app) {
 
 </details>
 
+<details>
+<summary> multipart/form-data </summary>
+
+* [참고](https://velog.io/@shin6403/HTTP-multipartform-data-%EB%9E%80)
+
+  * > ...이미지 파일을 전송한다고 해서 이메일에 첨부파일을 붙여 메일을 보내는 것처럼 png나 jpg 파일 자체가 전송되는 것이 아니다. 이미지 파일을 문자로 생성하여 HTTP request body에 담아 서버로 전송하는 것이다. ...
+
+<br/>
+
+* 왜 써야 하는지: http request body의 타입은 1개만 명시 가능<br/>
+➡ 근데 난 content-type이 다른 데이터를 같이 보내야 함. (이미지/텍스트)<br/>이때 하나의 body 안에 여러 종류의 데이터를 구분해서 넣는 방법이 multipart 타입이다~!
+
+  * ```javascript headers: { "Content-Type": "multipart/form-data", } ```
+
+<br/>
+
+* 혹은 이미지를 base64로 인코딩 ➡ JSON 으로 전송하는 방식도 존재
+
+  ||multipart/form-data|base64|
+  |---|---|---|
+  |용량|(상대적으로) 작다|크다|
+  |인코딩 오버헤드|X|O|
+  |연관관계 표현|제한적|용이함|
+
+</details>
+
 </details>
 
 
