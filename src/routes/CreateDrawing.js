@@ -1,14 +1,15 @@
-import React, { useEffect, useState, useRef }  from "react";
+import React, { useState, useRef }  from "react";
 import Navigation from "../components/Navigation";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from "axios";
 import isLogin from "../isLogin";
 import './CreateDrawing.css';
 
 function CreateDrawing() {
-    const dispatch = useDispatch();
+    const user = useSelector(state => state);
+    const fileName = "";
     const [img, setImg] = useState('');
-    const [files, setFiles] = useState('');
+    const [files, setFiles] = useState([]);
     const [style, setStyle] = useState('');
     const [result, setResult] = useState(false);
     const subImg = useRef();
@@ -94,6 +95,16 @@ function CreateDrawing() {
         document.getElementsByClassName("uploadSubImg")[0].style.background = "#F4F4F4";
         document.getElementsByClassName("uploadSubImg")[0].style.color = "#3C6B50";
     }
+    
+    const clickWarning = () => {
+        if(img !== '' && ((style !== "" && subImg.current.value === "") || (style === "" && subImg.current.value !== ""))){
+            if(document.getElementById("create-warning").checked)
+                document.getElementsByClassName("submitButton")[0].style.opacity = "100%";
+            
+            else
+                document.getElementsByClassName("submitButton")[0].style.opacity = "50%";
+        }
+    }
 
     const onSubmitImg = () => {
         var flag = false;
@@ -106,33 +117,30 @@ function CreateDrawing() {
 
         if(flag){
             const formData = new FormData();
-            formData.append('uploadKey', files[0]);
-    
-            var item = {
-                "convert_tag" : (style !== "") ? style : "cnn",
-                "origin_img" : files[0],
-                "style_img" : (subImg.current.value !== "") ? files[files.length-1] : null,
-                "token" : "useSelector로 사용자 정보 가져오는거 추가하고 aToken 갖다 넣으면 됨"
-            };
+            formData.append("convert_tag", (style !== "") ? style : "cnn");
+            formData.append("origin_img", files[0]);
+            formData.append("style_img", (subImg.current.value !== "") ? files[files.length-1] : null);
+            formData.append("token", user.aToken);
 
-            console.log(item);
-            //환곤이 서버로 보내는 코드 + fileName 리턴 받아서 저장하는 코드 추가하기
-            document.getElementsByClassName("uploadOriginImg")[0].style.display = "none";
-            setResult(true);
+            axios.post("서버 url - 여기도 proxy 넣어놔야 함", formData, {
+                headers: {
+                    'Content-type' : 'multipart/form-data'
+                }
+            }).then((res) => {
+                console.log(res); // 확인용 출력
+                fileName = res;
+
+                axios.get(`/image/${res}`)
+                .then((res) => {
+                    setImg(res.data.uri);
+                    document.getElementsByClassName("uploadOriginImg")[0].style.display = "none";
+                    setResult(true);
+                })
+            });
         }
 
         else 
             alert(refusal);
-    }
-    
-    const clickWarning = () => {
-        if(img !== '' && ((style !== "" && subImg.current.value === "") || (style === "" && subImg.current.value !== ""))){
-            if(document.getElementById("create-warning").checked)
-                document.getElementsByClassName("submitButton")[0].style.opacity = "100%";
-            
-            else
-                document.getElementsByClassName("submitButton")[0].style.opacity = "50%";
-        }
     }
 
     const checkTag = (e) => {
@@ -166,6 +174,7 @@ function CreateDrawing() {
     const clickPost = () => {
         if(document.getElementsByClassName("titleBox")[0].value === "")
             alert("작품명은 필수적으로 입력해야합니다.");
+
         else {
             const tags = [];
             const tagBox = document.getElementsByName("tagBox");
@@ -180,11 +189,24 @@ function CreateDrawing() {
 
             var result = {
                 "description": document.getElementsByClassName("descriptionBox")[0].value,
-                "fileName": "환곤이한테 받은 fileName",
+                "fileName": fileName,
+                "nft": {
+                    "assetContractAddress": "",
+                    "tokenId": ""
+                },
                 "tagIds": tags,
                 "title": document.getElementsByClassName("titleBox")[0].value
             };
+
             console.log(result);
+
+            axios.post('/drawing', result, {
+                headers: {
+                    Authorization: `Bearer ${user.aToken}`,
+                }
+            }).then(() => {
+                window.location.href = "/myPage";
+            })
         }
     }
 
@@ -200,11 +222,11 @@ function CreateDrawing() {
             <>
             <Navigation/>
 
-            <div className="logo"> <img src="/img/textLogo.png"/> </div>
+            <div className="logo"> <img src="/img/textLogo.png" alt=""/> </div>
 
             <div className="create-page-content">
                 <div className="originBox">
-                    { img === '' ? <p> 변환하고 싶은<br/>사진 및 그림을 넣어주세요 </p> : <><img src={img} alt=''/><br/></> }
+                    { img === '' ? <p> 변환하고 싶은<br/>사진 및 그림을 넣어주세요 </p> : <img src={img} alt=""/> }
                     <form>
                         <label className="uploadOriginImg" for="originImg"> 파일에서 찾아보기 </label>
                         <input type='file' id="originImg" accept='image/*' style={{display:"none"}} onChange = {onUploadImg}/>
@@ -241,7 +263,6 @@ function CreateDrawing() {
                     </div>
                 :
                     <div className="resultBox">
-                        <br/><br/><br/>
                         <input type="text" className="titleBox" maxLength={20} placeholder="* 작품명을 입력해주세요. (20자 이내)"/>
                         <hr/>
                         <textarea className="descriptionBox" maxLength={200} placeholder="설명을 입력해주세요. (200자 이내)"/>
@@ -266,9 +287,9 @@ function CreateDrawing() {
 
                         <br/>
                         <div className="buttonBox">
-                            <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px"/> </a> </button>
-                            <button> <img src="/img/kakaoIcon.png" width="60px"/> </button>
-                            <button className="NFTButton" title="OpenSea에 방금 만든 사진을 NFT로 등록해보세요!"> <img src="/img/openseaIcon.png" width="60px"/> </button>
+                            <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt=""/> </a> </button>
+                            <button> <img src="/img/kakaoIcon.png" width="60px" alt=""/> </button>
+                            <button className="NFTButton" title="OpenSea에 방금 만든 사진을 NFT로 등록해보세요!"> <img src="/img/openseaIcon.png" width="60px" alt=""/> </button>
                             <button className="postButton" onClick={clickPost}> Missul;GAN에 사진 게시하기 </button>
                     </div>
                     </div>    
