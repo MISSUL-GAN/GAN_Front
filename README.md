@@ -59,7 +59,7 @@ main<br/>
   * ~~"감상하기" 버튼 -> 미술관 페이지로 이동~~
   
 * 별명 페이지 
-  * form 태그 지우면서 거기에 있던 autoComplete 날아감 input 태그에 다시 넣기 💥
+  * ~~form 태그 지우면서 거기에 있던 autoComplete 날아감 input 태그에 다시 넣기~~
   * input type=search로 바꾸기 (input에 포커스 잡힐 때는 x 버튼 떠야함) 💥
   
 * 로그인 페이지 (카카오톡 로그인 API 이용)
