@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import './MyPage.css';
 
 function MyPage() {
-    const user = useSelector(state => state);
+    const accessToken = useSelector(state => state.token.accessToken);
     const [option, setOption] = useState("my");
     const [testpic, setTestPic] = useState([
         {
@@ -571,7 +571,7 @@ function MyPage() {
         
         axios.delete(`/drawing/${id}`, {
             headers: {
-              Authorization: `Bearer ${user.aToken}`,
+              Authorization: `Bearer ${accessToken}`,
             }
         });
     }
