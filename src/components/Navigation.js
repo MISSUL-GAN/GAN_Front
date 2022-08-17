@@ -17,20 +17,21 @@ function Navigation() {
     };
 
     function checkLogin(e) {
-        if (member.id === null) {
+        if(member.signed) 
+            window.location.href = `${e.target.value}`;
+
+        else {
             const modal = document.getElementById("alert-modal");
             modal.style.display = "flex";
-        }
-        else
-            window.location.href = `${e.target.value}`;
+        }  
     }
 
     async function changeLogin() {
-        if (member.signed === true) {
+        if (member.signed) {
             if (window.confirm("로그아웃 하시겠습니까?")) {
                 alert("로그아웃이 완료되었습니다.\n비회원 상태에서는 일부 기능이 제한될 수 있습니다.");
                 await logoutDispatch();
-                // window.location.href = '/home';
+                document.getElementById("my-modal").style.display = "none";
                 navigate('/home');
             }
         }
@@ -52,7 +53,7 @@ function Navigation() {
     return (
         <>
             <nav className="navbar">
-                <a className="navLogo" href='/'> <img id="logoImg" alt="" src="/img/naviLogo.png" /> </a>
+                <a className="navLogo" href='/home'> <img id="logoImg" alt="" src="/img/naviLogo.png" /> </a>
 
                 <div id="menu">
                     <button className="navItem" onClick={checkLogin} value="/create"> GAN 사진 변환 </button>
