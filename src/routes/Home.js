@@ -248,10 +248,10 @@ function Home() {
 
         if(document.getElementById(e.target.className).checked){
             document.getElementsByClassName(e.target.className)[0].style.backgroundColor = "#3C6B50";
-            document.getElementsByClassName(e.target.className)[0].style.color = "#FFFFFF";
+            document.getElementsByClassName(e.target.className)[0].style.color = "#F4F4F4";
         }
         else {  
-            document.getElementsByClassName(e.target.className)[0].style.backgroundColor = "#FFFFFF";
+            document.getElementsByClassName(e.target.className)[0].style.backgroundColor = "#F4F4F4";
             document.getElementsByClassName(e.target.className)[0].style.color = "#3C6B50";
         }
 
