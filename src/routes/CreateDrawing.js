@@ -6,7 +6,7 @@ import isLogin from "../isLogin";
 import './CreateDrawing.css';
 
 function CreateDrawing() {
-    const user = useSelector(state => state);
+    const accessToken = useSelector(state => state.token.accessToken);
     const fileName = "";
     const [img, setImg] = useState('');
     const [files, setFiles] = useState([]);
@@ -120,7 +120,7 @@ function CreateDrawing() {
             formData.append("convert_tag", (style !== "") ? style : "cnn");
             formData.append("origin_img", files[0]);
             formData.append("style_img", (subImg.current.value !== "") ? files[files.length-1] : null);
-            formData.append("token", user.aToken);
+            formData.append("token", accessToken);
 
             axios.post("서버 url - 여기도 proxy 넣어놔야 함", formData, {
                 headers: {
@@ -202,7 +202,7 @@ function CreateDrawing() {
 
             axios.post('/drawing', result, {
                 headers: {
-                    Authorization: `Bearer ${user.aToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                 }
             }).then(() => {
                 window.location.href = "/myPage";
