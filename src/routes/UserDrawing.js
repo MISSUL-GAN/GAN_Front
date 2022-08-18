@@ -1,13 +1,11 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from 'react-redux';
+import { heart, unheart } from "../api/heartApi";
 import './UserDrawing.css';
-import { getAccessToken } from "../util/tokenUtil";
 
 function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
     const member = useSelector(state => state.member);
-    const accessToken = getAccessToken();
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
@@ -33,26 +31,15 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
             
             else {
-                setLike(!like);
-
                 if(!like){
                     drawing.heartCount++;
-    
-                    axios.post(`/heart/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    //heart(drawing.id);
                 }
                 else {
                     drawing.heartCount--;
-                    
-                    axios.delete(`/heart/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    //unheart(drawing.id);
                 }
+                setLike(!like);
             }
         }
         else {
@@ -72,21 +59,9 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
                 if(!bookmark){
                     drawing.scrapCount++;
-    
-                    axios.post(`/scrap/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
                 }
                 else {
                     drawing.scrapCount--;
-    
-                    axios.delete(`/scrap/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
                 }
             }
         }
