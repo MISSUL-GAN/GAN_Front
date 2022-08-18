@@ -2,18 +2,18 @@ import React from "react";
 import './Navigation.css';
 import { AUTH_URL } from '../LoginKey';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from "../redux/tokenReducer";
 import { clearMember } from "../redux/memberReducer";
 import { useNavigate } from "react-router-dom";
+import { clearToken } from "../util/tokenUtil";
 
 function Navigation() {
     const member = useSelector(state => state.member);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const logoutDispatch = async () => {
-        dispatch(logout());
-        dispatch(clearMember())
+    const logout = async () => {
+        clearToken();
+        dispatch(clearMember());
     };
 
     function checkLogin(e) {
@@ -30,7 +30,7 @@ function Navigation() {
         if (member.signed) {
             if (window.confirm("로그아웃 하시겠습니까?")) {
                 alert("로그아웃이 완료되었습니다.\n비회원 상태에서는 일부 기능이 제한될 수 있습니다.");
-                await logoutDispatch();
+                await logout();
                 document.getElementById("my-modal").style.display = "none";
                 navigate('/home');
             }

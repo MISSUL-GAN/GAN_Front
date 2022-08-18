@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Navigation from "../components/Navigation";
-import { addDrawing, getDrawings, getMember, getName, setName, uploadImage } from '../api/api'
+import { uploadImage } from '../api/imageApi';
+import { getDrawings, addDrawing } from '../api/drawingApi';
+import { getMember, getName, setName } from '../api/memberApi';
 
 function ApiTestPage() {
     const [name2, setName2] = useState("바꿀이름");
