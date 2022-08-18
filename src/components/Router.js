@@ -10,8 +10,6 @@ import CreateDrawing from '../routes/CreateDrawing';
 import ApiTestPage from "../routes/ApiTestPage";
 import WithNav from "./WithNav";
 
-// https://stackoverflow.com/questions/47281850/how-to-hide-navbar-in-login-page-in-react-router
-
 function GalleryRouter() {
     return (
         <Router>
