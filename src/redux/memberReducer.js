@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getMember } from "../api/memberApi";
 
 const memberInitialState = {
     accountEmail: "",
@@ -22,6 +23,10 @@ const memberSlice = createSlice({
         clearMember: () => memberInitialState
     },
 });
-
 export const { setMember, clearMember } = memberSlice.actions;
 export const memberReducer = memberSlice.reducer;
+
+export const fetchMember = () => async dispatch => {
+    return getMember()
+        .then(response => dispatch(setMember(response)));
+}

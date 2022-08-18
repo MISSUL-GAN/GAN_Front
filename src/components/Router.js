@@ -13,7 +13,7 @@ function GalleryRouter(){
     return( 
         <Router>
             <Routes>
-                <Route exact path = "/login/oauth2" element = { <Login/> }/>
+                <Route exact path = "/login/oauth" element = { <Login/> }/>
                 <Route exact path = "/join/:initialName" element = { <Join/> }/>
                 <Route exact path = '/' element = { <Start/> }/>
                 <Route exact path = '/home' element = { <Home/> } />

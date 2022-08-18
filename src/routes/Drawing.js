@@ -1,12 +1,13 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
+import { heart, unheart } from "../api/heartApi";
+import { scrap, unscrap } from "../api/scrapApi";
 import './Drawing.css';
 
 function Drawing({ind, drawing}){
 
     const member = useSelector(state => state.member);
-    const accessToken = useSelector(state => state.token.accessToken);
+
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
@@ -36,20 +37,12 @@ function Drawing({ind, drawing}){
                 if(!like){
                     drawing.heartCount++;
     
-                    axios.post(`/heart/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    heart(drawing.id);
                 }
                 else {
                     drawing.heartCount--;
                     
-                    axios.delete(`/heart/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    unheart(drawing.id);
                 }
             }
         }
@@ -71,20 +64,12 @@ function Drawing({ind, drawing}){
                 if(!bookmark){
                     drawing.scrapCount++;
     
-                    axios.post(`/scrap/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    scrap(drawing.id);
                 }
                 else {
                     drawing.scrapCount--;
     
-                    axios.delete(`/scrap/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    unscrap(drawing.id);
                 }
             }
         }
