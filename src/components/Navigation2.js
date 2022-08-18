@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Container, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
+import { AppBar, Avatar, Container, Fade, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,6 +71,7 @@ function Navigation2() {
                             }}
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
+                            TransitionComponent={Fade}
                         >
                             <MenuItem onClick={navigateToMy}>
                                 MY
