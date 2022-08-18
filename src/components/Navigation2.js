@@ -37,8 +37,13 @@ function Navigation2() {
 
     return (
         <div>
-            <AppBar color="transparent" position="relative" elevation={0} style={{ borderBottom: "1px solid #E7E7E7" }}>
-                <Container>
+            <AppBar
+                color="transparent"
+                position="relative"
+                elevation={0}
+                style={{ borderBottom: "1px solid #E7E7E7" }}
+            >
+                <Container maxWidth="xl">
                     <Toolbar>
                         <Link to="/home"> <img id="logoImg" alt="" src="/img/naviLogo.png" /> </Link>
                         <Box sx={{ flexGrow: 1 }}></Box>
@@ -47,7 +52,7 @@ function Navigation2() {
 
                         {member.signed
                             ? <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src={member.profileImage} />
+                                <Avatar src={member.profileImage} sx={{ width: 48, height: 48 }}/>
                             </IconButton>
                             : <a className="navItem" onClick={openLoginAlert} href>로그인</a>
                         }
