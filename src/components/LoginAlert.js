@@ -3,11 +3,10 @@ import { getAuthUrl } from '../LoginKey';
 import './LoginAlert.css';
 
 const LoginAlert = (props) => {
-    const clickAlertClose = () => props.handleLoginAlertClose;
+    const clickAlertClose = () => props.handleLoginAlertClose();
 
     return (
         <div id="alert-modal" className="warning-modal">
-            asdfsfsdfasfdsafa
             <div className="warning-modal-window">
                 <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
                 <div className="alert-content">
