@@ -3,10 +3,11 @@ import Navigation from "../components/Navigation";
 import { useSelector } from 'react-redux';
 import axios from "axios";
 import isLogin from "../isLogin";
+import { getAccessToken } from "../util/tokenUtil";
 import './CreateDrawing.css';
 
 function CreateDrawing() {
-    const accessToken = useSelector(state => state.token.accessToken);
+    const accessToken = getAccessToken();
     const fileName = "";
     const [img, setImg] = useState('');
     const [files, setFiles] = useState([]);
