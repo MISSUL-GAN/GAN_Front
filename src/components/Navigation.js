@@ -71,7 +71,7 @@ function Navigation() {
                 <button className="smallMenu" onClick={changeLogin}> 로그아웃 </button>
             </div>
 
-            <div id="alert-modal" className="warning-modal">
+            {/* <div id="alert-modal" className="warning-modal">
                 <div className="warning-modal-window">
                     <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
                     <div className="alert-content">
@@ -90,7 +90,7 @@ function Navigation() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }

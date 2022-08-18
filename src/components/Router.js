@@ -8,19 +8,24 @@ import MyPage from "../routes/MyPage";
 import Join from '../routes/Join';
 import CreateDrawing from '../routes/CreateDrawing';
 import ApiTestPage from "../routes/ApiTestPage";
+import WithNav from "./WithNav";
 
-function GalleryRouter(){
-    return( 
+// https://stackoverflow.com/questions/47281850/how-to-hide-navbar-in-login-page-in-react-router
+
+function GalleryRouter() {
+    return (
         <Router>
             <Routes>
-                <Route exact path = "/login/oauth" element = { <Login/> }/>
-                <Route exact path = "/join/:initialName" element = { <Join/> }/>
-                <Route exact path = '/' element = { <Start/> }/>
-                <Route exact path = '/home' element = { <Home/> } />
-                <Route exact path = '/myPage' element = { <MyPage/> }/>
-                <Route exact path = '/userPage' element = { <UserPage/> }/>
-                <Route exact path = '/create' element = { <CreateDrawing/> }/>
-                <Route exact path = '/apitest' element = { <ApiTestPage/> }/>
+                <Route exact path="/login/oauth" element={<Login />} />
+                <Route exact path='/' element={<Start />} />
+                <Route element={<WithNav />}>
+                    <Route exact path="/join/:initialName" element={<Join />} />
+                    <Route exact path='/home' element={<Home />} />
+                    <Route exact path='/myPage' element={<MyPage />} />
+                    <Route exact path='/userPage' element={<UserPage />} />
+                    <Route exact path='/create' element={<CreateDrawing />} />
+                    <Route exact path='/apitest' element={<ApiTestPage />} />
+                </Route>
             </Routes>
         </Router>
     );
