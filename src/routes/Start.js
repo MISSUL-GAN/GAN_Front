@@ -8,12 +8,14 @@ function Start() {
     const dispatch = useDispatch();
 
     return (
-        <div className='background'>
-            <Link to='/home'>
-                <button type="button" className="startButton">
-                    <img src="/img/startButton.png" />
-                </button>
-            </Link>
+        <div className="background-repeat">
+            <div className='background'>
+                <Link to='/home'>
+                    {/* <button type="button" className="startButton">
+                        <img src="/img/startButton.png" />
+                    </button> */}
+                </Link>
+            </div>
         </div>
     );
 }
