@@ -585,9 +585,6 @@ function MyPage() {
 
     return (
         <>
-        { isLogin()
-        ?
-        <>
         <Navigation />
 
         <div id="my-page-content">
@@ -644,10 +641,6 @@ function MyPage() {
                 </div>
             </div>
         </div>
-        </>
-        :
-          block()
-        }
         </>
     );
 

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { clearToken } from "../util/tokenUtil";
 
 function Navigation() {
+    return <></>;
     const member = useSelector(state => state.member);
     const dispatch = useDispatch();
     const navigate = useNavigate();

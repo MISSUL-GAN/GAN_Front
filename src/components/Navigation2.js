@@ -43,18 +43,18 @@ function Navigation2() {
                 elevation={0}
                 style={{ borderBottom: "1px solid #E7E7E7" }}
             >
-                <Container maxWidth="xl">
+                <Container maxWidth="xl" disableGutters={true}>
                     <Toolbar>
-                        <Link to="/home"> <img id="logoImg" alt="" src="/img/naviLogo.png" /> </Link>
+                        <Link to="/home"><img style={{ width: "6rem" }} src="/img/naviLogo.png" alt="logo" /></Link>
                         <Box sx={{ flexGrow: 1 }}></Box>
                         <NavLink to="/create" className="navItem">GAN 사진 변환</NavLink>
                         <NavLink to="/home" className="navItem">미슐간</NavLink>
 
                         {member.signed
                             ? <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar src={member.profileImage} sx={{ width: 48, height: 48 }}/>
+                                <Avatar src={member.profileImage} sx={{ width: "4rem", height: "4rem" }} />
                             </IconButton>
-                            : <a className="navItem" onClick={openLoginAlert} href>로그인</a>
+                            : <button className="navItem" onClick={openLoginAlert}>로그인</button>
                         }
                         <Menu
                             sx={{ mt: '5px' }}
