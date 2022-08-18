@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import './UserDrawing.css';
 import { getAccessToken } from "../util/tokenUtil";
@@ -11,6 +11,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
+    const img = "https://api.missulgan.art:443/image/"+drawing.fileName;
 
     function clickImg() {
         const modal = document.getElementsByClassName("drawing-modal")[ind];
@@ -111,7 +112,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     return (
         <>
             <div className="imgwrapper">
-                <img src="/img/logo.png" alt=""/>
+                <img src={img} alt=""/>
 
                 <div className="shadow" onClick={clickImg} />
 
@@ -129,16 +130,16 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
             <div id="zoom-modal" className="drawing-modal">
                 <div className="drawing-modal-window">
-                    <div className="drawing-modal-left"> <img className="large-drawing" src="/img/logo.png" alt="" /> </div>
+                    <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
                     <div>
                         <p className="drawing-modal-close" onClick={clickClose}> x </p>
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
-                                    <img src="/img/logo.png" className="profileImg" width={50} height={50} alt=""/>
+                                    <img src={drawing.member.profileImage} className="profileImg" width={50} height={50} alt=""/>
                                     <p className="author">
-                                        {drawing.member.userNickname}
+                                        {drawing.member.name}
                                     </p>
                                 </div>
 
@@ -152,7 +153,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                             </div>
 
                             <div className="buttonBox">
-                                <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button> <a href={img} download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <button> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
                                 
                                 { mine &&
