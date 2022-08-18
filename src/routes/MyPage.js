@@ -5,9 +5,10 @@ import UserDrawing from '../routes/UserDrawing';
 import { useSelector } from 'react-redux';
 import './MyPage.css';
 import isLogin from "../isLogin";
+import { getAccessToken } from "../util/tokenUtil";
 
 function MyPage() {
-    const accessToken = useSelector(state => state.token.accessToken);
+    const accessToken = getAccessToken();
     const [option, setOption] = useState("my");
     const [testpic, setTestPic] = useState([
         {

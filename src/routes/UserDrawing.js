@@ -2,11 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import './UserDrawing.css';
+import { getAccessToken } from "../util/tokenUtil";
 
 function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
     const member = useSelector(state => state.member);
-    const accessToken = useSelector(state => state.token.accessToken);
+    const accessToken = getAccessToken();
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
