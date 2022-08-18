@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import './UserDrawing.css';
+import { getAccessToken } from "../util/tokenUtil";
 
 function UserDrawing({ ind, drawing, mine, clickDelete }) {
-    const user = useSelector(state => state);
+
+    const member = useSelector(state => state.member);
+    const accessToken = getAccessToken();
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
@@ -24,8 +27,8 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
 
     function clickLike() {
-        if(user.name !== null){
-            if(user.id === drawing.member.id)
+        if(member.signed){
+            if(member.id === drawing.member.id)
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
             
             else {
@@ -36,7 +39,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     
                     axios.post(`/heart/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
@@ -45,7 +48,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                     
                     axios.delete(`/heart/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
@@ -59,8 +62,8 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     }
 
     function clickBookmark() {
-        if (user.name !== null){
-            if(user.id === drawing.member.id)
+        if (member.signed){
+            if(member.id === drawing.member.id)
                 alert("본인이 만든 작품은 스크랩할 수 없습니다.");
 
             else {
@@ -71,7 +74,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     
                     axios.post(`/scrap/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }
@@ -80,7 +83,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     
                     axios.delete(`/scrap/${drawing.id}`, {
                         headers: {
-                          Authorization: `Bearer ${user.aToken}`,
+                          Authorization: `Bearer ${accessToken}`,
                         }
                     });
                 }

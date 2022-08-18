@@ -1,37 +1,33 @@
-import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setMember } from "../redux/memberReducer";
+import { getMember } from "../api/memberApi";
+import { saveToken } from '../util/tokenUtil';
+import { setAccessToken } from "../api/api";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-    let navigate = useNavigate();
+  const accessToken = new URL(window.location.href).searchParams.get("accessToken");
+  const refreshToken = new URL(window.location.href).searchParams.get("refreshToken");
+  const name = new URL(window.location.href).searchParams.get("name");
+  const isFirstTime = new URL(window.location.href).searchParams.get("firstTime");
 
-    let aToken = new URL(window.location.href).searchParams.get("accessToken");
-    let rToken = new URL(window.location.href).searchParams.get("refreshToken");
-    let name = new URL(window.location.href).searchParams.get("name");
-    let isFirstTime = new URL(window.location.href).searchParams.get("firstTime");
-
-    useEffect(() => {
-        axios.get("/member/me", {
-          headers: {
-            Authorization: `Bearer ${aToken}`,
-          },
-        })
-        .then(function (res) {
-          dispatch({ 
-            type : '로그인',
-            user : {id:res.data.id, name:res.data.name, accountEmail:res.data.accountEmail, profileImage:res.data.profileImage, aToken:aToken}
-          });
-
-          if(true) //isFirstTime 들어갈 자리
-            navigate('/join'); 
-
-          else 
-            navigate('/home'); 
-        });
-    }, []);
+  useEffect(() => {
+    const loginDispatch = (member) => dispatch(setMember(member));
+    setAccessToken(accessToken);
+    saveToken(accessToken, refreshToken);
+    getMember()
+      .then(data => {
+        loginDispatch(data);
+        if (isFirstTime === true)
+          navigate(`/join/${name}`);
+        else
+          navigate('/home');
+      });
+  }, [name, isFirstTime, accessToken, refreshToken, navigate, dispatch]);
 }
 
 export default Login;
