@@ -1,6 +1,6 @@
 const isLogin = () => {
-    const id = JSON.parse(JSON.parse(window.sessionStorage.getItem("persist:[object Object]")).member).id;
-    return id > 0 ? true : false;
+    const signed = JSON.parse(JSON.parse(window.localStorage.getItem("persist:root")).member).signed;
+    return signed;
 }
 
 export default isLogin;
