@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { getDrawing } from '../api/drawingApi';
-
 
 const DrawingRoute = () => {
     const navigate = useNavigate();
@@ -9,7 +8,7 @@ const DrawingRoute = () => {
     const [drawing, setDrawing] = useState(null);
 
     useEffect(() => {
-        const navigateToHome = () => navigate('/home');
+        const navigateToHome = () => navigate('..');
         getDrawing(drawingId)
             .then(res => setDrawing(res))
             .catch(navigateToHome)
@@ -18,7 +17,6 @@ const DrawingRoute = () => {
     return (
         <>
             <>{JSON.stringify(drawing)}</>
-            <Outlet />
         </>
     );
 };

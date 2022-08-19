@@ -4,6 +4,7 @@ import './Home.css';
 import Drawing from './Drawing';
 import axios from "axios";
 import { Container } from "@mui/system";
+import { Outlet } from "react-router-dom";
 
 function Home() {
     const [filter, setFilter] = useState("mostlike");
@@ -311,6 +312,7 @@ function Home() {
                     }
                 </div>
             </div>
+            <Outlet/>
         </>
     );
 }
