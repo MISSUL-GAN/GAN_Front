@@ -6,7 +6,7 @@ export const getScrap = async () => {
 }
 
 export const scrap = async (drawingId) => {
-    const response = await Axios.post(`/scrap/${drawingId}}`);
+    const response = await Axios.post(`/scrap/${drawingId}`);
     return response.data;
 }
 
