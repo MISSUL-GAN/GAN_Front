@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import { heart, unheart } from "../api/heartApi";
 import './UserDrawing.css';
 
-function UserDrawing({ ind, drawing, mine, clickDelete }) {
+function UserDrawing({ ind, drawing, mine, clickDelete, clickScrap }) {
 
     const member = useSelector(state => state.member);
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
-    const img = "https://api.missulgan.art:443/image/"+drawing.fileName;
+    const img = "https://api.missulgan.art/image/"+drawing.fileName;
 
     function clickImg() {
         const modal = document.getElementsByClassName("drawing-modal")[ind];
@@ -33,11 +33,11 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
             else {
                 if(!like){
                     drawing.heartCount++;
-                    //heart(drawing.id);
+                    heart(drawing.id);
                 }
                 else {
                     drawing.heartCount--;
-                    //unheart(drawing.id);
+                    unheart(drawing.id);
                 }
                 setLike(!like);
             }
@@ -59,9 +59,11 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
                 if(!bookmark){
                     drawing.scrapCount++;
+                    clickScrap(drawing.id);
                 }
                 else {
                     drawing.scrapCount--;
+                    clickDelete(drawing.id);
                 }
             }
         }
