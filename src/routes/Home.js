@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import './Home.css';
 import Drawing from './Drawing';
 import axios from "axios";
+import { Container } from "@mui/system";
 
 function Home() {
     const [filter, setFilter] = useState("mostlike");
