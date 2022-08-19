@@ -12,21 +12,21 @@ function Home() {
         {
           "createdAt": "2022-08-11 20:32:00",
           "description": "망고.. 맛있음",
-          "fileName": "filename1",
+          "fileName": "bafkreiet7ckxvbx4emxzujbsegjmma4rn56bwv2oexhhyu6pgiazz3qyqm",
           "id": 1,
           "member": {
             "accountEmail": "vipyoujin@daum.net",
             "id": 1,
             "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
-            "profileNickname": "유진",
+            "name": "유진",
             "userNickname": "작가1"
           },
-          "heartCount": 0,
+          "heartCount": 999,
           "nft": {
               "assetContractAddress": "string",
               "tokenId": "string"
             },
-          "scrapCount": 0,
+          "scrapCount": 254,
           "tags": [
             {
               "id": 1,

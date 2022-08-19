@@ -10,6 +10,7 @@ import CreateDrawing from '../routes/CreateDrawing';
 import ApiTestPage from "../routes/ApiTestPage";
 import WithNav from "./WithNav";
 import AuthRoute from "./AuthRoute";
+import DrawingRoute from "./DrawingRoute";
 
 function GalleryRouter() {
     return (
@@ -24,6 +25,7 @@ function GalleryRouter() {
                         <Route exact path='/myPage' element={<MyPage />} />
                         <Route exact path='/apitest' element={<ApiTestPage />} />
                     </Route>
+                    <Route exact path="/home/:drawingId" element={<DrawingRoute />} />
                     <Route exact path='/home' element={<Home />} />
                     <Route exact path='/userPage' element={<UserPage />} />
                 </Route>
