@@ -1,16 +1,15 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
+import { heart, unheart } from "../api/heartApi";
 import './UserDrawing.css';
-import { getAccessToken } from "../util/tokenUtil";
 
-function UserDrawing({ ind, drawing, mine, clickDelete }) {
+function UserDrawing({ ind, drawing, mine, clickDelete, clickScrap }) {
 
     const member = useSelector(state => state.member);
-    const accessToken = getAccessToken();
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [seeNFT, setSeeNFT] = useState(true);
+    const img = "https://api.missulgan.art/image/"+drawing.fileName;
 
     function clickImg() {
         const modal = document.getElementsByClassName("drawing-modal")[ind];
@@ -32,26 +31,15 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
             
             else {
-                setLike(!like);
-
                 if(!like){
                     drawing.heartCount++;
-    
-                    axios.post(`/heart/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    heart(drawing.id);
                 }
                 else {
                     drawing.heartCount--;
-                    
-                    axios.delete(`/heart/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    unheart(drawing.id);
                 }
+                setLike(!like);
             }
         }
         else {
@@ -71,21 +59,11 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
                 if(!bookmark){
                     drawing.scrapCount++;
-    
-                    axios.post(`/scrap/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    clickScrap(drawing.id);
                 }
                 else {
                     drawing.scrapCount--;
-    
-                    axios.delete(`/scrap/${drawing.id}`, {
-                        headers: {
-                          Authorization: `Bearer ${accessToken}`,
-                        }
-                    });
+                    clickDelete(drawing.id);
                 }
             }
         }
@@ -111,7 +89,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
     return (
         <>
             <div className="imgwrapper">
-                <img src="/img/logo.png" alt=""/>
+                <img src={img} alt=""/>
 
                 <div className="shadow" onClick={clickImg} />
 
@@ -129,16 +107,16 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
 
             <div id="zoom-modal" className="drawing-modal">
                 <div className="drawing-modal-window">
-                    <div className="drawing-modal-left"> <img className="large-drawing" src="/img/logo.png" alt="" /> </div>
+                    <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
                     <div>
                         <p className="drawing-modal-close" onClick={clickClose}> x </p>
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
-                                    <img src="/img/logo.png" className="profileImg" width={50} height={50} alt=""/>
+                                    <img src={drawing.member.profileImage} className="profileImg" width={50} height={50} alt=""/>
                                     <p className="author">
-                                        {drawing.member.userNickname}
+                                        {drawing.member.name}
                                     </p>
                                 </div>
 
@@ -152,7 +130,7 @@ function UserDrawing({ ind, drawing, mine, clickDelete }) {
                             </div>
 
                             <div className="buttonBox">
-                                <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button> <a href={img} download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <button> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
                                 
                                 { mine &&

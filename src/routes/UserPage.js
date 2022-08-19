@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
 import UserDrawing from "./UserDrawing";
+import { scrap, unscrap } from "../api/scrapApi";
 import './UserPage.css';
 
 function UserPage() {
@@ -14,7 +15,7 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
       "id": 1,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
@@ -44,7 +45,7 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
       "id": 2,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
@@ -74,7 +75,7 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
       "id": 3,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
@@ -104,8 +105,8 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
-      "id": 4,
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
+      "id": 400,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 4,
@@ -134,8 +135,8 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
-      "id": 5,
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
+      "id": 500,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 1,
@@ -164,8 +165,8 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
-      "id": 6,
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
+      "id": 600,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 6,
@@ -194,8 +195,8 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
-      "id": 7,
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
+      "id": 700,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 7,
@@ -224,8 +225,8 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
-      "id": 8,
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
+      "id": 800,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 7,
@@ -254,8 +255,8 @@ function UserPage() {
     {
       "createdAt": "2022-08-11 20:32:00",
       "description": "망고.. 맛있음",
-      "fileName": "filename1",
-      "id": 9,
+      "fileName": "bafkreiapdwp65rgye2f7isg4bg55mneudaouuuaugctw2qms2aqzr3eeii",
+      "id": 9000,
       "member": {
         "accountEmail": "vipyoujin@daum.net",
         "id": 7,
@@ -287,6 +288,14 @@ function UserPage() {
     // /drawing/{member.id} 요청해서 그 사용자의 그림 다 받아오기
   }, []);
 
+  const clickScrap = (id) => {
+    scrap(id);
+  }
+
+  const clickDelete = (id) => {
+    unscrap(id);
+  }
+
   return (
     <>
       <Navigation />
@@ -300,7 +309,7 @@ function UserPage() {
           <div id="drawingBox1">
             {
               testpic.slice(0, 4).map((element, index) =>
-                <UserDrawing key={element.id} ind={index} drawing={element} />
+                <UserDrawing key={element.id} ind={index} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap}/>
               )
             }
           </div>
@@ -308,7 +317,7 @@ function UserPage() {
           <div id="drawingBox2">
             {
               testpic.slice(4, 6).map((element, index) =>
-                <UserDrawing key={element.id} ind={index + 4} drawing={element} />
+                <UserDrawing key={element.id} ind={index + 4} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap}/>
               )
             }
           </div>
@@ -316,7 +325,7 @@ function UserPage() {
           <div id="drawingBox3">
             {
               testpic.slice(6,).map((element, index) =>
-                <UserDrawing key={element.id} ind={index + 6} drawing={element} />
+                <UserDrawing key={element.id} ind={index + 6} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap}/>
               )
             }
           </div>
