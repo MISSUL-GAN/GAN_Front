@@ -82,7 +82,7 @@
     overflow-x: scroll;
     margin-top: 1%;
     justify-content: space-between;
-    height: 55vh;
+    height: fit-content;
 }
 
 .img-thumbnail:hover {

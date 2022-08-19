@@ -260,6 +260,15 @@ function Home() {
         tagBox.forEach(tag => { if(tag.checked) console.log(tag.value); });
     }
 
+    window.onload = function(){
+      const div = document.getElementById("drawingBox");
+
+      div.addEventListener('wheel', (e) => {
+        const x = document.getElementById("drawingBox").scrollLeft;
+        document.getElementById("drawingBox").scrollTo(x + e.deltaY / 5, 0);
+      });
+    }
+
     return(
         <>
             <Navigation/>
@@ -301,7 +310,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className="drawingBox">
+                <div className="drawingBox" id="drawingBox">
                     {
                         testpic.map((element, index) => 
                             <div className="drawing-container">
