@@ -260,14 +260,14 @@ function Home() {
         tagBox.forEach(tag => { if(tag.checked) console.log(tag.value); });
     }
 
-    window.onload = function(){
+    useEffect(() => {
       const div = document.getElementById("drawingBox");
 
       div.addEventListener('wheel', (e) => {
         const x = document.getElementById("drawingBox").scrollLeft;
         document.getElementById("drawingBox").scrollTo(x + e.deltaY / 5, 0);
       });
-    }
+    }, []);
 
     return(
         <>
