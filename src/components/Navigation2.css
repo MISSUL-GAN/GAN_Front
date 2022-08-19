@@ -1,0 +1,29 @@
+.navItem:link {
+    color: #9F9F9F;
+    text-decoration: none;
+}
+
+.navItem:visited {
+    color: #9F9F9F;
+    text-decoration:none;
+}
+
+.navItem:hover {
+    color: #3C6B50;
+    text-decoration:none;
+}
+
+.navItem.active {
+    color: #3C6B50;
+    text-decoration:none;
+}
+
+.navItem {
+    margin-right: 2vw;
+    font-size: 1.1rem;
+    color: #9F9F9F;
+    text-decoration:none;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    width: fit-content;
+}

@@ -1,7 +1,6 @@
 import { Axios } from "./api";
 
 export const getMember = async () => {
-    console.log(Axios.defaults.headers);
     const response = await Axios.get('/member/me');
     return response.data;
 };

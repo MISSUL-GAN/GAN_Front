@@ -51,10 +51,7 @@ function MyPage() {
 
     return (
         <>
-            {isLogin()
-                ?
-                <>
-                    <Navigation />
+        <Navigation />
 
                     <div id="my-page-content">
                         <div id="tabBox">
@@ -101,28 +98,21 @@ function MyPage() {
                                         }
                                     </div>
 
-                                    <div id="drawingBox3">
-                                        {option === "my"
-                                            ?
-                                            mydrawing.slice(6,).map((element, index) =>
-                                                <UserDrawing key={element.id} ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete} />
-                                            )
-                                            :
-                                            myscrap.slice(6,).map((element, index) =>
-                                                <UserDrawing key={element.id} ind={index + 6} drawing={element} clickDelete={clickDelete}/>
-                                            )
-                                        }
-                                    </div>
-                                </>
+                <div id="drawingBox3">
+                    {option === "my"
+                        ?
+                        testpic.slice(6,).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete}/>
+                        )
+                        :
+                        testpic2.slice(6,).map((element, index) =>
+                            <UserDrawing key={element.id} ind={index + 6} drawing={element}/>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
 
-                            }
-
-                        </div>
-                    </div>
-                </>
-                :
-                block()
-            }
         </>
     );
 
