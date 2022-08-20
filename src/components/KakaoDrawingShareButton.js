@@ -1,14 +1,11 @@
 import React, { useEffect, useRef } from "react";
 
 const KakaoDrawingShareButton = ({ drawing }) => {
-    
     const shareBtn = useRef();
-
-    console.log(drawing);
 
     const createKakaoLink = (drawing) => {
         window.Kakao.Link.createCustomButton({
-            container: `#drawing-${drawing.id}`,
+            container: shareBtn.current,
             templateId: 80454,
             templateArgs: {
                 drawingId: drawing.id,
@@ -26,7 +23,7 @@ const KakaoDrawingShareButton = ({ drawing }) => {
     }, [drawing]);
 
     return (
-        <button className="kakao-share-btn" id={`drawing-${drawing.id}`}>
+        <button className="kakao-share-btn" ref={shareBtn}>
             <img src="/img/kakaoIcon.png" width="60px" alt="" />
         </button>
     );
