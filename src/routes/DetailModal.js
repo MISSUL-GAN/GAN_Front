@@ -5,12 +5,14 @@ import { useSelector } from "react-redux";
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 
-function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
+function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
 
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
+
+    const img = "https://api.missulgan.art/image/"+drawing.fileName;
 
     function clickClose() {
         handleDetailModalClose();
@@ -50,13 +52,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
                 if (!bookmark) {
                     drawing.scrapCount++;
-
                     scrap(drawing.id);
                 }
                 else {
                     drawing.scrapCount--;
-
-                    unscrap(drawing.id);
+                    if(home) unscrap(drawing.id);
+                    else {
+                        handleDetailModalClose();
+                        clickDelete(drawing.id);
+                    }
                 }
             }
         }
@@ -71,12 +75,17 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         let see = seeNFT ? "inline" : "none";
         NFTInfo.style.display = see;
     }
+    
+    function requestDelete() {
+        handleDetailModalClose();
+        clickDelete(drawing.id);
+    }
 
     return (
         <>
             <div id="modal" className="drawing-modal">
                 <div className="drawing-modal-window">
-                    <div className="drawing-modal-left"> <img className="large-drawing" src={drawing.member.profileImage} alt="" /> </div>
+                    <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
                     <div>
                         <p className="drawing-modal-close" onClick={clickClose}> x </p>
@@ -84,8 +93,8 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             <div>
                                 <div className="userInfo">
                                     <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50} />
-                                    <p className="author" onClick={() => { window.location.href = "/userPage?member=" + drawing.member.userNickname + "&img=" + drawing.member.profileImage + "&id=" + drawing.member.id }}>
-                                        {drawing.member.userNickname}
+                                    <p className="author" onClick={() => { window.location.href = "/userPage?member=" + drawing.member.name + "&img=" + drawing.member.profileImage + "&id=" + drawing.member.id }}>
+                                        {drawing.member.name}
                                     </p>
                                 </div>
 
@@ -101,6 +110,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             <div className="buttonBox">
                                 <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
+
+
+                                { !home && drawing.member.id === member.id &&
+                                    <>
+                                        <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                        <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                    </>
+
+                                }
 
                                 <button style={{
                                     backgroundColor: "#3C6B50",
@@ -132,6 +150,10 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
             </div>
         </>
     );
+}
+
+DetailModal.defaultProps = {
+    home: true
 }
 
 export default DetailModal;

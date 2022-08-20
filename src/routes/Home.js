@@ -29,7 +29,7 @@ function Home() {
         "id": 1,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가1"
+        "name": "작가1"
       },
       "heartCount": 0,
       "nft": {
@@ -59,7 +59,7 @@ function Home() {
         "id": 2,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가2"
+        "name": "작가2"
       },
       "heartCount": 0,
       "nft": {
@@ -89,7 +89,7 @@ function Home() {
         "id": 3,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가3"
+        "name": "작가3"
       },
       "heartCount": 0,
       "nft": {
@@ -119,7 +119,7 @@ function Home() {
         "id": 4,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가4"
+        "name": "작가4"
       },
       "heartCount": 0,
       "nft": {
@@ -149,7 +149,7 @@ function Home() {
         "id": 1,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가5"
+        "name": "작가5"
       },
       "heartCount": 0,
       "nft": {
@@ -179,7 +179,7 @@ function Home() {
         "id": 6,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가6"
+        "name": "작가6"
       },
       "heartCount": 0,
       "nft": {
@@ -209,7 +209,7 @@ function Home() {
         "id": 7,
         "profileImage": "http://k.kakaocdn.net/dn/ctWVgw/btrHSMftNhz/jlmr9WNt7eGbHqW9wcsPH0/img_640x640.jpg",
         "profileNickname": "유진",
-        "userNickname": "작가7"
+        "name": "작가7"
       },
       "heartCount": 0,
       "nft": {
