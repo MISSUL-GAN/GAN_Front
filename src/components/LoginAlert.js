@@ -6,7 +6,7 @@ const LoginAlert = (props) => {
     const clickAlertClose = () => props.handleLoginAlertClose();
 
     return (
-        <div id="alert-modal" className="warning-modal">
+        <div id="alert-modal1" className="warning-modal">
             <div className="warning-modal-window">
                 <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
                 <div className="alert-content">
