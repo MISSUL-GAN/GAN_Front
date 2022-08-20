@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 const KakaoDrawingShareButton = ({ drawing }) => {
+    
+    const shareBtn = useRef();
+
+    console.log(drawing);
 
     const createKakaoLink = (drawing) => {
         window.Kakao.Link.createCustomButton({
@@ -8,7 +12,6 @@ const KakaoDrawingShareButton = ({ drawing }) => {
             templateId: 80454,
             templateArgs: {
                 drawingId: drawing.id,
-                memberId: drawing.member.id,
                 drawingImage: `https://api.missulgan.art/image/${drawing.fileName}`,
                 title: drawing.title,
                 description: drawing.description,

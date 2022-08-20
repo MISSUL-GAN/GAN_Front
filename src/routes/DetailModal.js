@@ -3,6 +3,7 @@ import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
 import './DetailModal.css';
+import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -99,7 +100,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
                             <div className="buttonBox">
                                 <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
+                                <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
                                 <button style={{
                                     backgroundColor: "#3C6B50",

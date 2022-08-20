@@ -12,7 +12,7 @@ function Home() {
   const [target, setTarget] = useState();
   const [detailModalExpanded, setDetailModalExpanded] = useState(false);
   const handleDetailModalClose = () => { setDetailModalExpanded(false) };
-  const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); }
+  const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); /* navigate(`${drawing.id}`) */ }
 
   const [loginAlertExpanded, setLoginAlertExpanded] = useState(false);
   const handleLoginAlertClose = () => setLoginAlertExpanded(false);
