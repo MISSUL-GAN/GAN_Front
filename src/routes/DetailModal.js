@@ -111,7 +111,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                                 <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
 
 
-                                { drawing.member.id === member.id &&
+                                { !home && drawing.member.id === member.id &&
                                     <>
                                         <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
                                         <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
