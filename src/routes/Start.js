@@ -30,18 +30,3 @@ function Start() {
 }
 
 export default Start;
-
-/*                    <img src="img/start-logo.png" id="logo"/>
-                    <img src="img/start-description.png" id="description"/>
-
-                <img src="img/start-image.png" id="image"/>
-
-            <div className='background'/>
-
-                <Link to='/home'>
-                    <button type="button" className="startButton">
-                        <img src="/img/startButton.png" />
-                    </button> 
-                </Link>
-
-*/
