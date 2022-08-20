@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
-import LoginAlert from "../components/LoginAlert";
 import './DetailModal.css';
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {

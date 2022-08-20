@@ -4,14 +4,14 @@ import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import './Drawing.css';
 
-function Drawing({ ind, drawing, openDetailModal, openLoginAlert }){
+function Drawing({ drawing, openDetailModal, openLoginAlert }){
     const member = useSelector(state => state.member);
 
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
     function clickImg(){
-        openDetailModal(ind);
+        openDetailModal(drawing);
     }
 
     function clickLike() {

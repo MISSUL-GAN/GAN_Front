@@ -8,10 +8,10 @@ import { Container } from "@mui/system";
 function Home() {
   const [filter, setFilter] = useState("mostlike");
 
-  const [target, setTarget] = useState(-1);
+  const [target, setTarget] = useState();
   const [detailModalExpanded, setDetailModalExpanded] = useState(false);
   const handleDetailModalClose = () => { setDetailModalExpanded(false) };
-  const openDetailModal = (ind) => { setTarget(ind); setDetailModalExpanded(true); }
+  const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); }
 
   const [loginAlertExpanded, setLoginAlertExpanded] = useState(false);
   const handleLoginAlertClose = () => setLoginAlertExpanded(false);
@@ -303,15 +303,15 @@ function Home() {
 
       <div className="drawingBox">
         {
-          testpic.map((element, index) =>
+          testpic.map((element) =>
             <div className="drawing-container">
-              <Drawing key={element.id} ind={index} drawing={element} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert}/>
+              <Drawing key={element.id} drawing={element} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert}/>
             </div>
           )
         }
       </div>
 
-      { detailModalExpanded && <DetailModal drawing={testpic[target]} handleDetailModalClose={handleDetailModalClose} openLoginAlert={openLoginAlert} /> }
+      { detailModalExpanded && <DetailModal drawing={target} handleDetailModalClose={handleDetailModalClose} openLoginAlert={openLoginAlert} /> }
 
       { loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} /> }
     </div>
