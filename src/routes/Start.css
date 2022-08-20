@@ -64,9 +64,10 @@
 }
 
 #content-box > #leftBox > a > button {
+    min-width: 80px;
     width: 22%;
-    border: none;
     background-color: rgb(0,0,0,0);
+    border: none;
     margin-top: 5%;
 }
 
