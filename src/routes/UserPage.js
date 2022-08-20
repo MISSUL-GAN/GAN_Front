@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Navigation from "../components/Navigation";
 import UserDrawing from "./UserDrawing";
 import { scrap, unscrap } from "../api/scrapApi";
 import './UserPage.css';
@@ -298,8 +297,6 @@ function UserPage() {
 
   return (
     <>
-      <Navigation />
-
       <div id="page-content">
         <div> <img src={member.img} alt="" /> </div>
         <div> {member.nick} </div>

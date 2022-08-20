@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Navigation from "../components/Navigation";
 import { useSelector, useDispatch } from 'react-redux';
 import './Join.css';
 import { useParams } from "react-router-dom";
@@ -65,8 +64,6 @@ function Join() {
 
     return(
         <>
-        <Navigation />
-
         <div className="page-content">
             <img className="logo" src="/img/textLogo2.png" width={200} alt=""/>
 
