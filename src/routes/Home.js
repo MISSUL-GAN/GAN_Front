@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router';
 import './Home.css';
 import Drawing from './Drawing';
 import DetailModal from "./DetailModal";
@@ -7,12 +8,11 @@ import { Container } from "@mui/system";
 import { Outlet } from "react-router-dom";
 
 function Home() {
-  const [filter, setFilter] = useState("mostlike");
+  const navigate = useNavigate();
 
-  const [target, setTarget] = useState();
-  const [detailModalExpanded, setDetailModalExpanded] = useState(false);
-  const handleDetailModalClose = () => { setDetailModalExpanded(false) };
-  const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); /* navigate(`${drawing.id}`) */ }
+  const [filter, setFilter] = useState("mostlike");
+  
+  const openDetailModal = (drawing) => { navigate(`${drawing.id}`) };
 
   const [loginAlertExpanded, setLoginAlertExpanded] = useState(false);
   const handleLoginAlertClose = () => setLoginAlertExpanded(false);
@@ -311,8 +311,6 @@ function Home() {
           )
         }
       </div>
-
-      { detailModalExpanded && <DetailModal drawing={target} handleDetailModalClose={handleDetailModalClose} openLoginAlert={openLoginAlert} /> }
 
       { loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} /> }
       <Outlet/>
