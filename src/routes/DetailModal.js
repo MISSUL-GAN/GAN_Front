@@ -4,7 +4,7 @@ import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
 import './DetailModal.css';
 
-function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
+function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
 
     const [like, setLike] = useState(false);
@@ -51,13 +51,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
                 if (!bookmark) {
                     drawing.scrapCount++;
-
                     scrap(drawing.id);
                 }
                 else {
                     drawing.scrapCount--;
-
-                    unscrap(drawing.id);
+                    if(home) unscrap(drawing.id);
+                    else {
+                        handleDetailModalClose();
+                        clickDelete(drawing.id);
+                    }
                 }
             }
         }
@@ -72,6 +74,11 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         let see = seeNFT ? "inline" : "none";
         NFTInfo.style.display = see;
     }
+    
+    function requestDelete() {
+        handleDetailModalClose();
+        clickDelete(drawing.id);
+    }
 
     return (
         <>
@@ -85,8 +92,8 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             <div>
                                 <div className="userInfo">
                                     <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50} />
-                                    <p className="author" onClick={() => { window.location.href = "/userPage?member=" + drawing.member.userNickname + "&img=" + drawing.member.profileImage + "&id=" + drawing.member.id }}>
-                                        {drawing.member.userNickname}
+                                    <p className="author" onClick={() => { window.location.href = "/userPage?member=" + drawing.member.name + "&img=" + drawing.member.profileImage + "&id=" + drawing.member.id }}>
+                                        {drawing.member.name}
                                     </p>
                                 </div>
 
@@ -102,6 +109,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             <div className="buttonBox">
                                 <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <img src="/img/kakaoIcon.png" width="60px" alt="" /> </button>
+
+
+                                { drawing.member.id === member.id &&
+                                    <>
+                                        <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                        <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                    </>
+
+                                }
 
                                 <button style={{
                                     backgroundColor: "#3C6B50",
@@ -133,6 +149,10 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
             </div>
         </>
     );
+}
+
+DetailModal.defaultProps = {
+    home: true
 }
 
 export default DetailModal;

@@ -16,12 +16,12 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
     }
 
     function clickLike() {
-        if(member.signed){
-            if(member.id === drawing.member.id)
+        if (member.signed) {
+            if (mine)
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
-            
+
             else {
-                if(!like){
+                if (!like) {
                     drawing.heartCount++;
                     heart(drawing.id);
                 }
@@ -38,14 +38,14 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
     }
 
     function clickBookmark() {
-        if (member.signed){
-            if(member.id === drawing.member.id)
+        if (member.signed) {
+            if (mine)
                 alert("본인이 만든 작품은 스크랩할 수 없습니다.");
 
             else {
                 setBookmark(!bookmark);
 
-                if(!bookmark){
+                if (!bookmark) {
                     drawing.scrapCount++;
                     clickScrap(drawing.id);
                 }
@@ -67,17 +67,22 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
     return (
         <>
             <div className="imgwrapper">
-                <img src={img} alt=""/>
+                <img src={img} alt="" />
 
                 <div className="shadow" onClick={clickImg} />
 
-                { mine && <button id="delete" onClick={requestDelete}> <img src="/img/deleteIcon.png" width={28} alt="" /> </button> }
-                
+                {mine && <button id="delete" onClick={requestDelete}> <img src="/img/deleteIcon.png" width={28} alt="" /> </button>}
+
                 <div className="titleBox">
                     <p className="titleText"> {drawing.title} </p>
                     <div>
-                        <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/whiteLike.png"} width={32} alt="" /> </button>
-                        { !mine && <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/whiteBookmark.png"} width={28} alt="" /> </button> }
+                        {!mine &&
+                            <>
+                                <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/whiteLike.png"} width={32} alt="" /> </button>
+                                <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/whiteBookmark.png"} width={28} alt="" /> </button>
+                            </>
+
+                        }
                     </div>
                 </div>
             </div>
