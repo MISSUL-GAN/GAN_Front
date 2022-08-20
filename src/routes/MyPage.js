@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getDrawings, deleteDrawing } from "../api/drawingApi";
 import { getScrap, unscrap } from "../api/scrapApi";
-import Navigation from "../components/Navigation";
 import UserDrawing from '../routes/UserDrawing';
 import './MyPage.css';
 
