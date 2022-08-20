@@ -11,6 +11,8 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
 
+    const img = "https://api.missulgan.art/image/"+drawing.fileName;
+
     function clickClose() {
         handleDetailModalClose();
     }
@@ -75,7 +77,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         <>
             <div id="modal" className="drawing-modal">
                 <div className="drawing-modal-window">
-                    <div className="drawing-modal-left"> <img className="large-drawing" src={drawing.member.profileImage} alt="" /> </div>
+                    <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
                     <div>
                         <p className="drawing-modal-close" onClick={clickClose}> x </p>
