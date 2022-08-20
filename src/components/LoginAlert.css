@@ -1,4 +1,4 @@
-#alert-modal.warning-modal {
+#alert-modal1.warning-modal {
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -13,24 +13,62 @@
     z-index: 100;
 }
 
-#alert-modal .warning-modal-window {
+#alert-modal1 .warning-modal-window {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 0px 10px 40px 10px;
 }
 
-#alert-modal .warning-modal-window .alert-content {
+#alert-modal1 .warning-modal-window .alert-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#alert-modal .warning-modal-close {
+#alert-modal1 .warning-modal-close {
     width: fit-content;
     height: auto;
     font-size: 20px;
     margin-left: 400px;
 }
 
+#alert-modal1 .warning-modal-close {
+    width: fit-content;
+    height: auto;
+    font-size: 20px;
+    margin-left: 400px;
+}
 
+#alert-modal1 .warning-modal-window .alert-content >:nth-child(2) {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#alert-modal1 .warning-modal-window .alert-content >:nth-child(3) {
+    width: 82%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#kakaoLogin, #googleLogin, #naverLogin{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#kakaoLogin { 
+    background: #FAE100;
+}
+
+#naverLogin{
+    background: #53B434;
+}
+
+#alert-modal1 .warning-modal-window .alert-content >:nth-child(2) > button  > img{
+    width: 35%;
+}

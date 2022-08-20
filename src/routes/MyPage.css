@@ -50,6 +50,12 @@
     justify-content: space-between;
 }
 
+#drawing-container #nodrawing {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+}
+
 #drawingBox1 { width: 23%; }
 #drawingBox1 > div > img { width: 100%; }
 
