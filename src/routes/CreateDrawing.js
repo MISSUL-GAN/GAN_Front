@@ -33,7 +33,7 @@ function CreateDrawing() {
         { name: "우키요에", tagId: 11 },
     ];
     const lookForOriginImage = () => originImage.current.click();
-    const lookForStyleImage = (e) => { styleImage.current.click(); e.preventDefault() }
+    const lookForStyleImage = (e) => { styleImage.current.click(); }
 
     const originImageChanged = () => {
         if (originImage.current.files.length > 0) {
@@ -64,7 +64,7 @@ function CreateDrawing() {
     const isReady = () => isAgreed && originImageFile && style && ((style !== 'cnn') || (style === 'cnn' && styleImageFile));
 
     return (
-        <Grow direction="left" in mountOnEnter unmountOnExit>
+        <Grow in mountOnEnter unmountOnExit>
             <Grid container spacing={4} sx={{ mt: 1 }}>
                 <Grid item xs={12} md={6}>
                     <div className="uploadImage">
@@ -83,13 +83,12 @@ function CreateDrawing() {
                     <Grid item>
                         <div className="create-option">
                             <p> 원하는 화풍을 선택해주세요 </p>
-
-                            <form ref={styleForm} onChange={selectStyle} onSubmit={e => e.preventDefault()}>
+                            <form ref={styleForm} onReset={clearStyle} onChange={selectStyle}>
                                 <div className="styles">
                                     {styles.map(style =>
-                                        <label key={style.tagId}>
-                                            <input type="radio" value={style.tagId} name="style" disabled={isGANDisabled} />
-                                            <div className="styleButton">{style.name}</div>
+                                        <label key={style.tagId} >
+                                            <input type="radio" value={style.tagId} name="style" disabled={isGANDisabled} onClick={selectStyle}/>
+                                            <div className="styleButton" >{style.name}</div>
                                         </label>
                                     )}
                                 </div>
