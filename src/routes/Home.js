@@ -2,20 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from 'react-router';
 import './Home.css';
 import Drawing from './Drawing';
-import DetailModal from "./DetailModal";
 import LoginAlert from "../components/LoginAlert";
 import { Container } from "@mui/system";
 import { Outlet } from "react-router-dom";
 
 function Home() {
-    const [filter, setFilter] = useState("mostlike");
+  const [filter, setFilter] = useState("mostlike");
 
-    const scrollRef = useRef();
+  const scrollRef = useRef();
 
   const navigate = useNavigate();
 
-  const [filter, setFilter] = useState("mostlike");
-  
   const openDetailModal = (drawing) => { navigate(`${drawing.id}`) };
 
   const [loginAlertExpanded, setLoginAlertExpanded] = useState(false);
@@ -235,10 +232,6 @@ function Home() {
     }
   ];
 
-  useEffect(() => {
-    document.getElementById("mostlike").style.color = "#3C6B50";
-  }, []);
-
   const changeFilter = (e) => {
     if (e.target.value === "mostlike") {
       document.getElementById(e.target.value).style.color = "#3C6B50";
@@ -266,13 +259,15 @@ function Home() {
     const tagBox = document.getElementsByName("tagBox");
     tagBox.forEach(tag => { if (tag.checked) console.log(tag.value); });
   }
-  
-    useEffect(() => {
-      scrollRef.current.addEventListener('wheel', (e) => {
-        const x = scrollRef.current.scrollLeft;
-        scrollRef.current.scrollTo(x + e.deltaY / 5, 0);
-      });
-    }, []);
+
+  useEffect(() => {
+    document.getElementById("mostlike").style.color = "#3C6B50";
+
+    scrollRef.current.addEventListener('wheel', (e) => {
+      const x = scrollRef.current.scrollLeft;
+      scrollRef.current.scrollTo(x + e.deltaY / 5, 0);
+    });
+  }, []);
 
   return (
     <div className="homecontainer">
@@ -312,19 +307,19 @@ function Home() {
         </div>
       </div>
 
-
-      <div className="drawingBox">
+      <div className="drawingBox" ref={scrollRef}>
         {
           testpic.map((element) =>
-            <div className="drawing-container">
-              <Drawing key={element.id} drawing={element} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert}/>
+            <div className="drawing-container" ref={scrollRef}>
+              <Drawing key={element.id} drawing={element} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
             </div>
           )
         }
       </div>
 
-      { loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} /> }
-      <Outlet/>
+      {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
+
+      <Outlet />
     </div>
   );
 }
