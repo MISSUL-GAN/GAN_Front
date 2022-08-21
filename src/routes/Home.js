@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Navigation from "../components/Navigation";
 import './Home.css';
 import Drawing from './Drawing';
@@ -7,6 +7,8 @@ import { Container } from "@mui/system";
 
 function Home() {
     const [filter, setFilter] = useState("mostlike");
+
+    const scrollRef = useRef();
     
     let testpic = [
         {
@@ -261,11 +263,9 @@ function Home() {
     }
 
     useEffect(() => {
-      const div = document.getElementById("drawingBox");
-
-      div.addEventListener('wheel', (e) => {
-        const x = document.getElementById("drawingBox").scrollLeft;
-        document.getElementById("drawingBox").scrollTo(x + e.deltaY / 5, 0);
+      scrollRef.current.addEventListener('wheel', (e) => {
+        const x = scrollRef.current.scrollLeft;
+        scrollRef.current.scrollTo(x + e.deltaY / 5, 0);
       });
     }, []);
 
@@ -310,7 +310,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className="drawingBox" id="drawingBox">
+                <div className="drawingBox" id="drawingBox" ref={scrollRef}>
                     {
                         testpic.map((element, index) => 
                             <div className="drawing-container">
