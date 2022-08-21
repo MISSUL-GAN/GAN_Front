@@ -1,17 +1,13 @@
 import React from "react";
 
-const KakaoDrawingShareButton = ({ drawing }) => {
-
+const KakaoImageShareButton = ({ drawing }) => {
     const sendShare = (drawing) => {
-        window.Kakao.Link.sendCustom({
-            templateId: 80454,
+        window.Kakao.Share.sendCustom({
+            templateId: 81803,
             templateArgs: {
-                drawingId: drawing.id,
-                drawingImage: `https://api.missulgan.art/image/${drawing.fileName}`,
                 title: drawing.title,
                 description: drawing.description,
-                heartCount: drawing.heartCount,
-                scrapCount: drawing.scrapCount
+                imageUrl: `https://api.missulgan.art/image/${drawing.fileName}`
             }
         });
     };
@@ -27,4 +23,4 @@ const KakaoDrawingShareButton = ({ drawing }) => {
     );
 };
 
-export default KakaoDrawingShareButton;
+export default KakaoImageShareButton;
