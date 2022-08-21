@@ -10,7 +10,6 @@ const CreateRoute = () => {
         // const { fileName } = await convertImage(originImage, styleImage, tag);
         // setConvertedImage(fileName);
         const fileName = "bafkreia2a24w552huefobv5q6dm7erxsnm4ohczochh5wsz6ijfto5mxiu";
-        console.log(originImage, styleImage, tag);
         setConvertedImage(fileName);
     };
 
