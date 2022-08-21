@@ -1,8 +1,5 @@
 import React, { useState, useRef } from "react";
-import Navigation from "../components/Navigation";
-import { useSelector } from 'react-redux';
 import axios from "axios";
-import isLogin from "../isLogin";
 import { getAccessToken } from "../util/tokenUtil";
 import './CreateDrawing.css';
 
@@ -213,8 +210,6 @@ function CreateDrawing() {
 
     return (
         <>
-            <Navigation />
-
             <div className="logo"> <img src="/img/textLogo.png" alt="" /> </div>
 
             <div className="create-page-content">

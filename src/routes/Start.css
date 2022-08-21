@@ -1,22 +1,84 @@
 .background{
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0.3)
-    ), url(../../public/img/ponyo023.jpg);
-
-    background-repeat: no-repeat;
-    background-position-x: center;
-    height: 100vh;
-    width: 100vw;
+    background: url(../../public/img/start-background.png);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
+
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* 
+(1) 이거 없으면 자글자글이 너무 커짐 
 
-.display-4, .lead {
-    text-align: center;
+(2) 이거 없으면 흰 여백 생김 
+-> 문제!! min-width 이하로 내려가면 갑자기 세로 스크롤이 잡힘
+
+(3) 요소들 화면 센터 정렬때문에
+
+(4) 브라우저 화면에서 창 크기에 반응하되 - 일정크기 이하로 줄어들지 않게 하고 싶어서
+(단, 모바일 화면에선 이게 없어야함 -> 미디어 쿼리를 써보자,,,,)
+*/
+
+@media (min-width:1281px)  {
+    .background {
+        min-width: 1600px;
+        min-height: 900px;
+    }
 }
 
-.goHome {
-    text-align: center;
-    font-size: 30pt;
+#content-box {
+    height: 95%;
+    width: 80%;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#content-box > div {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#content-box > #leftBox {
+    width: 58%;
+}
+
+#content-box > #leftBox > #logo {
+    width:  100%;
+}
+
+#content-box > #leftBox > #description {
+    width:  85%;
+}
+
+#content-box > #leftBox > #description {
+    width:  85%;
+}
+
+#content-box > #leftBox > a > button {
+    min-width: 80px;
+    width: 22%;
+    background-color: rgb(0,0,0,0);
+    border: none;
+    margin-top: 5%;
+}
+
+#content-box > #leftBox > a > button > #start-button {
+    width: 100%;
+}
+
+#content-box > #rightBox {
+    width: 41%;
+}
+
+#content-box > #rightBox > img{
+    width:  100%;
 }

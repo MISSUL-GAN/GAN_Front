@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import Navigation from "../components/Navigation";
+import React, { useEffect, useState } from "react";
 import UserDrawing from "./UserDrawing";
 import { scrap, unscrap } from "../api/scrapApi";
+import DetailModal from "./DetailModal";
+import LoginAlert from "../components/LoginAlert";
 import './UserPage.css';
 
 function UserPage() {
@@ -284,6 +285,15 @@ function UserPage() {
     }
   ];
 
+  const [target, setTarget] = useState();
+  const [detailModalExpanded, setDetailModalExpanded] = useState(false);
+  const handleDetailModalClose = () => { setDetailModalExpanded(false) };
+  const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); }
+
+  const [loginAlertExpanded, setLoginAlertExpanded] = useState(false);
+  const handleLoginAlertClose = () => setLoginAlertExpanded(false);
+  const openLoginAlert = () => { setLoginAlertExpanded(true); }
+
   useEffect(() => {
     // /drawing/{member.id} 요청해서 그 사용자의 그림 다 받아오기
   }, []);
@@ -298,8 +308,6 @@ function UserPage() {
 
   return (
     <>
-      <Navigation />
-
       <div id="page-content">
         <div> <img src={member.img} alt="" /> </div>
         <div> {member.nick} </div>
@@ -308,28 +316,32 @@ function UserPage() {
         <div id="drawing-container">
           <div id="drawingBox1">
             {
-              testpic.slice(0, 4).map((element, index) =>
-                <UserDrawing key={element.id} ind={index} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap}/>
+              testpic.slice(0, 4).map((element) =>
+                <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
               )
             }
           </div>
 
           <div id="drawingBox2">
             {
-              testpic.slice(4, 6).map((element, index) =>
-                <UserDrawing key={element.id} ind={index + 4} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap}/>
+              testpic.slice(4, 6).map((element) =>
+                <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
               )
             }
           </div>
 
           <div id="drawingBox3">
             {
-              testpic.slice(6,).map((element, index) =>
-                <UserDrawing key={element.id} ind={index + 6} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap}/>
+              testpic.slice(6,).map((element) =>
+                <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
               )
             }
           </div>
         </div>
+
+        {detailModalExpanded && <DetailModal drawing={target} handleDetailModalClose={handleDetailModalClose} openLoginAlert={openLoginAlert} />}
+
+        {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
       </div>
     </>
   );

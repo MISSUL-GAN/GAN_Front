@@ -14,3 +14,8 @@ export const deleteDrawing = async (drawingId) => {
     const response = await Axios.delete(`/drawing/${drawingId}`);
     return response.data;
 }
+
+export const getDrawing = async (drawingId) => {
+    const response = await Axios.get(`/drawing/${drawingId}`);
+    return response.data;
+}

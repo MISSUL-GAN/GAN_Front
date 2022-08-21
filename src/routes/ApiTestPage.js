@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Navigation from "../components/Navigation";
 import { uploadImage } from '../api/imageApi';
 import { getDrawings, addDrawing } from '../api/drawingApi';
 import { getMember, getName, setName } from '../api/memberApi';
@@ -13,7 +12,6 @@ function ApiTestPage() {
     const [tagIds, setTags] = useState([1, 2, 3]);
     return (
         <div>
-            <Navigation />
             <div className="container">
                 <div className="card" style={{ minHeight: "400px" }}>
                     <div className="card-body">

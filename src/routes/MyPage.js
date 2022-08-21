@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getDrawings, deleteDrawing } from "../api/drawingApi";
-import { getScrap, unscrap } from "../api/scrapApi";
-import Navigation from "../components/Navigation";
+import { getScrap, scrap, unscrap } from "../api/scrapApi";
 import UserDrawing from '../routes/UserDrawing';
+import DetailModal from "./DetailModal";
 import './MyPage.css';
 
 function MyPage() {
     const [option, setOption] = useState("my");
     const [mydrawing, setMyDrawing] = useState([]);
     const [myscrap, setMyScrap] = useState([]);
+
+    const [target, setTarget] = useState();
+    const [detailModalExpanded, setDetailModalExpanded] = useState(false);
+    const handleDetailModalClose = () => { setDetailModalExpanded(false) };
+    const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); }
 
     useEffect(() => {
         async function getMyPageDrawings() {
@@ -43,73 +48,80 @@ function MyPage() {
         }
     }
 
-    const block = () => {
-        alert("정상적이지 않은 접근입니다.");
-        window.location.href = '/home';
+    const clickScrap = (id) => {
+        scrap(id);
+    }
+
+    const clickUnscrap = (id) => {
+        unscrap(id);
     }
 
     return (
-        <div id="my-page-content">
-            <div id="tabBox">
-                <button id="my" onClick={clickOption}>
-                    내 작품
-                    <hr />
-                </button>
+        <>
+            <div id="my-page-content">
+                <div id="tabBox">
+                    <button id="my" onClick={clickOption}>
+                        내 작품
+                        <hr />
+                    </button>
 
-                <button id="bookmark" onClick={clickOption}>
-                    스크랩한 작품
-                    <hr />
-                </button>
+                    <button id="bookmark" onClick={clickOption}>
+                        스크랩한 작품
+                        <hr />
+                    </button>
+                </div>
+
+                <div id="drawing-container">
+                    {mydrawing.length === 0
+                        ?
+                        <p id="nodrawing"> 아직 작품이 존재하지 않습니다. </p>
+                        :
+                        <>
+                            <div id="drawingBox1">
+                                {option === "my"
+                                    ?
+                                    mydrawing.slice(0, 4).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} mine={true} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
+                                    )
+                                    :
+                                    myscrap.slice(0, 4).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                    )
+                                }
+                            </div>
+
+                            <div id="drawingBox2">
+                                {option === "my"
+                                    ?
+                                    mydrawing.slice(4, 6).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} mine={true} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
+                                    )
+                                    :
+                                    myscrap.slice(4, 6).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                    )
+                                }
+                            </div>
+
+                            <div id="drawingBox3">
+                                {option === "my"
+                                    ?
+                                    mydrawing.slice(6,).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} mine={true} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
+                                    )
+                                    :
+                                    myscrap.slice(6,).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                    )
+                                }
+                            </div>
+                        </>
+                    }
+                </div>
             </div>
 
-            <div id="drawing-container">
-                {mydrawing.length === 0
-                    ?
-                    <p id="nodrawing"> 아직 작품이 존재하지 않습니다. </p>
-                    :
-                    <>
-                        <div id="drawingBox1">
-                            {option === "my"
-                                ?
-                                mydrawing.slice(0, 4).map((element, index) =>
-                                    <UserDrawing key={element.id} ind={index} drawing={element} mine={true} clickDelete={clickDelete} />
-                                )
-                                :
-                                myscrap.slice(0, 4).map((element, index) =>
-                                    <UserDrawing key={element.id} ind={index} drawing={element} clickDelete={clickDelete} />
-                                )
-                            }
-                        </div>
-
-                        <div id="drawingBox2">
-                            {option === "my"
-                                ?
-                                mydrawing.slice(4, 6).map((element, index) =>
-                                    <UserDrawing key={element.id} ind={index + 4} drawing={element} mine={true} clickDelete={clickDelete} />
-                                )
-                                :
-                                myscrap.slice(4, 6).map((element, index) =>
-                                    <UserDrawing key={element.id} ind={index + 4} drawing={element} clickDelete={clickDelete} />
-                                )
-                            }
-                        </div>
-
-                        <div id="drawingBox3">
-                            {option === "my"
-                                ?
-                                mydrawing.slice(6,).map((element, index) =>
-                                    <UserDrawing key={element.id} ind={index + 6} drawing={element} mine={true} clickDelete={clickDelete} />
-                                )
-                                :
-                                myscrap.slice(6,).map((element, index) =>
-                                    <UserDrawing key={element.id} ind={index + 6} drawing={element} />
-                                )
-                            }
-                        </div>
-                    </>
-                }
-            </div>
-        </div>
+            {detailModalExpanded && <DetailModal drawing={target} home={false} clickDelete={clickDelete} handleDetailModalClose={handleDetailModalClose} />}
+        </>
     );
 }
 
