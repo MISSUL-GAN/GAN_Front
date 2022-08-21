@@ -103,3 +103,8 @@
 #modal .NFTBox {
     display: none;
 }
+
+#modal .kakao-share-btn {
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
+}
