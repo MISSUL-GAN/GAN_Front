@@ -42,6 +42,7 @@ function UserPage() {
     unscrap(id);
   }
 
+  const outletContext = { home: false };
   return (
     <>
       <div id="page-content">
@@ -77,7 +78,7 @@ function UserPage() {
 
         {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
 
-        <Outlet />
+        <Outlet context={outletContext}/>
       </div>
     </>
   );
