@@ -19,8 +19,9 @@ function CreateDrawing() {
     const [originImageSrc, setOriginImageSrc] = useState(null);
     const [styleImageFile, setStyleImageFile] = useState(null);
 
-    const { convert } = useOutletContext();
+    const { setPresetTagId, convert } = useOutletContext();
     const convertImage = () => {
+        setPresetTagId(style)
         convert(originImageFile, styleImageFile, style);
         navigateToSave();
     }
@@ -87,7 +88,7 @@ function CreateDrawing() {
                                 <div className="styles">
                                     {styles.map(style =>
                                         <label key={style.tagId} >
-                                            <input type="radio" value={style.tagId} name="style" disabled={isGANDisabled} onClick={selectStyle}/>
+                                            <input type="radio" value={style.tagId} name="style" disabled={isGANDisabled} onClick={selectStyle} />
                                             <div className="styleButton" >{style.name}</div>
                                         </label>
                                     )}
