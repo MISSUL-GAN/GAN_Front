@@ -264,6 +264,7 @@ function Home() {
     document.getElementById("mostlike").style.color = "#3C6B50";
 
     scrollRef.current.addEventListener('wheel', (e) => {
+      e.preventDefault();
       const x = scrollRef.current.scrollLeft;
       scrollRef.current.scrollTo(x + e.deltaY / 5, 0);
     });
