@@ -3,9 +3,8 @@ import UserDrawing from "./UserDrawing";
 import { scrap, unscrap } from "../api/scrapApi";
 import { getMemberDrawings } from "../api/drawingApi";
 import { getMemberInfo } from "../api/memberApi";
-import DetailModal from "./DetailModal";
 import LoginAlert from "../components/LoginAlert";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Outlet } from "react-router-dom";
 import './UserPage.css';
 
 function UserPage() {
@@ -15,10 +14,9 @@ function UserPage() {
   const profileImgRef = useRef();
   const nameRef = useRef();
 
-  const [target, setTarget] = useState();
-  const [detailModalExpanded, setDetailModalExpanded] = useState(false);
-  const handleDetailModalClose = () => { setDetailModalExpanded(false) };
-  const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); }
+  const navigate = useNavigate();
+
+  const openDetailModal = (drawing) => { navigate(`${drawing.id}`) }
 
   const [loginAlertExpanded, setLoginAlertExpanded] = useState(false);
   const handleLoginAlertClose = () => setLoginAlertExpanded(false);
@@ -77,9 +75,9 @@ function UserPage() {
           </div>
         </div>
 
-        {detailModalExpanded && <DetailModal drawing={target} handleDetailModalClose={handleDetailModalClose} openLoginAlert={openLoginAlert} />}
-
         {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
+
+        <Outlet />
       </div>
     </>
   );
