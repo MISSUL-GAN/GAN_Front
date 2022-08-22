@@ -10,7 +10,7 @@ function UserPage() {
   const member = {
     nick: new URL(window.location.href).searchParams.get("member"),
     img: new URL(window.location.href).searchParams.get("img"),
-    id: parseInt(new URL(window.location.href).searchParams.get("id")) 
+    id: new URL(window.location.href).searchParams.get("id")
   };
 
   const [memberDrawings, setMemberDrawings] = useState([]);
