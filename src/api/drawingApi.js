@@ -19,3 +19,8 @@ export const getDrawing = async (drawingId) => {
     const response = await Axios.get(`/drawing/${drawingId}`);
     return response.data;
 }
+
+export const getMemberDrawings = async (memberId) => {
+    const response = await Axios.get(`/drawing/member/${memberId}`);
+    return response.data;
+}

@@ -2,12 +2,17 @@ import React, { useState, useRef } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router';
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 import { Grow } from "@mui/material";
+import { useOutletContext } from "react-router-dom";
 
-function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openLoginAlert }) {
+function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
+
+    const { home } = useOutletContext();
+    const { clickDelete } = useOutletContext();
 
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
@@ -16,6 +21,8 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
     const nftRef = useRef();
 
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
+
+    const navigate = useNavigate();
 
     function clickClose() {
         handleDetailModalClose();
@@ -82,6 +89,25 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
         clickDelete(drawing.id);
     }
 
+    const downloadImage = async (e) => {
+        try {
+            const imageUrl = `https://ipfs.io/ipfs/${drawing.fileName}`;
+            const response = await fetch(imageUrl, { method: 'GET' });
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            const tempElement = document.createElement('a');
+            document.body.appendChild(tempElement);
+            tempElement.href = url;
+            tempElement.download = "missulgan";
+            tempElement.click();
+            tempElement.remove();
+        }
+        catch (e) {
+            alert("이미지 다운로드 실패");
+        }
+    }
+
     return (
         <div id="modal" className="drawing-modal">
             <Grow in={drawing}>
@@ -94,7 +120,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                             <div>
                                 <div className="userInfo">
                                     <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50} />
-                                    <p className="author" onClick={() => { window.location.href = "/userPage?member=" + drawing.member.name + "&img=" + drawing.member.profileImage + "&id=" + drawing.member.id }}>
+                                    <p className="author" onClick={() => { navigate(`/userPage/${drawing.member.id}`) }}>
                                         {drawing.member.name}
                                     </p>
                                 </div>
@@ -109,7 +135,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                             </div>
 
                             <div className="buttonBox">
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
                                 <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
                                 { !home && drawing.member.id === member.id &&
@@ -145,10 +171,6 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
             </Grow>
         </div>
     );
-}
-
-DetailModal.defaultProps = {
-    home: true
 }
 
 export default DetailModal;

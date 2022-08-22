@@ -270,6 +270,7 @@ function Home() {
     });
   }, []);
 
+const outletContext = { home: true };
   return (
     <div className="homecontainer">
       <div className="tagOptionBox">
@@ -320,7 +321,7 @@ function Home() {
 
       {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
 
-      <Outlet />
+      <Outlet context={outletContext}/>
     </div>
   );
 }

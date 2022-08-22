@@ -17,7 +17,6 @@ const DrawingRoute = () => {
 
     const handleDetailModalClose = navigateToHome;
 
-
     useEffect(() => {
         getDrawing(drawingId)
             .then(setDrawing)
