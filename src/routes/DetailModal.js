@@ -89,6 +89,25 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         clickDelete(drawing.id);
     }
 
+    const downloadImage = async (e) => {
+        try {
+            const imageUrl = `https://ipfs.io/ipfs/${drawing.fileName}`;
+            const response = await fetch(imageUrl, { method: 'GET' });
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            const tempElement = document.createElement('a');
+            document.body.appendChild(tempElement);
+            tempElement.href = url;
+            tempElement.download = "missulgan";
+            tempElement.click();
+            tempElement.remove();
+        }
+        catch (e) {
+            alert("이미지 다운로드 실패");
+        }
+    }
+
     return (
         <div id="modal" className="drawing-modal">
             <Grow in={drawing}>
@@ -116,7 +135,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             </div>
 
                             <div className="buttonBox">
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
                                 <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
                                 { !home && drawing.member.id === member.id &&

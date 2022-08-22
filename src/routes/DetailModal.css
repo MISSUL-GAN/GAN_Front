@@ -93,6 +93,11 @@
     width: 95%;
 }
 
+#modal .buttonBox button {
+    border: none;
+    background-color: rgb(0,0,0,0);
+}
+
 #modal .buttonBox #open-nft-button {
     background-color: #3C6B50;
     border-radius: 8px;
