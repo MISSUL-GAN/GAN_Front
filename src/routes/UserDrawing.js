@@ -9,7 +9,7 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
     const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
     
-    const img = "https://api.missulgan.art/image/"+drawing.fileName;
+    const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     function clickImg() {
         openDetailModal(drawing);

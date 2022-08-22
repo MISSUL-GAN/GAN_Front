@@ -13,7 +13,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
 
-    const img = "https://api.missulgan.art/image/"+drawing.fileName;
+    const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     function clickClose() {
         handleDetailModalClose();

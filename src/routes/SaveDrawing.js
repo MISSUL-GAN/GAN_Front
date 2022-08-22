@@ -93,7 +93,7 @@ function SaveDrawing() {
 
     const downloadImage = async (e) => {
         try {
-            const imageUrl = `https://api.missulgan.art/image/${fileName}`;
+            const imageUrl = `https://ipfs.io/ipfs/${fileName}`;
             const response = await fetch(imageUrl, { method: 'GET' });
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
@@ -140,7 +140,7 @@ function SaveDrawing() {
                 <Grid item xs={12} md={6}>
                     <div className="uploadImage">
                         <Grow in={!fileName}><CircularProgress className="progress-bar" color="inherit" /></Grow>
-                        <img src={`https://api.missulgan.art/image/${fileName}`} alt=""></img>
+                        <img src={`https://ipfs.io/ipfs/${fileName}`} alt=""></img>
                     </div>
                 </Grid>
 
