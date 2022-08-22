@@ -46,6 +46,8 @@ function SaveDrawing() {
     const { isLoading, presetTagId, fileName, openAlert } = useOutletContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const imageLoaded = () => setIsImageLoaded(true);
     const changeTitle = (e) => setTitle(e.target.value);
     const changeDescription = (e) => setDescription(e.target.value);
 
@@ -139,12 +141,12 @@ function SaveDrawing() {
             <Grid container spacing={4} sx={{ mt: 1 }}>
                 <Grid item xs={12} md={6}>
                     <div className="uploadImage">
-                        <Grow in={!fileName}><CircularProgress className="progress-bar" color="inherit" /></Grow>
-                        <img src={`https://ipfs.io/ipfs/${fileName}`} alt=""></img>
+                        <Grow in={!isImageLoaded}><CircularProgress className="progress-bar" color="inherit" /></Grow>
+                        <Grow in={isImageLoaded}><img src={`https://ipfs.io/ipfs/${fileName}`} onLoad={imageLoaded} alt=""></img></Grow>
                     </div>
                 </Grid>
 
-                <Grid item container xs={12} md={6} justifyContent="center" alignItems="center" rowSpacing={2}>
+                <Grid item container xs={12} md={6} justifyContent="center" alignItems="center" rowSpacing={2} maxHeight="740px">
                     <Grid item alignSelf="start" className="create-option" flexDirection="column">
                         <GreenTextField
                             className="title"
