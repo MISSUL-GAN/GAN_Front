@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
@@ -20,12 +20,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
 
+    const modalRef = useRef();
+
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     const navigate = useNavigate();
 
     function clickClose() {
         handleDetailModalClose();
+        document.body.style.overflow = "visible";
     }
 
     function clickLike() {
@@ -38,7 +41,6 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
                 if (!like) {
                     drawing.heartCount++;
-
                     heart(drawing.id);
                 }
                 else {
@@ -108,8 +110,14 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
+
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        modalRef.current.style.top = `${window.scrollY}px`;
+    }, []);
+
     return (
-        <div id="modal" className="drawing-modal">
+        <div id="modal" className="drawing-modal" ref={modalRef}>
             <Grow in={drawing}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
@@ -120,7 +128,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             <div>
                                 <div className="userInfo">
                                     <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50} />
-                                    <p className="author" onClick={() => { navigate(`/userPage/${drawing.member.id}`) }}>
+                                    <p className="author" onClick={() => { navigate(`/userPage/${drawing.member.id}`); document.body.style.overflow = "visible"; }}>
                                         {drawing.member.name}
                                     </p>
                                 </div>
