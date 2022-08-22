@@ -1,49 +1,81 @@
 import React, { useState } from "react";
+import { useSelector } from 'react-redux';
+import { heart, unheart } from "../api/heartApi";
+import { scrap, unscrap } from "../api/scrapApi";
 import './Drawing.css';
 
-function Drawing({imgsrc, name}){
+function Drawing({ drawing, openDetailModal, openLoginAlert }){
+    const member = useSelector(state => state.member);
 
-    var modal;
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
     function clickImg(){
-        modal = document.getElementsByClassName("img-modal");
-        var titleText = document.getElementsByClassName("title");
-        
-        modal[name].style.display = "block";
-        titleText.innerHTML = name;
-        
-    }
-
-    function clickClose() {
-        modal[name].style.display = "none";
+        openDetailModal(drawing);
     }
 
     function clickLike() {
-        setLike(!like);
+        if(member.signed){
+            if(member.id === drawing.member.id)
+                alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
+            
+            else {
+                setLike(!like);
+
+                if(!like){
+                    drawing.heartCount++;
+    
+                    heart(drawing.id);
+                }
+                else {
+                    drawing.heartCount--;
+                    
+                    unheart(drawing.id);
+                }
+            }
+        }
+        else {
+            openLoginAlert();
+        }
     }
 
     function clickBookmark() {
-        setBookmark(!bookmark);
+        if (member.signed){
+            if(member.id === drawing.member.id)
+                alert("본인이 만든 작품은 스크랩할 수 없습니다.");
+
+            else {
+                setBookmark(!bookmark);
+
+                if(!bookmark){
+                    drawing.scrapCount++;
+    
+                    scrap(drawing.id);
+                }
+                else {
+                    drawing.scrapCount--;
+    
+                    unscrap(drawing.id);
+                }
+            }
+        }
+        else {
+            openLoginAlert();
+        }
     }
 
     return(
         <>
-            <div>
-                <img src={imgsrc} width = {250} className="img-thumbnail" onClick = {clickImg}/>
-                <p> 그림 {name} </p> 
-                <button className="like" onClick={ clickLike }> { like ? "♥" : "♡"} </button>
-                <button className="bookmark" onClick={ clickBookmark }> { bookmark ? "스크랩 취소" : "스크랩" } </button>
-            </div>
-            
-            <div className="img-modal"> 
-                <span className="close" onClick={clickClose}> x </span>
-                <img className="large-img" src={imgsrc}/> 
-                <p className="title"> 그림 {name} 제목입니다,,, </p>
-                <br/>
-                <p className="Description"> 그림 {name} 설명입니다,,, </p>
-            </div>          
+            <div className="drawing">
+                <div id="img-thumbnail-wrapper"> <img src={drawing.member.profileImage} alt="" className="img-thumbnail" onClick = {clickImg}/> </div>
+                <div className="titleBox">
+                    <p> {drawing.title} </p> 
+                    <div>
+                        <button className="like" onClick={ clickLike }> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt=""/> </button>
+                        <button className="bookmark" onClick={ clickBookmark }> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt=""/> </button>
+                    </div>
+                </div>
+             </div>
         </>
     );
 }
