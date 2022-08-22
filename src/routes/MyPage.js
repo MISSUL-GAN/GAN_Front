@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import { getDrawings, deleteDrawing } from "../api/drawingApi";
 import { getScrap, scrap, unscrap } from "../api/scrapApi";
 import UserDrawing from '../routes/UserDrawing';
@@ -121,6 +122,8 @@ function MyPage() {
             </div>
 
             {detailModalExpanded && <DetailModal drawing={target} home={false} clickDelete={clickDelete} handleDetailModalClose={handleDetailModalClose} />}
+            
+            <Outlet/>
         </>
     );
 }

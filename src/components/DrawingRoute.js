@@ -6,7 +6,7 @@ import DetailModal from "../routes/DetailModal";
 
 const DrawingRoute = () => {
     const navigate = useNavigate();
-    const navigateToHome = useCallback(() => navigate('/home'), [navigate]);
+    const navigateToHome = useCallback(() => navigate('..'), [navigate]);
 
     const { drawingId } = useParams();
     const [drawing, setDrawing] = useState(null);
