@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { getDrawings, deleteDrawing } from "../api/drawingApi";
 import { getScrap, scrap, unscrap } from "../api/scrapApi";
 import UserDrawing from '../routes/UserDrawing';
-import DetailModal from "./DetailModal";
 import './MyPage.css';
 
 function MyPage() {
@@ -56,6 +55,7 @@ function MyPage() {
         unscrap(id);
     }
 
+    const outletContext = { home: false, clickDelete };
     return (
         <>
             <div id="my-page-content">
@@ -120,7 +120,7 @@ function MyPage() {
                 </div>
             </div>
 
-            <Outlet/>
+            <Outlet context={outletContext}/>
         </>
     );
 }

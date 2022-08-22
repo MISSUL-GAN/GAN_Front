@@ -5,9 +5,13 @@ import { useSelector } from "react-redux";
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 import { Grow } from "@mui/material";
+import { useOutletContext } from "react-router-dom";
 
-function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openLoginAlert }) {
+function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
+
+    const { home } = useOutletContext();
+    const { clickDelete } = useOutletContext();
 
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
@@ -145,10 +149,6 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
             </Grow>
         </div>
     );
-}
-
-DetailModal.defaultProps = {
-    home: true
 }
 
 export default DetailModal;
