@@ -109,7 +109,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                             </div>
 
                             <div className="buttonBox">
-                                <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
+                                <button> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
                                 { !home && drawing.member.id === member.id &&
