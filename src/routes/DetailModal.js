@@ -4,6 +4,7 @@ import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
+import { Grow } from "@mui/material";
 
 function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -14,7 +15,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
 
-    const img = "https://api.missulgan.art/image/"+drawing.fileName;
+    const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     function clickClose() {
         handleDetailModalClose();
@@ -75,15 +76,15 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
         setSeeNFT(!seeNFT);
         nftRef.current.style.display = seeNFT ? "inline" : "none";
     }
-    
+
     function requestDelete() {
         handleDetailModalClose();
         clickDelete(drawing.id);
     }
 
     return (
-        <>
-            <div id="modal" className="drawing-modal">
+        <div id="modal" className="drawing-modal">
+            <Grow in={drawing}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
@@ -141,8 +142,8 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </Grow>
+        </div>
     );
 }
 

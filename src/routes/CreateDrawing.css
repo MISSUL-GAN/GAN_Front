@@ -8,7 +8,7 @@
 }
 
 .uploadImage {
-  height: 640px;
+  min-height: 640px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -88,7 +88,7 @@
   margin-top: 10px;
 }
 
-.uploadSubImg:active, .deleteSubImg:active, .uploadOriginImg:active, .styles input[type="radio"]:checked+.styleButton, .styleImage input[type="radio"]:checked+.styleButton {
+.uploadSubImg:active, .deleteSubImg:active, .uploadOriginImg:active, .styles input[type="radio"]:checked+.styleButton, .styleImage input[type="radio"]:checked+.styleButton{
   background: #3C6B50;
   color:#F4F4F4;
 }

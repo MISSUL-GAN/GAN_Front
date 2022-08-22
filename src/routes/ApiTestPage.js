@@ -10,6 +10,35 @@ function ApiTestPage() {
     const [title, setTitle] = useState("그림 제목 테스트");
     const [description, setDescription] = useState("그림 설명 테스트");
     const [tagIds, setTags] = useState([1, 2, 3]);
+    const [fileNames, setFileNames] = useState("");
+
+    const downloadImage = async (fileName) => {
+        try {
+            const imageUrl = `https://ipfs.io/ipfs/${fileName}`;
+            const response = await fetch(imageUrl, { method: 'GET' });
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            const tempElement = document.createElement('a');
+            document.body.appendChild(tempElement);
+            tempElement.href = url;
+            tempElement.download = fileName;
+            tempElement.click();
+            tempElement.remove();
+        }
+        catch (e) {
+            console.log("이미지 다운로드 실패");
+        }
+    }
+
+    const downloadAll = () => {
+        const names = fileNames.split(',');
+        console.log(names);
+        names.forEach(name =>{
+            downloadImage(name);
+        })
+    }
+    
     return (
         <div>
             <div className="container">
@@ -67,6 +96,20 @@ function ApiTestPage() {
                         </div>
                         <button className="btn btn-primary" onClick={async () => { console.log(await addDrawing({ title, description, tagIds, fileName })) }}>addDrawing</button>
                         <button className="btn btn-primary" onClick={async () => { console.log(await getDrawings()) }}>getDrawings(현재 사용자)</button>
+                    </div>
+                </div>
+
+                <div className="card" style={{ minHeight: "400px" }}>
+                    <div className="card-body">
+                        <h4 className="card-title">사진 다운로드</h4>
+                    </div>
+
+                    <div className="d-grid gap-2 col-6 mx-auto mb-4">
+                        <div className="input-group">
+                            <span className="input-group-text" id="basic-addon1">다운로드 다적어 ;로 구분</span>
+                            <input type="text" className="form-control" placeholder="" onChange={(e)=>setFileNames(e.currentTarget.value)}/>
+                        </div>
+                        <button className="btn btn-primary" onClick={ downloadAll}>다운</button>
                     </div>
                 </div>
             </div>

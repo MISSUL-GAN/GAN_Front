@@ -13,6 +13,6 @@ export const convertImage = async (originImg, styleImg, convertTag) => {
     formData.append("style_img", styleImg);
     formData.append("convert_tag", convertTag);
     formData.append("token", new Date().getTime());
-    const response = await Axios.post('https://image.missulgan.art/image/upload', formData);
+    const response = await Axios.post('https://image.missulgan.art/image/convert', formData);
     return response.data;
 }
