@@ -127,7 +127,7 @@ function SaveDrawing() {
     useEffect(() => {
         const navigateToCreate = () => navigate("/create");
         if (!isLoading && !fileName) {
-            openAlert("로딩 오류");
+            openAlert("변환 오류");
             navigateToCreate();
         }
         if (presetTagId)
