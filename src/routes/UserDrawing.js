@@ -17,7 +17,7 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
 
     function clickLike() {
         if (member.signed) {
-            if (mine)
+            if (drawing.member.id === member.id)
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
 
             else {
@@ -39,7 +39,7 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
 
     function clickBookmark() {
         if (member.signed) {
-            if (mine)
+            if (drawing.member.id === member.id)
                 alert("본인이 만든 작품은 스크랩할 수 없습니다.");
 
             else {
