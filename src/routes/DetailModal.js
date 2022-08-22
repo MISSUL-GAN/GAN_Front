@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
@@ -11,7 +11,9 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
 
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
+
     const [seeNFT, setSeeNFT] = useState(true);
+    const nftRef = useRef();
 
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
@@ -72,9 +74,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
 
     function clickNFT() {
         setSeeNFT(!seeNFT);
-        const NFTInfo = document.getElementsByClassName("NFTBox")[0];
-        let see = seeNFT ? "inline" : "none";
-        NFTInfo.style.display = see;
+        nftRef.current.style.display = seeNFT ? "inline" : "none";
     }
 
     function requestDelete() {
@@ -112,22 +112,16 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                                 <button style={{ border: "none", backgroundColor: "rgb(0,0,0,0)" }}> <a href="/img/logo.png" download> <img src="/img/downloadIcon.png" width="60px" alt="" /> </a> </button>
                                 <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
-
-                                {!home && drawing.member.id === member.id &&
+                                { !home && drawing.member.id === member.id &&
                                     <>
                                         <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
                                         <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
                                     </>
-
                                 }
 
-                                <button style={{
-                                    backgroundColor: "#3C6B50",
-                                    border: "none", borderRadius: "8px",
-                                    fontWeight: "200", color: "white",
-                                    width: "270px", height: "60px",
-                                    marginTop: "8px", marginRight: "30px", marginLeft: "5px"
-                                }} onClick={clickNFT}> OpenSea 통계 정보 </button>
+                                <button id="open-nft-button" onClick={clickNFT} style={!drawing.nft && {opacity: "0.5", cursor: "not-allowed"}} disabled={!drawing.nft && true}> 
+                                    NFT 통계 정보 
+                                </button>
 
                                 <div className="likeBox">
                                     <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
@@ -140,7 +134,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                                 </div>
                             </div>
 
-                            <div className="NFTBox">
+                            <div className="NFTBox" ref={nftRef}>
                                 어쩌고저쩌고<br />
                                 이 작품의 NFT 가격!! 247239857198321093원<br />
                                 아무튼 통계 정보~~~ 들어갈 자리~~~

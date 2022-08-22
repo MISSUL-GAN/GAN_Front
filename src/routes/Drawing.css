@@ -1,13 +1,11 @@
 .drawing {
-    width: fit-content;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 #img-thumbnail-wrapper {
-    width: 22vw;
-    height: 22vw;
+    width: 400px;
+    height: 400px;
 }
 
 #img-thumbnail-wrapper .img-thumbnail {
@@ -17,7 +15,6 @@
 }
 
 .titleBox {
-    width: 100%;
     margin-top: 3%;
     display: flex;
     justify-content: space-between;

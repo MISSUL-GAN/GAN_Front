@@ -82,7 +82,22 @@
     overflow-x: scroll;
     margin-top: 1%;
     justify-content: space-between;
-    height: 55vh;
+    height: fit-content;
+}
+
+.drawingBox::-webkit-scrollbar {
+    background-color: white;
+    height: 5px;
+}
+
+.drawingBox::-webkit-scrollbar-thumb {
+    background-color: #9F9F9F;
+    border-radius: 20px;
+}
+
+.drawingBox::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+    border-radius: 20px;
 }
 
 .img-thumbnail:hover {

@@ -93,6 +93,19 @@
     width: 95%;
 }
 
+#modal .buttonBox #open-nft-button {
+    background-color: #3C6B50;
+    border-radius: 8px;
+    font-weight: 200;
+    color: white;
+    width: 270px;
+    height: 60px;
+    
+    margin-top: 12px;
+    margin-right: 30px;
+    margin-left: 10px;
+}
+
 #modal .likeBox, .bookmarkBox {
     height: fit-content;
     margin-top: 10px;
