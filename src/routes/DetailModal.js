@@ -4,6 +4,7 @@ import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
+import { Grow } from "@mui/material";
 
 function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -75,15 +76,15 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
         let see = seeNFT ? "inline" : "none";
         NFTInfo.style.display = see;
     }
-    
+
     function requestDelete() {
         handleDetailModalClose();
         clickDelete(drawing.id);
     }
 
     return (
-        <>
-            <div id="modal" className="drawing-modal">
+        <div id="modal" className="drawing-modal">
+            <Grow in={drawing}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
@@ -112,7 +113,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                                 <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
 
-                                { !home && drawing.member.id === member.id &&
+                                {!home && drawing.member.id === member.id &&
                                     <>
                                         <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
                                         <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
@@ -147,8 +148,8 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </Grow>
+        </div>
     );
 }
 
