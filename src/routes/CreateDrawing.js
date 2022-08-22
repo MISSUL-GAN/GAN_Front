@@ -80,7 +80,7 @@ function CreateDrawing() {
                         <input type='file' accept='image/*' style={{ display: "none" }} ref={originImage} onChange={originImageChanged} />
                     </div>
                 </Grid>
-                <Grid item container xs={12} md={6} justifyContent="center" alignItems="center" rowSpacing={4}>
+                <Grid item container xs={12} md={6} justifyContent="center" alignItems="center" rowSpacing={4}  maxHeight="740px">
                     <Grid item>
                         <div className="create-option">
                             <p> 원하는 화풍을 선택해주세요 </p>

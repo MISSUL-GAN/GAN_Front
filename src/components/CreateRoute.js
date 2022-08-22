@@ -26,6 +26,7 @@ const CreateRoute = () => {
     }
 
     const convert = async (originImage, styleImage, tag) => {
+        setConvertedImage(null);
         setIsLoading(true);
         try {
             const { fileName } = await convertImage(originImage, styleImage, tag);
