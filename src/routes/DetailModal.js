@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router';
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 
@@ -15,6 +16,8 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
     const nftRef = useRef();
 
     const img = "https://api.missulgan.art/image/"+drawing.fileName;
+
+    const navigate = useNavigate();
 
     function clickClose() {
         handleDetailModalClose();
@@ -93,7 +96,7 @@ function DetailModal({ drawing, home, clickDelete, handleDetailModalClose, openL
                             <div>
                                 <div className="userInfo">
                                     <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50} />
-                                    <p className="author" onClick={() => { window.location.href = "/userPage?member=" + drawing.member.name + "&img=" + drawing.member.profileImage + "&id=" + drawing.member.id }}>
+                                    <p className="author" onClick={() => { navigate(`/userPage/${drawing.member.id}`) }}>
                                         {drawing.member.name}
                                     </p>
                                 </div>

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import UserDrawing from "./UserDrawing";
 import { scrap, unscrap } from "../api/scrapApi";
 import { getMemberDrawings } from "../api/drawingApi";
+import { getMemberInfo } from "../api/memberApi";
 import DetailModal from "./DetailModal";
 import LoginAlert from "../components/LoginAlert";
+import { useParams } from "react-router-dom";
 import './UserPage.css';
 
 function UserPage() {
-  const member = {
-    nick: new URL(window.location.href).searchParams.get("member"),
-    img: new URL(window.location.href).searchParams.get("img"),
-    id: new URL(window.location.href).searchParams.get("id")
-  };
-
+  const { memberId } = useParams();
   const [memberDrawings, setMemberDrawings] = useState([]);
+
+  const profileImgRef = useRef();
+  const nameRef = useRef();
 
   const [target, setTarget] = useState();
   const [detailModalExpanded, setDetailModalExpanded] = useState(false);
@@ -25,11 +25,15 @@ function UserPage() {
   const openLoginAlert = () => { setLoginAlertExpanded(true); }
 
   useEffect(() => {
-    async function getUserDrawings() {
-      setMemberDrawings(await getMemberDrawings(member.id));
+    async function getUserPageContent() {
+      const member = await getMemberInfo(memberId);
+      profileImgRef.current = member.profileImage;
+      nameRef.current = member.name;
+
+      setMemberDrawings(await getMemberDrawings(memberId));
     }
 
-    getUserDrawings();
+    getUserPageContent();
   }, []);
 
   const clickScrap = (id) => {
@@ -43,8 +47,8 @@ function UserPage() {
   return (
     <>
       <div id="page-content">
-        <div> <img src={member.img} alt="" /> </div>
-        <div> {member.nick} </div>
+        <div> <img src={profileImgRef.current} alt="" /> </div>
+        <div> {nameRef.current} </div>
         <hr />
 
         <div id="drawing-container">
