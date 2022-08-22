@@ -7,7 +7,7 @@ const KakaoImageShareButton = ({ drawing }) => {
             templateArgs: {
                 title: drawing.title,
                 description: drawing.description,
-                imageUrl: `https://api.missulgan.art/image/${drawing.fileName}`
+                imageUrl: `https://ipfs.io/ipfs/${drawing.fileName}`
             }
         });
     };

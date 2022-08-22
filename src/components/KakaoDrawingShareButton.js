@@ -7,7 +7,7 @@ const KakaoDrawingShareButton = ({ drawing }) => {
             templateId: 80454,
             templateArgs: {
                 drawingId: drawing.id,
-                drawingImage: `https://api.missulgan.art/image/${drawing.fileName}`,
+                drawingImage: `https://ipfs.io/ipfs/${drawing.fileName}`,
                 title: drawing.title,
                 description: drawing.description,
                 heartCount: drawing.heartCount,
