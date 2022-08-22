@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { getDrawings, deleteDrawing } from "../api/drawingApi";
 import { getScrap, scrap, unscrap } from "../api/scrapApi";
 import UserDrawing from '../routes/UserDrawing';
@@ -7,14 +7,13 @@ import DetailModal from "./DetailModal";
 import './MyPage.css';
 
 function MyPage() {
+    const navigate = useNavigate();
+    
     const [option, setOption] = useState("my");
     const [mydrawing, setMyDrawing] = useState([]);
     const [myscrap, setMyScrap] = useState([]);
 
-    const [target, setTarget] = useState();
-    const [detailModalExpanded, setDetailModalExpanded] = useState(false);
-    const handleDetailModalClose = () => { setDetailModalExpanded(false) };
-    const openDetailModal = (drawing) => { setTarget(drawing); setDetailModalExpanded(true); }
+    const openDetailModal = (drawing) => { navigate(`${drawing.id}`) }
 
     useEffect(() => {
         async function getMyPageDrawings() {
@@ -121,8 +120,6 @@ function MyPage() {
                 </div>
             </div>
 
-            {detailModalExpanded && <DetailModal drawing={target} home={false} clickDelete={clickDelete} handleDetailModalClose={handleDetailModalClose} />}
-            
             <Outlet/>
         </>
     );
