@@ -11,7 +11,8 @@ export const getDrawings = async () => {
 }
 
 export const getDrawingsWithOptions = async (sort, tags, page) => {
-    const defaultSize = 2;
+    const defaultSize = 20;
+    if(sort === "random" && page > 0) return [];
     if (tags.length > 0) {
         const response = await Axios.post(`/drawing/${sort}/tags?page=${page}&size=${defaultSize}`, { tagIds: tags });
         return response.data;

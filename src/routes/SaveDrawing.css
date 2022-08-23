@@ -69,7 +69,6 @@
 .tag-box input[type="checkbox"]:checked + .tag, .tag-box input[type="checkbox"]:checked + .style {
     color: #FFFFFF;
     background: #3C6B50;
-    border-radius: 40px;
 }
 
 .button-box {

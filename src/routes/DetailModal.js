@@ -110,7 +110,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
     return (
         <div id="modal" className="drawing-modal">
-            <Grow in={drawing}>
+            <Grow in={drawing != null}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
@@ -130,7 +130,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                 <p className="description"> {drawing.description} 이 작품은 사람의 간을 본따서 만든 로고인데요 아주 귀엽게 생겼습니다 으아아아아아아아아아아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ </p>
 
                                 <div className="drawing-tag">
-                                    {drawing.tags.map((t) => <p> #{t.name} </p>)}
+                                    {drawing.tags.map((t) => <p key={t.id}> #{t.name} </p>)}
                                 </div>
                             </div>
 
