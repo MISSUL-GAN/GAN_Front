@@ -11,12 +11,13 @@ export const getDrawings = async () => {
 }
 
 export const getDrawingsWithOptions = async (sort, tags, page) => {
+    const defaultSize = 2;
     if (tags.length > 0) {
-        const response = await Axios.post(`/drawing/${sort}/tags`, { tagIds: tags });
+        const response = await Axios.post(`/drawing/${sort}/tags?page=${page}&size=${defaultSize}`, { tagIds: tags });
         return response.data;
     }
     else {
-        const response = await Axios.get(`/drawing/${sort}`);
+        const response = await Axios.get(`/drawing/${sort}?page=${page}&size=${defaultSize}`);
         return response.data;
     }
 }
