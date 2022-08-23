@@ -114,7 +114,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
                     <div>
-                        <p className="drawing-modal-close" onClick={clickClose}> x </p>
+                        <button className="drawing-modal-close" onClick={clickClose}> <img src="/img/closeButton.png" alt=""/> </button>
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
