@@ -10,6 +10,17 @@ export const getDrawings = async () => {
     return response.data;
 }
 
+export const getDrawingsWithOptions = async (sort, tags, page) => {
+    if (tags.length > 0) {
+        const response = await Axios.post(`/drawing/${sort}/tags`, { tagIds: tags });
+        return response.data;
+    }
+    else {
+        const response = await Axios.get(`/drawing/${sort}`);
+        return response.data;
+    }
+}
+
 export const deleteDrawing = async (drawingId) => {
     const response = await Axios.delete(`/drawing/${drawingId}`);
     return response.data;
