@@ -28,7 +28,6 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
     function clickClose() {
         handleDetailModalClose();
-        document.body.style.overflow = "visible";
     }
 
     function clickLike() {
@@ -110,10 +109,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
-
     useEffect(() => {
-        document.body.style.overflow = "hidden";
         modalRef.current.style.top = `${window.scrollY}px`;
+        modalRef.current.style.position = "fixed";
     }, []);
 
     return (
