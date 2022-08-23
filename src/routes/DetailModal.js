@@ -20,8 +20,6 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
 
-    const modalRef = useRef();
-
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     const navigate = useNavigate();
@@ -109,13 +107,8 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
-    useEffect(() => {
-        modalRef.current.style.top = `${window.scrollY}px`;
-        modalRef.current.style.position = "fixed";
-    }, []);
-
     return (
-        <div id="modal" className="drawing-modal" ref={modalRef}>
+        <div id="modal" className="drawing-modal">
             <Grow in={drawing}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
