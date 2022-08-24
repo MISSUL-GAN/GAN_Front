@@ -21,7 +21,7 @@ const Sort = styled.div`
         color: #8E9398;
         font-weight: 400;
         cursor: pointer;
-        padding: 0px 20px;
+        margin-left: 20px;
     }
 
     ${HiddenInput}:checked + & {
@@ -33,7 +33,8 @@ const Seperator = styled.div`
     display: flex;
     width: 0px;
     height: 20px;
-    border: 1px solid #8E9398;
+    border-right: 2px solid #8E9398;
+    margin-left:20px;
 `;
 
 const Sorts = ({ sorts, defaultSort, sortChanged }) => {
