@@ -72,7 +72,7 @@ function MyPage() {
                 </div>
 
                 <div id="drawing-container">
-                    {mydrawing.length === 0
+                    {(mydrawing.length === 0 && option === "my") || (myscrap.length === 0 && option === "bookmark")
                         ?
                         <p id="nodrawing"> 아직 작품이 존재하지 않습니다. </p>
                         :
