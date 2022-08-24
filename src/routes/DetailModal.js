@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
+import { editDrawing } from "../api/drawingApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
-import { Grow, styled, Tooltip, tooltipClasses  } from "@mui/material";
+import { Grow, styled, Tooltip, tooltipClasses } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 
 const NFTTooltip = styled(({ className, ...props }) => (
@@ -36,12 +37,12 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const { home } = useOutletContext();
     const { clickDelete } = useOutletContext();
 
-    const img = "https://ipfs.io/ipfs/"+drawing.fileName;
+    const img = "https://ipfs.io/ipfs/" + drawing.fileName;
 
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
-    const [tagIds, setTagIds] = useState(drawing.tags.map((t) => {return t.id})); // useState([]);
+    const [tagIds, setTagIds] = useState(drawing.tags.map((t) => { return t.id })); // useState([]);
 
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
@@ -49,7 +50,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const titleRef = useRef();
     const descriptionRef = useRef();
     const [edit, setEdit] = useState(true);
- 
+
     const tags = [
         { name: "어두운", tagId: 1 },
         { name: "화사한", tagId: 2 },
@@ -130,7 +131,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 }
                 else {
                     drawing.scrapCount--;
-                    if(home) unscrap(drawing.id);
+                    if (home) unscrap(drawing.id);
                     else {
                         handleDetailModalClose();
                         clickDelete(drawing.id);
@@ -174,12 +175,23 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
     const clickEdit = () => {
         setEdit(!edit);
+        setTagIds(drawing.tags.map((t) => { return t.id }));
+    }
 
-        if(!edit) {
-            console.log(titleRef.current.value);
-            console.log(descriptionRef.current.value);
-            console.log(tagIds);
-        }
+    const clickComplete = () => {
+        setEdit(!edit);
+
+        let newDrawingInfo = {
+            "description": descriptionRef.current.value === "" ? drawing.description : descriptionRef.current.value,
+            "tagIds": tagIds,
+            "title": titleRef.current.value === "" ? drawing.title : titleRef.current.value
+        };
+
+        editDrawing(drawing.id, newDrawingInfo);
+
+        drawing.title = newDrawingInfo.title;
+        drawing.description = newDrawingInfo.description;
+        drawing.tags = tagIds.map((tag) => { return tags.find(t => t.tagId === tag) });
     }
 
     return (
@@ -189,7 +201,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                     <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
 
                     <div>
-                        <button className="drawing-modal-close" onClick={clickClose}> <img src="/img/closeButton.png" alt=""/> </button>
+                        <button className="drawing-modal-close" onClick={clickClose}> <img src="/img/closeButton.png" alt="" /> </button>
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
@@ -204,13 +216,13 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                         ?
                                         <div className="drawing-title"> {drawing.title} </div>
                                         :
-                                        <input className="drawing-title" type='text' ref={titleRef} style={{ border: "none" }} placeholder={drawing.title} maxLength={8}/>
+                                        <input className="drawing-title" type='text' ref={titleRef} style={{ border: "none" }} placeholder={drawing.title} maxLength={8} />
                                     }
 
                                     {!home && drawing.member.id === member.id &&
-                                        <button onClick={clickEdit}> <img style={{border:"none"}} src={edit ? "/img/editIcon.png" : "/img/editIcon2.png"} width="40px" alt="" /> </button>
+                                        <button onClick={clickEdit}> <img style={{ border: "none" }} src={edit ? "/img/editIcon.png" : "/img/editIcon2.png"} width="40px" alt="" /> </button>
                                     }
-                                </div>    
+                                </div>
 
                                 {edit
                                     ?
@@ -220,8 +232,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     </>
                                     :
                                     <>
-                                        <textarea className="description" ref={descriptionRef} style={{ border: "none", height: "250px" }} placeholder={drawing.description} maxLength={200} />
+                                        <textarea className="description" ref={descriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
+                                            <div> 태그를 선택해주세요. (최대 3개)</div>
                                             {tags.map(tag =>
                                                 <label key={tag.tagId}>
                                                     <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={tagIds.includes(tag.tagId)} />
@@ -232,43 +245,54 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     </>
                                 }
 
-                                
                             </div>
 
                             <div className="buttonBox">
-                                <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
-                                <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
-
-                                { !home && drawing.member.id === member.id &&
+                                {edit
+                                    ?
                                     <>
-                                    <NFTTooltip
-                                        title={
-                                            <React.Fragment>
-                                                당신의 작품을 NFT로 등록해보세요!
-                                            </React.Fragment>
+                                        <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                                        <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
+
+                                        {!home && drawing.member.id === member.id &&
+                                            <>
+                                                <NFTTooltip
+                                                    title={
+                                                        <React.Fragment>
+                                                            당신의 작품을 NFT로 등록해보세요!
+                                                        </React.Fragment>
+                                                    }
+                                                    className="NFTButton"
+                                                >
+                                                    <button className="NFTButton"><img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                                </NFTTooltip>
+                                                <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                            </>
                                         }
-                                        className="NFTButton"
-                                    >
-                                        <button className="NFTButton"><img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
-                                    </NFTTooltip>
-                                    <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
-                                </>
+
+                                        <button id="open-nft-button" onClick={clickNFT} style={!drawing.nft && { opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}>
+                                            NFT 통계 정보
+                                        </button>
+
+                                        <div className="likeBox">
+                                            <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
+                                            <p> {drawing.heartCount} </p>
+                                        </div>
+
+                                        <div className="bookmarkBox">
+                                            <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
+                                            <p> {drawing.scrapCount} </p>
+                                        </div>
+                                    </>
+                                    :
+                                    <div id="edit-box">
+                                        <button id="edit-cancle" onClick={clickEdit}> 취소 </button>
+                                        <button id="edit-complete" onClick={clickComplete}> 수정 완료 </button>
+                                    </div>
                                 }
 
-                                <button id="open-nft-button" onClick={clickNFT} style={!drawing.nft && {opacity: "0.5", cursor: "not-allowed"}} disabled={!drawing.nft && true}> 
-                                    NFT 통계 정보 
-                                </button>
-
-                                <div className="likeBox">
-                                    <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                    <p> {drawing.heartCount} </p>
-                                </div>
-
-                                <div className="bookmarkBox">
-                                    <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                    <p> {drawing.scrapCount} </p>
-                                </div>
                             </div>
+
 
                             <div className="NFTBox" ref={nftRef}>
                                 어쩌고저쩌고<br />
