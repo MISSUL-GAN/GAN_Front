@@ -6,62 +6,55 @@
     justify-content: center;
     align-items: center;
     font-family: 'Spoqa Han Sans Neo';
+    margin-top: 24px;
 }
 
 .tagOptionBox {
-    width: 80%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2%;
+}
+
+.tagBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .tagOptionBox img {
-    width: 30vh;
+    height: 80px;
+    margin-bottom: -16px;
 }
 
 .tagGuide {
-    font-size: 2vh;
+    height: 40px;
+    font-size: 24px;
     color: #9F9F9F;
 }
 
-.tagBox button {
-    background-color: #F4F4F4;
-    color: #3C6B50;
-    border: none;
-    border-radius: 40px;
-    font-weight: 400;
-    font-size: 1vw; 
-    width: 6vw;
-    height: 3.5vh;
-    margin-right: 1vw;
-}
-
-.tagBox button input {
-    display: none;
-}
-
 .viewOptionBox {    
-    width: 80%;
+    margin-top:40px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .viewOptionBox .refresh {
-    width: 10vw;
-    height: 4.5vh;
-    font-size: 1vw;
+    height: 40px;
+    padding: 0px 20px;
+    font-weight: 300;
+    font-size: 18px;
     background: #3C6B50;
     border: none;
     border-radius: 8px; 
     color: #FFFFFF;
-    font-weight: 300;
 }
 
 .viewOptionBox .optionBox {
     display: flex;
-    font-size: 1.8vh;
+    font-size: 18px;
 }
 
 .viewOptionBox .viewOption {
@@ -76,11 +69,10 @@
 }
 
 .drawingBox {
-    width: 80%;
+    width: 100%;
     display: flex;
-    padding: 10px;
+    padding: 10px 0px;
     overflow-x: scroll;
-    margin-top: 1%;
     justify-content: space-between;
     height: fit-content;
 }

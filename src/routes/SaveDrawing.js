@@ -4,6 +4,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import KakaoImageShareButton from "../components/KakaoImageShareButton"
 import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
+import Tags from "../components/Tags";
 
 
 const NFTTooltip = styled(({ className, ...props }) => (
@@ -42,7 +43,7 @@ const GreenTextField = styled(TextField)
 function SaveDrawing() {
     const navigate = useNavigate();
     const navigateToMyPage = (drawingId) => navigate(`/myPage/${drawingId}`);
-    
+
     const { isLoading, presetTagId, fileName, openAlert } = useOutletContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -177,13 +178,9 @@ function SaveDrawing() {
                                         <input name="tagBox" type="checkbox" value={style.tagId} disabled checked />
                                         <div className="style">{style.name}</div>
                                     </label>
-                                )}
-                            {tags.map(tag =>
-                                <label key={tag.tagId}>
-                                    <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} />
-                                    <div className="tag">{tag.name}</div>
-                                </label>
-                            )}
+                                )
+                            }
+                            <Tags tags={tags} tagChanged={tagChanged} />
                         </div>
                         <div className="button-box">
                             <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
