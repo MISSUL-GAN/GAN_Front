@@ -12,18 +12,6 @@
     align-items: center;
 }
 
-/* 
-(1) 이거 없으면 자글자글이 너무 커짐 
-
-(2) 이거 없으면 흰 여백 생김 
--> 문제!! min-width 이하로 내려가면 갑자기 세로 스크롤이 잡힘
-
-(3) 요소들 화면 센터 정렬때문에
-
-(4) 브라우저 화면에서 창 크기에 반응하되 - 일정크기 이하로 줄어들지 않게 하고 싶어서
-(단, 모바일 화면에선 이게 없어야함 -> 미디어 쿼리를 써보자,,,,)
-*/
-
 @media (min-width:1281px)  {
     .background {
         min-width: 1600px;
@@ -63,7 +51,7 @@
     width:  85%;
 }
 
-#content-box > #leftBox > a > button {
+#content-box > #leftBox > #buttonBox > a > button {
     min-width: 80px;
     width: 22%;
     background-color: rgb(0,0,0,0);
@@ -71,7 +59,7 @@
     margin-top: 5%;
 }
 
-#content-box > #leftBox > a > button > #start-button {
+#content-box > #leftBox > #buttonBox > a > button > #start-button {
     width: 100%;
 }
 
