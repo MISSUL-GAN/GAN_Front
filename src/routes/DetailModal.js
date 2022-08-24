@@ -170,12 +170,10 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
         drawing.title = newDrawingInfo.title;
         drawing.description = newDrawingInfo.description;
-        drawing.tags = newTagIds.map((tag) => {
-            if (TAGS.find(t => t.tagId === tag) === undefined)
-                return STYLE_TAGS.find(t => t.tagId === tag);
-            else
-                return TAGS.find(t => t.tagId === tag);
-        });
+        drawing.tags = [
+            ...TAGS.filter(tag => newTagIds.indexOf(tag.tagId) !== -1),
+            ...STYLE_TAGS.filter(tag => newTagIds.indexOf(tag.tagId) !== -1)
+        ]
     }
 
 
