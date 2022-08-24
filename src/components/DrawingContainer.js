@@ -30,22 +30,29 @@ const DrawingContainer = ({ sort, tagFilter }) => {
         reset();
     }, [sort, tagFilter]);
 
-    const onIntersect = 
-        async ([entry], observer) => {
-            if (entry.isIntersecting && !isLoading && hasNextPage) {
-                setIsLoading(true);
-                observer.unobserve(entry.target);
+    const onIntersect = async ([entry], observer) => {
+        if (entry.isIntersecting && !isLoading && hasNextPage) {
+            setIsLoading(true);
+            observer.unobserve(entry.target);
 
-                const response = await getDrawingsWithOptions(sort, tagFilter, page.current++);
+            const response = await getDrawingsWithOptions(sort, tagFilter, page.current++);
 
-                setDrawings(prev => [...prev, ...response]);
-                if (!response.length)
-                    setHasNextPage(false);
-                else
-                    observer.observe(entry.target);
-                setIsLoading(false);
-            }
+            setDrawings(prev => [...prev, ...response]);
+            if (!response.length)
+                setHasNextPage(false);
+            else
+                observer.observe(entry.target);
+            setIsLoading(false);
         }
+    };
+
+    useEffect(() => {
+        scrollRef.current.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const x = scrollRef.current.scrollLeft;
+            scrollRef.current.scrollTo(x + e.deltaY / 5, 0);
+        });
+    }, []);
 
     const [setTarget] = InfiniteScroll({
         onIntersect,
