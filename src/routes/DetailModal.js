@@ -222,22 +222,11 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     <>
                                         <textarea className="description" ref={descriptionRef} style={{ border: "none", height: "250px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
-                                        { tags.map(tag => {
-                                                if (tagIds.includes(tag.tagId))
-                                                    return (
-                                                        <label key={tag.tagId}>
-                                                            <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked/>
-                                                            <div className="tag">{tag.name}</div>
-                                                        </label>
-                                                    )
-                                                else
-                                                    return (
-                                                        <label key={tag.tagId}>
-                                                            <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} />
-                                                            <div className="tag">{tag.name}</div>
-                                                        </label>
-                                                    )
-                                            }
+                                            {tags.map(tag =>
+                                                <label key={tag.tagId}>
+                                                    <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={tagIds.includes(tag.tagId)} />
+                                                    <div className="tag">{tag.name}</div>
+                                                </label>
                                             )}
                                         </div>
                                     </>
