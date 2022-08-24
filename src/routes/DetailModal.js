@@ -181,7 +181,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
     return (
         <div id="modal" className="drawing-modal">
-            <Grow in={drawing}>
+            <Grow in={drawing != null}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={IMG} alt="" /> </div>
 
