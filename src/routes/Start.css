@@ -13,9 +13,9 @@
 }
 
 @media (min-width:1281px)  {
-    .background {
-        min-width: 1600px;
-        min-height: 900px;
+    #content-box {
+        max-width: 1600px;
+        /* max-height: 900px; */
     }
 }
 
