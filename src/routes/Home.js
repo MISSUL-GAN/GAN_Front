@@ -71,7 +71,7 @@ function Home() {
         </div>
       </div>
 
-      <Container>
+      <Container maxWidth="xl">
         <div className="viewOptionBox">
           <button className="refresh" onClick={() => setTagFilter(prev => [...prev])}> 이미지 새로고침 </button>
           <Sorts sorts={Sort} sortChanged={sortChanged} defaultSort={sort} />
