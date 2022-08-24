@@ -176,7 +176,6 @@ input[type="checkbox"]:checked+.tag {
 }
 
 #modal .buttonBox {
-    
     display: flex;
     width: 95%;
 }
@@ -222,7 +221,7 @@ button {
     height: 60px;
 
     margin-top: 12px;
-    margin-right: 40px;
+    margin-right: 120px;
     margin-left: 6px;
 }
 

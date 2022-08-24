@@ -6,28 +6,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
-import { Grow, styled, Tooltip, tooltipClasses } from "@mui/material";
+import { Grow } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
-
-const NFTTooltip = styled(({ className, ...props }) => (
-    <Tooltip {...props} arrow placement="top-start" classes={{ popper: className }} />
-))(({ theme }) => ({
-    [`& .${tooltipClasses.arrow}`]: {
-        color: "white",
-        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15))"
-    },
-    [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: 'white',
-        color: 'rgba(0, 0, 0, 0.87)',
-        padding: "12px 16px",
-        maxWidth: 220,
-        fontFamily: 'Spoqa Han Sans Neo',
-        fontWeight: 500,
-        fontSize: "12px",
-        borderRadius: "8px",
-        filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15))"
-    },
-}));
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -35,73 +15,23 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const navigate = useNavigate();
 
     const { home } = useOutletContext();
+
     const { clickDelete } = useOutletContext();
+    const requestDelete = () => {
+        handleDetailModalClose();
+        clickDelete(drawing.id);
+    }
 
-    const img = "https://ipfs.io/ipfs/" + drawing.fileName;
-
+    const IMG = "https://ipfs.io/ipfs/" + drawing.fileName;
+    
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
-
-    const [tagIds, setTagIds] = useState(drawing.tags.map((t) => { return t.id }));
-
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
 
-    const titleRef = useRef();
-    const descriptionRef = useRef();
-    const [edit, setEdit] = useState(true);
+    const clickClose = () => { handleDetailModalClose(); }
 
-    const tags = [
-        { name: "어두운", tagId: 1 },
-        { name: "화사한", tagId: 2 },
-        { name: "다채로운", tagId: 3 },
-        { name: "차분한", tagId: 4 },
-        { name: "강렬한", tagId: 5 },
-        { name: "차가운", tagId: 6 },
-        { name: "따뜻한", tagId: 7 },
-        { name: "풍경", tagId: 12 },
-        { name: "동물", tagId: 13 },
-        { name: "인물", tagId: 14 },
-        { name: "기타", tagId: 15 },
-    ];
-
-    const styleTags = [
-        { name: "반 고흐", tagId: 8 },
-        { name: "클로드 모네", tagId: 9 },
-        { name: "폴 세잔", tagId: 10 },
-        { name: "우키요에", tagId: 11 },
-    ]
-
-    const tagChanged = (e) => {
-        const tagId = e.target.value;
-
-        if (tagIds.includes(parseInt(tagId))) {
-            setTagIds(tagIds.filter(id => id !== parseInt(tagId)));
-            return true;
-        }
-        else {
-            const isAdding = e.target.checked;
-            if (isAdding) {
-                if (tagIds.length < 4) {
-                    if (tagIds.indexOf(tagId) === -1)
-                        setTagIds([...tagIds, parseInt(tagId)]);
-                    return true;
-                }
-                e.preventDefault();
-                return;
-            }
-            else {
-                setTagIds(tagIds.filter(id => id !== tagId));
-                return true;
-            }
-        }
-    }
-
-    function clickClose() {
-        handleDetailModalClose();
-    }
-
-    function clickLike() {
+    const clickLike = () => {
         if (member.signed) {
             if (member.id === drawing.member.id)
                 alert("본인이 만든 작품에는 좋아요를 누를 수 없습니다.");
@@ -119,12 +49,10 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 }
             }
         }
-        else {
+        else
             openLoginAlert();
-        }
     }
-
-    function clickBookmark() {
+    const clickBookmark = () => {
         if (member.signed) {
             if (member.id === drawing.member.id)
                 alert("본인이 만든 작품은 스크랩할 수 없습니다.");
@@ -138,7 +66,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 }
                 else {
                     drawing.scrapCount--;
-                    if (home) unscrap(drawing.id);
+
+                    if (home)
+                        unscrap(drawing.id);
                     else {
                         handleDetailModalClose();
                         clickDelete(drawing.id);
@@ -146,19 +76,13 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 }
             }
         }
-        else {
+        else
             openLoginAlert();
-        }
     }
 
-    function clickNFT() {
+    const clickNFT = () => {
         setSeeNFT(!seeNFT);
         nftRef.current.style.display = seeNFT ? "inline" : "none";
-    }
-
-    function requestDelete() {
-        handleDetailModalClose();
-        clickDelete(drawing.id);
     }
 
     const downloadImage = async (e) => {
@@ -180,36 +104,86 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
-    const clickEdit = () => {
-        setEdit(!edit);    
+
+    const TAGS = [
+        { name: "어두운", tagId: 1 },
+        { name: "화사한", tagId: 2 },
+        { name: "다채로운", tagId: 3 },
+        { name: "차분한", tagId: 4 },
+        { name: "강렬한", tagId: 5 },
+        { name: "차가운", tagId: 6 },
+        { name: "따뜻한", tagId: 7 },
+        { name: "풍경", tagId: 12 },
+        { name: "동물", tagId: 13 },
+        { name: "인물", tagId: 14 },
+        { name: "기타", tagId: 15 },
+    ];
+    const STYLE_TAGS = [
+        { name: "반 고흐", tagId: 8 },
+        { name: "클로드 모네", tagId: 9 },
+        { name: "폴 세잔", tagId: 10 },
+        { name: "우키요에", tagId: 11 },
+    ]
+
+    const [edit, setEdit] = useState(true);
+    const clickEdit = () => { setEdit(!edit); }
+
+    const [newTagIds, setNewTagIds] = useState(drawing.tags.map((t) => { return t.id }));
+    const newTitleRef = useRef();
+    const newDescriptionRef = useRef();
+
+    const tagChanged = (e) => {
+        const tagId = e.target.value;
+
+        if (newTagIds.includes(parseInt(tagId))) {
+            setNewTagIds(newTagIds.filter(id => id !== parseInt(tagId)));
+            return true;
+        }
+        else {
+            const isAdding = e.target.checked;
+            if (isAdding) {
+                if (newTagIds.length < 4) {
+                    if (newTagIds.indexOf(tagId) === -1)
+                        setNewTagIds([...newTagIds, parseInt(tagId)]);
+                    return true;
+                }
+                e.preventDefault();
+                return;
+            }
+            else {
+                setNewTagIds(newTagIds.filter(id => id !== tagId));
+                return true;
+            }
+        }
     }
 
-    const clickComplete = () => {
+    const finishEditing = () => {
         setEdit(!edit);
 
         let newDrawingInfo = {
-            "description": descriptionRef.current.value === "" ? drawing.description : descriptionRef.current.value,
-            "tagIds": tagIds,
-            "title": titleRef.current.value === "" ? drawing.title : titleRef.current.value
+            "description": newDescriptionRef.current.value === "" ? drawing.description : newDescriptionRef.current.value,
+            "tagIds": newTagIds,
+            "title": newTitleRef.current.value === "" ? drawing.title : newTitleRef.current.value
         };
 
         editDrawing(drawing.id, newDrawingInfo);
 
         drawing.title = newDrawingInfo.title;
         drawing.description = newDrawingInfo.description;
-        drawing.tags = tagIds.map((tag) => { 
-            if(tags.find(t => t.tagId === tag) === undefined)
-                return styleTags.find(t => t.tagId === tag);
+        drawing.tags = newTagIds.map((tag) => {
+            if (TAGS.find(t => t.tagId === tag) === undefined)
+                return STYLE_TAGS.find(t => t.tagId === tag);
             else
-                return tags.find(t => t.tagId === tag);
+                return TAGS.find(t => t.tagId === tag);
         });
     }
+
 
     return (
         <div id="modal" className="drawing-modal">
             <Grow in={drawing}>
                 <div className="drawing-modal-window">
-                    <div className="drawing-modal-left"> <img className="large-drawing" src={img} alt="" /> </div>
+                    <div className="drawing-modal-left"> <img className="large-drawing" src={IMG} alt="" /> </div>
 
                     <div>
                         <button className="drawing-modal-close" onClick={clickClose}> <img src="/img/closeButton.png" alt="" /> </button>
@@ -227,7 +201,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                         ?
                                         <div className="drawing-title"> {drawing.title} </div>
                                         :
-                                        <input className="drawing-title" type='text' ref={titleRef} style={{ border: "none" }} placeholder={drawing.title} maxLength={8} />
+                                        <input className="drawing-title" type='text' ref={newTitleRef} style={{ border: "none" }} placeholder={drawing.title} maxLength={8} />
                                     }
 
                                     {!home && drawing.member.id === member.id &&
@@ -243,23 +217,23 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     </>
                                     :
                                     <>
-                                        <textarea className="description" ref={descriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
+                                        <textarea className="description" ref={newDescriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
                                             <div> 태그를 선택해주세요. (최대 4개)</div>
 
-                                            {styleTags.map(tag => {
-                                                if (tagIds.includes(tag.tagId))
-                                                    return(
+                                            {STYLE_TAGS.map(tag => {
+                                                if (newTagIds.includes(tag.tagId))
+                                                    return (
                                                         <label key={tag.tagId}>
-                                                            <input name="tagBox" type="checkbox" value="화풍태그" disabled/>
+                                                            <input name="tagBox" type="checkbox" value="화풍태그" disabled />
                                                             <div className="edit-style-tag"> {tag.name} </div>
                                                         </label>
                                                     )
                                             })}
 
-                                            {tags.map(tag =>
+                                            {TAGS.map(tag =>
                                                 <label key={tag.tagId}>
-                                                    <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={tagIds.includes(tag.tagId)} />
+                                                    <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={newTagIds.includes(tag.tagId)} />
                                                     <div className="tag">{tag.name}</div>
                                                 </label>
                                             )}
@@ -277,19 +251,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                         <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
                                         {!home && drawing.member.id === member.id &&
-                                            <>
-                                                <NFTTooltip
-                                                    title={
-                                                        <React.Fragment>
-                                                            당신의 작품을 NFT로 등록해보세요!
-                                                        </React.Fragment>
-                                                    }
-                                                    className="NFTButton"
-                                                >
-                                                    <button className="NFTButton"><img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
-                                                </NFTTooltip>
-                                                <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
-                                            </>
+                                            <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
                                         }
 
                                         <button id="open-nft-button" onClick={clickNFT} style={!drawing.nft && { opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}>
@@ -309,12 +271,11 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     :
                                     <div id="edit-box">
                                         <button id="edit-cancle" onClick={clickEdit}> 취소 </button>
-                                        <button id="edit-complete" onClick={clickComplete}> 수정 완료 </button>
+                                        <button id="edit-complete" onClick={finishEditing}> 수정 완료 </button>
                                     </div>
                                 }
 
                             </div>
-
 
                             <div className="NFTBox" ref={nftRef}>
                                 어쩌고저쩌고<br />
