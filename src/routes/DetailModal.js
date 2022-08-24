@@ -42,7 +42,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
-    const [tagIds, setTagIds] = useState(drawing.tags.map((t) => { return t.id })); // useState([]);
+    const [tagIds, setTagIds] = useState(drawing.tags.map((t) => { return t.id }));
 
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
@@ -65,6 +65,13 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         { name: "기타", tagId: 15 },
     ];
 
+    const styleTags = [
+        { name: "반 고흐", tagId: 8 },
+        { name: "클로드 모네", tagId: 9 },
+        { name: "폴 세잔", tagId: 10 },
+        { name: "우키요에", tagId: 11 },
+    ]
+
     const tagChanged = (e) => {
         const tagId = e.target.value;
 
@@ -75,7 +82,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         else {
             const isAdding = e.target.checked;
             if (isAdding) {
-                if (tagIds.length < 3) {
+                if (tagIds.length < 4) {
                     if (tagIds.indexOf(tagId) === -1)
                         setTagIds([...tagIds, parseInt(tagId)]);
                     return true;
@@ -174,8 +181,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     }
 
     const clickEdit = () => {
-        setEdit(!edit);
-        setTagIds(drawing.tags.map((t) => { return t.id }));
+        setEdit(!edit);    
     }
 
     const clickComplete = () => {
@@ -191,7 +197,12 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
         drawing.title = newDrawingInfo.title;
         drawing.description = newDrawingInfo.description;
-        drawing.tags = tagIds.map((tag) => { return tags.find(t => t.tagId === tag) });
+        drawing.tags = tagIds.map((tag) => { 
+            if(tags.find(t => t.tagId === tag) === undefined)
+                return styleTags.find(t => t.tagId === tag);
+            else
+                return tags.find(t => t.tagId === tag);
+        });
     }
 
     return (
@@ -234,7 +245,18 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     <>
                                         <textarea className="description" ref={descriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
-                                            <div> 태그를 선택해주세요. (최대 3개)</div>
+                                            <div> 태그를 선택해주세요. (최대 4개)</div>
+
+                                            {styleTags.map(tag => {
+                                                if (tagIds.includes(tag.tagId))
+                                                    return(
+                                                        <label key={tag.tagId}>
+                                                            <input name="tagBox" type="checkbox" value="화풍태그" disabled/>
+                                                            <div className="edit-style-tag"> {tag.name} </div>
+                                                        </label>
+                                                    )
+                                            })}
+
                                             {tags.map(tag =>
                                                 <label key={tag.tagId}>
                                                     <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={tagIds.includes(tag.tagId)} />

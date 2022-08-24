@@ -137,6 +137,22 @@ input[type="checkbox"] {
     padding-bottom: 6px;
 }
 
+.edit-style-tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    height: 40px;
+    background: #9F9F9F;
+    border-radius: 40px;
+    color: white;
+    cursor: not-allowed;
+
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
 .tag {
     display: flex;
     flex-direction: column;
