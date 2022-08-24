@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
 import { useSelector } from "react-redux";
@@ -38,7 +38,6 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
                 if (!like) {
                     drawing.heartCount++;
-
                     heart(drawing.id);
                 }
                 else {
@@ -120,7 +119,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             <div>
                                 <div className="userInfo">
                                     <img src={drawing.member.profileImage} alt="" className="profileImg" width={50} height={50} />
-                                    <p className="author" onClick={() => { navigate(`/userPage/${drawing.member.id}`) }}>
+                                    <p className="author" onClick={() => { navigate(`/userPage/${drawing.member.id}`); document.body.style.overflow = "visible"; }}>
                                         {drawing.member.name}
                                     </p>
                                 </div>
