@@ -8,6 +8,7 @@ import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 import { Grow } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
+import EditTags from "../components/EditTags";
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -173,7 +174,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         drawing.tags = [
             ...TAGS.filter(tag => newTagIds.indexOf(tag.tagId) !== -1),
             ...STYLE_TAGS.filter(tag => newTagIds.indexOf(tag.tagId) !== -1)
-        ]
+        ];
     }
 
 
@@ -223,22 +224,16 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                 if (newTagIds.includes(tag.tagId))
                                                     return (
                                                         <label key={tag.tagId}>
-                                                            <input name="tagBox" type="checkbox" value="화풍태그" disabled />
+                                                            <input name="tagBox" type="checkbox" value={tag.name} disabled />
                                                             <div className="edit-style-tag"> {tag.name} </div>
                                                         </label>
                                                     )
                                             })}
-
-                                            {TAGS.map(tag =>
-                                                <label key={tag.tagId}>
-                                                    <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={newTagIds.includes(tag.tagId)} />
-                                                    <div className="tag">{tag.name}</div>
-                                                </label>
-                                            )}
+                                            
+                                            <EditTags tags={TAGS} newTags={newTagIds} tagChanged={tagChanged} />
                                         </div>
                                     </>
                                 }
-
                             </div>
 
                             <div className="buttonBox">
