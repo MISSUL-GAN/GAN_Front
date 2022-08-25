@@ -28,9 +28,17 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const [like, setLike] = useState(false);
     const [bookmark, setBookmark] = useState(false);
     const [seeNFT, setSeeNFT] = useState(true);
-    const nftRef = useRef();
 
-    const clickClose = () => { handleDetailModalClose(); }
+    const nftRef = useRef();
+    const modalExternalRef = useRef();
+    const closeButtonRef = useRef();
+
+    const clickClose = (e) => { 
+        if(modalExternalRef.current === e.target || closeButtonRef.current === e.target) {
+            e.stopPropagation();
+            handleDetailModalClose();
+        }
+    } 
 
     const clickLike = () => {
         if (member.signed) {
@@ -177,15 +185,14 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         ];
     }
 
-
     return (
-        <div id="modal" className="drawing-modal">
+        <div id="modal" className="drawing-modal" onClick={clickClose} ref={modalExternalRef}>
             <Grow in={drawing != null}>
                 <div className="drawing-modal-window">
                     <div className="drawing-modal-left"> <img className="large-drawing" src={IMG} alt="" /> </div>
 
                     <div>
-                        <button className="drawing-modal-close" onClick={clickClose}> <img src="/img/closeButton.png" alt="" /> </button>
+                        <button className="drawing-modal-close" onClick={clickClose}> <img src="/img/closeButton.png" alt="" ref={closeButtonRef} /> </button>
                         <div className="drawing-modal-right">
                             <div>
                                 <div className="userInfo">
