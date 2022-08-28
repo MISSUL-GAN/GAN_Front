@@ -5,6 +5,8 @@ import KakaoImageShareButton from "../components/KakaoImageShareButton"
 import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
 import Tags from "../components/Tags";
+import { downloadImage } from '../util/downloadImage';
+import ModalElement from "../components/ModalElement";
 
 const STYLES = [
     { name: "반 고흐", tagId: 8 },
@@ -66,12 +68,20 @@ function SaveDrawing() {
     const navigateToMyPage = (drawingId) => navigate(`/myPage/${drawingId}`);
 
     const { isLoading, presetTagId, fileName, openAlert } = useOutletContext();
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const imageLoaded = () => setIsImageLoaded(true);
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [walletAddress, setWalletAddress] = useState(null);
     const changeTitle = (e) => setTitle(e.target.value);
     const changeDescription = (e) => setDescription(e.target.value);
+    const changeWalletAddress = (e) => setWalletAddress(e.target.value);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
 
     const [tagIds, setTagIds] = useState([]);
     const tagChanged = (e) => {
@@ -92,21 +102,11 @@ function SaveDrawing() {
         }
     }
 
-    const drawing = { title: title, description: description, fileName: fileName };
+    const drawing = { title, description, fileName, walletAddress };
 
-    const downloadImage = async (e) => {
+    const download = async () => {
         try {
-            const imageUrl = `https://ipfs.io/ipfs/${fileName}`;
-            const response = await fetch(imageUrl, { method: 'GET' });
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-
-            const tempElement = document.createElement('a');
-            document.body.appendChild(tempElement);
-            tempElement.href = url;
-            tempElement.download = "missulgan";
-            tempElement.click();
-            tempElement.remove();
+            downloadImage(fileName);
         }
         catch (e) {
             openAlert("이미지 다운로드 실패");
@@ -192,14 +192,22 @@ function SaveDrawing() {
                                 }
                                 className="NFTButton"
                             >
-                                <div className="question-button">
+                                <div className="question-button" onClick={openModal}>
                                     <p>?</p>
                                 </div>
                             </NFTTooltip>
-                            <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." />
+                            <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} />
+                            <ModalElement open={modalOpen} handleClose={closeModal}>
+                                <h2>지갑 주소 발행</h2>
+                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
+                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
+                                <h2>발행된 NFT 찾기</h2>
+                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
+                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
+                            </ModalElement>
                         </div>
                         <div className="button-box">
-                            <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                            <button onClick={download}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
                             <KakaoImageShareButton drawing={drawing}></KakaoImageShareButton>
                             <button className="post-button" disabled={!isReady()} onClick={save}> Missul;GAN에 사진 게시하기 </button>
                         </div>
