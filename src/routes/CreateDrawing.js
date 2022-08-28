@@ -3,6 +3,15 @@ import React, { useState, useRef } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import './CreateDrawing.css';
 
+
+const STYLES = [
+    { name: "반 고흐", tagId: 8 },
+    { name: "클로드 모네", tagId: 9 },
+    { name: "폴 세잔", tagId: 10 },
+    { name: "우키요에", tagId: 11 },
+];
+Object.freeze(STYLES);
+
 function CreateDrawing() {
     const navigate = useNavigate();
     const navigateToSave = () => navigate('save');
@@ -27,12 +36,6 @@ function CreateDrawing() {
     }
 
     const [style, setStyle] = useState(null);
-    const styles = [
-        { name: "반 고흐", tagId: 8 },
-        { name: "클로드 모네", tagId: 9 },
-        { name: "폴 세잔", tagId: 10 },
-        { name: "우키요에", tagId: 11 },
-    ];
     const lookForOriginImage = () => originImage.current.click();
     const lookForStyleImage = (e) => { styleImage.current.click(); }
 
@@ -80,18 +83,19 @@ function CreateDrawing() {
                         <input type='file' accept='image/*' style={{ display: "none" }} ref={originImage} onChange={originImageChanged} />
                     </div>
                 </Grid>
-                <Grid item container xs={12} md={6} justifyContent="center" alignItems="center" rowSpacing={4}  maxHeight="740px">
+                <Grid item container xs={12} md={6} justifyContent="center" alignItems="center" rowSpacing={4} maxHeight="740px">
                     <Grid item>
                         <div className="create-option">
                             <p> 원하는 화풍을 선택해주세요 </p>
                             <form ref={styleForm} onReset={clearStyle} onChange={selectStyle}>
                                 <div className="styles">
-                                    {styles.map(style =>
-                                        <label key={style.tagId} >
-                                            <input type="radio" value={style.tagId} name="style" disabled={isGANDisabled} onClick={selectStyle} />
-                                            <div className="styleButton" >{style.name}</div>
-                                        </label>
-                                    )}
+                                    {STYLES
+                                        .map(style =>
+                                            <label key={style.tagId} >
+                                                <input type="radio" value={style.tagId} name="style" disabled={isGANDisabled} onClick={selectStyle} />
+                                                <div className="styleButton" >{style.name}</div>
+                                            </label>
+                                        )}
                                 </div>
 
                                 <div className="styleImage">

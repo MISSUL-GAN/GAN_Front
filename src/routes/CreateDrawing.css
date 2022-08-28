@@ -118,6 +118,7 @@
   margin-top: 5px;
   width: 24px;
   height: 24px;
+  display: inline-block;
 }
 
 .submitButton {
