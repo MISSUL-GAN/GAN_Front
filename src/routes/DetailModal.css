@@ -99,7 +99,7 @@
     margin-top: 13px;
 }
 
-#modal #testTitleBox {
+#modal #drawing-title-box {
     display: flex;
     justify-content: space-between;
     margin-bottom: 3%;
@@ -232,6 +232,12 @@ button {
     font-size: smaller;
     text-align: center;
 }
+
+.likeBox p,
+.bookmarkBox p{
+    cursor: pointer;
+}
+
 
 #modal .NFTBox {
     display: none;
