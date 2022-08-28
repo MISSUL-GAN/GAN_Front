@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { heart, unheart } from "../api/heartApi";
 import { scrap, unscrap } from "../api/scrapApi";
+import { getNFTInfo } from "../api/nftApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import './DetailModal.css';
@@ -19,8 +20,8 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
-
-    const img = "https://ipfs.io/ipfs/"+drawing.fileName;
+    const [nftInfo, setNftInfo] = useState([]);
+    const img = "https://ipfs.io/ipfs/" + drawing.fileName;
 
     const navigate = useNavigate();
 
@@ -65,7 +66,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 }
                 else {
                     drawing.scrapCount--;
-                    if(home) unscrap(drawing.id);
+                    if (home) unscrap(drawing.id);
                     else {
                         handleDetailModalClose();
                         clickDelete(drawing.id);
@@ -107,6 +108,19 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
+    useEffect(() => {
+        drawing.nft = {
+            "assetContractAddress": "0x381748c76f2b8871afbbe4578781cd24df34ae0d",
+            "tokenId": "0"
+        };
+
+        async function getDrawingNFTInfo() {
+            setNftInfo(await getNFTInfo(drawing.nft.assetContractAddress, drawing.nft.tokenId));
+        }
+
+        if (drawing.nft !== null) getDrawingNFTInfo();
+    }, []);
+
     return (
         <div id="modal" className="drawing-modal">
             <Grow in={drawing != null}>
@@ -134,35 +148,58 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                             </div>
 
                             <div className="buttonBox">
-                                <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
-                                <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
+                                <div>
+                                    <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                                    <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
-                                { !home && drawing.member.id === member.id &&
-                                    <>
-                                        <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
-                                        <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
-                                    </>
-                                }
+                                    {!home && drawing.member.id === member.id &&
+                                        <>
+                                            <button> <img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                            <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                        </>
+                                    }
 
-                                <button id="open-nft-button" onClick={clickNFT} style={!drawing.nft && {opacity: "0.5", cursor: "not-allowed"}} disabled={!drawing.nft && true}> 
-                                    NFT 통계 정보 
-                                </button>
+                                    {nftInfo.length === 0
+                                        ?
+                                        <button id="open-nft-button" onClick={clickNFT} style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
+                                        :
+                                        <button id="open-nft-button" onClick={clickNFT}> NFT 통계 정보 </button>
+                                    }
 
-                                <div className="likeBox">
-                                    <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                    <p> {drawing.heartCount} </p>
+                                    <div className="likeBox">
+                                        <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
+                                        <p> {drawing.heartCount} </p>
+                                    </div>
+
+                                    <div className="bookmarkBox">
+                                        <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
+                                        <p> {drawing.scrapCount} </p>
+                                    </div>
                                 </div>
 
-                                <div className="bookmarkBox">
-                                    <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                    <p> {drawing.scrapCount} </p>
-                                </div>
-                            </div>
+                                <div className="NFTBox" ref={nftRef}>
+                                    {nftInfo.length !== 0 &&
+                                        <>
+                                            <div> {nftInfo.owner.user.username}님이 소유하고 있는 작품입니다. </div>
 
-                            <div className="NFTBox" ref={nftRef}>
-                                어쩌고저쩌고<br />
-                                이 작품의 NFT 가격!! 247239857198321093원<br />
-                                아무튼 통계 정보~~~ 들어갈 자리~~~
+                                            <div style={{display:"flex", margin:"10px 0px"}}>
+                                            <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width={20} />
+                                            
+                                            {nftInfo.collection.stats.one_day_average_price === 0 ?
+                                                <> 아직 가격이 정해지지 않은 작품입니다.<br/>아래 링크를 통해 소유자에게 거래를 제안해보세요! </>
+                                                :
+                                                <>
+                                                    <> 1일 평균가 </>
+                                                    {nftInfo.collection.stats.one_day_average_price}
+                                                    <> ETH </> <br />
+                                                </>
+                                            }
+                                            </div>
+
+                                            <a href={nftInfo.permalink} target="_blank"> openSea에서 보기 </a>
+                                        </>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
