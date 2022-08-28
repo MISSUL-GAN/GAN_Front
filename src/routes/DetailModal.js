@@ -219,7 +219,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     ?
                                     <>
                                         <p className="description"> {drawing.description} </p>
-                                        <div className="drawing-tag"> {drawing.tags.map((t) => <p> #{t.name} </p>)} </div>
+                                        <div className="drawing-tag"> {drawing.tags.map((t) => <p key={t.id}> #{t.name} </p>)} </div>
                                     </>
                                     :
                                     <>
