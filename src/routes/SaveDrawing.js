@@ -6,6 +6,28 @@ import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
 import Tags from "../components/Tags";
 
+const STYLES = [
+    { name: "반 고흐", tagId: 8 },
+    { name: "클로드 모네", tagId: 9 },
+    { name: "폴 세잔", tagId: 10 },
+    { name: "우키요에", tagId: 11 },
+];
+
+const TAGS = [
+    { name: "어두운", tagId: 1 },
+    { name: "화사한", tagId: 2 },
+    { name: "다채로운", tagId: 3 },
+    { name: "차분한", tagId: 4 },
+    { name: "강렬한", tagId: 5 },
+    { name: "차가운", tagId: 6 },
+    { name: "따뜻한", tagId: 7 },
+    { name: "풍경", tagId: 12 },
+    { name: "동물", tagId: 13 },
+    { name: "인물", tagId: 14 },
+    { name: "기타", tagId: 15 },
+];
+Object.freeze(STYLES);
+Object.freeze(TAGS);
 
 const NFTTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} arrow placement="top-start" classes={{ popper: className }} />
@@ -18,10 +40,9 @@ const NFTTooltip = styled(({ className, ...props }) => (
         backgroundColor: 'white',
         color: 'rgba(0, 0, 0, 0.87)',
         padding: "12px 16px",
-        maxWidth: 220,
         fontFamily: 'Spoqa Han Sans Neo',
         fontWeight: 500,
-        fontSize: "12px",
+        fontSize: "14px",
         borderRadius: "8px",
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15))"
     },
@@ -57,7 +78,7 @@ function SaveDrawing() {
         const isAdding = e.target.checked;
         const tagId = e.target.value;
         if (isAdding) {
-            if (tagIds.length < 3) {
+            if (tagIds.length < 4) {
                 if (tagIds.indexOf(tagId) === -1)
                     setTagIds([...tagIds, tagId]);
                 return true;
@@ -72,27 +93,6 @@ function SaveDrawing() {
     }
 
     const drawing = { title: title, description: description, fileName: fileName };
-
-    const styles = [
-        { name: "반 고흐", tagId: 8 },
-        { name: "클로드 모네", tagId: 9 },
-        { name: "폴 세잔", tagId: 10 },
-        { name: "우키요에", tagId: 11 },
-    ];
-
-    const tags = [
-        { name: "어두운", tagId: 1 },
-        { name: "화사한", tagId: 2 },
-        { name: "다채로운", tagId: 3 },
-        { name: "차분한", tagId: 4 },
-        { name: "강렬한", tagId: 5 },
-        { name: "차가운", tagId: 6 },
-        { name: "따뜻한", tagId: 7 },
-        { name: "풍경", tagId: 12 },
-        { name: "동물", tagId: 13 },
-        { name: "인물", tagId: 14 },
-        { name: "기타", tagId: 15 },
-    ];
 
     const downloadImage = async (e) => {
         try {
@@ -113,7 +113,7 @@ function SaveDrawing() {
         }
     }
 
-    const isReady = () => !isLoading && fileName && title && tagIds.length;
+    const isReady = () => !isLoading && fileName && title && tagIds.length && description.length;
 
     const save = async () => {
         if (!isReady()) return false;
@@ -131,7 +131,7 @@ function SaveDrawing() {
         const navigateToCreate = () => navigate("/create");
         if (!isLoading && !fileName) {
             openAlert("변환 오류");
-            navigateToCreate();
+            // navigateToCreate();
         }
         if (presetTagId)
             setTagIds([presetTagId]);
@@ -166,12 +166,11 @@ function SaveDrawing() {
                             value={description}
                         />
                     </Grid>
-
-                    <Grid item alignSelf="end">
+                    <Grid item>
                         <div className="tag-box">
-                            <p> 태그를 선택해주세요. (최대 3개) </p>
+                            <p> 태그를 선택해주세요. (고정태그 포함 최대 4개) </p>
                             <hr />
-                            {styles
+                            {STYLES
                                 .filter(style => style.tagId == presetTagId)
                                 .map(style =>
                                     <label key={style.tagId}>
@@ -180,21 +179,28 @@ function SaveDrawing() {
                                     </label>
                                 )
                             }
-                            <Tags tags={tags} tagChanged={tagChanged} />
+                            <Tags tags={TAGS} tagChanged={tagChanged} />
                         </div>
-                        <div className="button-box">
-                            <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
-                            <KakaoImageShareButton drawing={drawing}></KakaoImageShareButton>
+                    </Grid>
+                    <Grid item alignSelf="end" flexGrow="1" flexDirection="column" display="flex" gap="14px">
+                        <div className="ethereum-wallet-box">
                             <NFTTooltip
                                 title={
                                     <React.Fragment>
-                                        당신의 작품을 NFT로 등록해보세요!
+                                        이더리움 지갑 생성 방법을 알아보아요!
                                     </React.Fragment>
                                 }
                                 className="NFTButton"
                             >
-                                <button className="NFTButton"><img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                <div className="question-button">
+                                    <p>?</p>
+                                </div>
                             </NFTTooltip>
+                            <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." />
+                        </div>
+                        <div className="button-box">
+                            <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                            <KakaoImageShareButton drawing={drawing}></KakaoImageShareButton>
                             <button className="post-button" disabled={!isReady()} onClick={save}> Missul;GAN에 사진 게시하기 </button>
                         </div>
                     </Grid>
