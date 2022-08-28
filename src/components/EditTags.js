@@ -34,7 +34,7 @@ const EditTags = ({ tags, newTags, tagChanged }) => {
         <>
             {tags.map(tag => 
                 <label key={tag.tagId}>
-                    <HiddenInput name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} checked={newTags.includes(tag.tagId)} />
+                    <HiddenInput name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} defaultChecked={newTags.includes(tag.tagId)} />
                     <Tag>{tag.name}</Tag>
                 </label>
             )}

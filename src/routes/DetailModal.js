@@ -48,7 +48,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 else {
                     drawing.heartCount--;
                     unheart(drawing.id);
-                    setLikeList(likeList.filter(m => m.id !== member.id)); // 근데 이건 첫 요소만 제외한 새 배열이 필요한거라 굳이 필터를 쓸 이유가
+                    setLikeList(likeList.filter(m => m.id !== member.id));
                 }
             }
         }
@@ -239,7 +239,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     ?
                                     <>
                                         <p className="description"> {drawing.description} </p>
-                                        <div className="drawing-tag"> {drawing.tags.map((t) => <p> #{t.name} </p>)} </div>
+                                        <div className="drawing-tag"> {drawing.tags.map((t) => <p key={t.id}> #{t.name} </p>)} </div>
                                     </>
                                     :
                                     <>
@@ -247,16 +247,16 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                         <div>
                                             <div> 태그를 선택해주세요. (최대 4개)</div>
 
-                                            {STYLE_TAGS.map(tag => {
-                                                if (newTagIds.includes(tag.tagId))
-                                                    return (
-                                                        <label key={tag.tagId}>
-                                                            <input name="tagBox" type="checkbox" value={tag.name} disabled />
-                                                            <div className="edit-style-tag"> {tag.name} </div>
-                                                        </label>
-                                                    )
-                                            })}
-
+                                            {STYLE_TAGS
+                                                .filter(style => newTagIds.includes(style.tagId))
+                                                .map(tag => (
+                                                    <label key={tag.tagId}>
+                                                        <input name="tagBox" type="checkbox" value={tag.name} disabled />
+                                                        <div className="edit-style-tag"> {tag.name} </div>
+                                                    </label>
+                                                ))
+                                            }
+                                            
                                             <EditTags tags={TAGS} newTags={newTagIds} tagChanged={tagChanged} />
                                         </div>
                                     </>
