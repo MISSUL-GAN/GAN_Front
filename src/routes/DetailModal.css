@@ -9,29 +9,49 @@
     align-items: center;
     justify-content: center;
 
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 100;
 }
 
 #modal .drawing-modal-window {
     background: rgb(255, 255, 255);
     border-radius: 10px;
+    min-width: 600px;
     width: 60%;
-    height: fit-content;
-    position: relative;
-    top: 1%;
-    margin: 0 30px 0 30px;
+    height: 70%;
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    overflow: auto;
+}
+
+.drawing-modal-window::-webkit-scrollbar {
+    background-color: white;
+    height: 15px;
+    border-radius: 10px;
+}
+
+.drawing-modal-window::-webkit-scrollbar-thumb {
+    background-color: #9F9F9F;
+    border-radius: 20px;
+    background-clip: padding-box;
+    border: 5px solid transparent;
+}
+
+.drawing-modal-window::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 20px;
 }
 
 #modal .drawing-modal-left {
     width: 230%;
     display: flex;
     align-items: center;
-    margin-left: 3%;
-    margin-right: 1vw;
+    margin: 0 10px;
+}
+
+#modal .drawing-modal-left img {
+    min-width: 300px;
 }
 
 #modal .drawing-modal-window .large-drawing {
@@ -40,26 +60,36 @@
 }
 
 #modal .drawing-modal-right {
-    margin-left: 2%;
     height: 68vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-left: 10px;
+}
+
+#modal>div>div:nth-child(2) {
+    position: relative;
 }
 
 #modal .drawing-modal-close {
-    width: fit-content;
-    height: auto;
-    font-size: 20px;
-    margin-left: 96%;
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
+
+    position: absolute;
+    right: 0;
+}
+
+#modal .drawing-modal-close img {
+    width: 30px;
+    height: 30px;
 }
 
 #modal .userInfo {
     display: flex;
-    margin: 0 0 1% 0;
+    margin: 10% 0 1% 0;
 }
 
-#modal .profileImg{
+#modal .profileImg {
     border-radius: 30%;
     object-fit: cover;
 }
@@ -67,6 +97,13 @@
 #modal .author {
     margin-left: 8px;
     margin-top: 13px;
+}
+
+#modal #testTitleBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3%;
+    width: 95%;
 }
 
 #modal .drawing-title {
@@ -79,12 +116,63 @@
 }
 
 #modal .drawing-tag {
-    color: rgb(98, 98, 98);    
-    display: flex;   
+    color: rgb(98, 98, 98);
+    display: flex;
 }
 
 #modal .drawing-tag p {
     margin-right: 0.5vw;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+#modal > div > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(4) > div {
+    font-size: 1.2rem;
+    letter-spacing: -0.05em;
+    color: #9F9F9F;
+    border-bottom: 1px solid;
+    width: 95%;
+    padding-bottom: 6px;
+}
+
+.edit-style-tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    height: 40px;
+    background: #9F9F9F;
+    border-radius: 40px;
+    color: white;
+    cursor: not-allowed;
+
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    height: 40px;
+    background: #F4F4F4;
+    border-radius: 40px;
+    color: #3C6B50;
+    cursor: pointer;
+
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+input[type="checkbox"]:checked+.tag {
+    color: #FFFFFF;
+    background: #3C6B50;
+    border-radius: 40px;
 }
 
 #modal .buttonBox {
@@ -99,8 +187,39 @@
 }
 
 #modal .buttonBox button {
+    width: 95%;
+}
+
+#modal #edit-box {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#edit-cancle {
+    width: 18rem;
+    height: 60px;
+    border: 1px solid;
+    border: 1.5px solid #FF922E;
+    border-radius: 20px;
+    color: #FF922E;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+#edit-complete {
+    width: 25rem;
+    height: 60px;
     border: none;
-    background-color: rgb(0,0,0,0);
+    background: #FF922E;
+    border-radius: 20px;
+    color: white;
+}
+
+button {
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
 }
 
 #modal .buttonBox #open-nft-button {
@@ -110,13 +229,14 @@
     color: white;
     width: 270px;
     height: 60px;
-    
+
     margin-top: 12px;
-    margin-right: 30px;
-    margin-left: 10px;
+    margin-right: 120px;
+    margin-left: 6px;
 }
 
-#modal .likeBox, .bookmarkBox {
+#modal .likeBox,
+.bookmarkBox {
     height: fit-content;
     margin-top: 10px;
     font-size: smaller;
