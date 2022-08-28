@@ -222,7 +222,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     </p>
                                 </div>
 
-                                <div id="testTitleBox">
+                                <div id="drawing-title-box">
                                     {edit
                                         ?
                                         <div className="drawing-title"> {drawing.title} </div>
@@ -245,7 +245,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     <>
                                         <textarea className="description" ref={newDescriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
-                                            <div> 태그를 선택해주세요. (최대 4개)</div>
+                                            <div> 태그를 선택해주세요. (고정태그 포함 최대 4개)</div>
 
                                             {STYLE_TAGS
                                                 .filter(style => newTagIds.includes(style.tagId))
