@@ -15,7 +15,7 @@ const StyledContainer = styled(Container)`
     maxHeight: 70%;
     overflow: scroll;
 `;
-const ModalElement = ({ open, handleClose, children }) => {
+const ModalElement = ({ open = true, handleClose, children, width = "md" }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -23,7 +23,7 @@ const ModalElement = ({ open, handleClose, children }) => {
         <MUIDialog
             fullWidth
             fullScreen={fullScreen}
-            maxWidth="md"
+            maxWidth={width}
             open={open}
             onClose={handleClose}
             sx={{ '& .MuiDialog-paper': { borderRadius: "10px" } }}
