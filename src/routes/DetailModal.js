@@ -227,15 +227,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                         <div>
                                             <div> 태그를 선택해주세요. (최대 4개)</div>
 
-                                            {STYLE_TAGS.map(tag => {
-                                                if (newTagIds.includes(tag.tagId))
-                                                    return (
-                                                        <label key={tag.tagId}>
-                                                            <input name="tagBox" type="checkbox" value={tag.name} disabled />
-                                                            <div className="edit-style-tag"> {tag.name} </div>
-                                                        </label>
-                                                    )
-                                            })}
+                                            {STYLE_TAGS
+                                                .filter(style => newTagIds.includes(style.tagId))
+                                                .map(tag => (
+                                                    <label key={tag.tagId}>
+                                                        <input name="tagBox" type="checkbox" value={tag.name} disabled />
+                                                        <div className="edit-style-tag"> {tag.name} </div>
+                                                    </label>
+                                                ))
+                                            }
                                             
                                             <EditTags tags={TAGS} newTags={newTagIds} tagChanged={tagChanged} />
                                         </div>
