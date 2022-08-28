@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
-import { heart, unheart } from "../api/heartApi";
-import { scrap, unscrap } from "../api/scrapApi";
+import React, { useState, useRef, useEffect } from "react";
+import { getHeartMembers, heart, unheart } from "../api/heartApi";
+import { getScrapMembers, scrap, unscrap } from "../api/scrapApi";
 import { editDrawing } from "../api/drawingApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
@@ -9,6 +9,7 @@ import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
 import { Grow } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import EditTags from "../components/EditTags";
+import ReactionList from "./ReactionList";
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -24,22 +25,13 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     }
 
     const IMG = "https://ipfs.io/ipfs/" + drawing.fileName;
-    
+
+    const [showLikeList, setShowLikeList] = useState(false);
+    const handleshowLikeListOpen = () => { setShowLikeList(true); }
+    const handleshowLikeListClose = () => { setShowLikeList(false); }
+
     const [like, setLike] = useState(false);
-    const [bookmark, setBookmark] = useState(false);
-    const [seeNFT, setSeeNFT] = useState(true);
-
-    const nftRef = useRef();
-    const modalExternalRef = useRef();
-    const closeButtonRef = useRef();
-
-    const clickClose = (e) => { 
-        if(modalExternalRef.current === e.target || closeButtonRef.current === e.target) {
-            e.stopPropagation();
-            handleDetailModalClose();
-        }
-    } 
-
+    const [likeList, setLikeList] = useState([]);
     const clickLike = () => {
         if (member.signed) {
             if (member.id === drawing.member.id)
@@ -51,16 +43,25 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 if (!like) {
                     drawing.heartCount++;
                     heart(drawing.id);
+                    setLikeList([member, ...likeList]);
                 }
                 else {
                     drawing.heartCount--;
                     unheart(drawing.id);
+                    setLikeList(likeList.filter(m => m.id !== member.id));
                 }
             }
         }
         else
             openLoginAlert();
     }
+
+    const [showScrapList, setShowScrapList] = useState(false);
+    const handleshowScrapListOpen = () => { setShowScrapList(true); }
+    const handleshowScrapListClose = () => { setShowScrapList(false); }
+
+    const [bookmark, setBookmark] = useState(false);
+    const [bookmarkList, setBookmarkList] = useState([]);
     const clickBookmark = () => {
         if (member.signed) {
             if (member.id === drawing.member.id)
@@ -72,12 +73,15 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 if (!bookmark) {
                     drawing.scrapCount++;
                     scrap(drawing.id);
+                    setBookmarkList([member, ...bookmarkList]);
                 }
                 else {
                     drawing.scrapCount--;
 
-                    if (home)
+                    if (home){
                         unscrap(drawing.id);
+                        setBookmarkList(bookmarkList.filter(m => m.id !== member.id));
+                    }
                     else {
                         handleDetailModalClose();
                         clickDelete(drawing.id);
@@ -89,6 +93,17 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
             openLoginAlert();
     }
 
+    const modalExternalRef = useRef();
+    const closeButtonRef = useRef();
+    const clickClose = (e) => {
+        if (modalExternalRef.current === e.target || closeButtonRef.current === e.target) {
+            e.stopPropagation();
+            handleDetailModalClose();
+        }
+    }
+
+    const [seeNFT, setSeeNFT] = useState(true);
+    const nftRef = useRef();
     const clickNFT = () => {
         setSeeNFT(!seeNFT);
         nftRef.current.style.display = seeNFT ? "inline" : "none";
@@ -113,7 +128,6 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
-
     const TAGS = [
         { name: "어두운", tagId: 1 },
         { name: "화사한", tagId: 2 },
@@ -134,13 +148,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         { name: "우키요에", tagId: 11 },
     ]
 
-    const [edit, setEdit] = useState(true);
-    const clickEdit = () => { setEdit(!edit); }
-
     const [newTagIds, setNewTagIds] = useState(drawing.tags.map((t) => { return t.id }));
     const newTitleRef = useRef();
     const newDescriptionRef = useRef();
-
     const tagChanged = (e) => {
         const tagId = e.target.value;
 
@@ -166,6 +176,8 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         }
     }
 
+    const [edit, setEdit] = useState(true);
+    const clickEdit = () => { setEdit(!edit); }
     const finishEditing = () => {
         setEdit(!edit);
 
@@ -184,6 +196,14 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
             ...STYLE_TAGS.filter(tag => newTagIds.indexOf(tag.tagId) !== -1)
         ];
     }
+
+    useEffect(() => {
+        async function getDrawingReactions() {
+            setLikeList(await getHeartMembers(drawing.id));
+            setBookmarkList(await getScrapMembers(drawing.id));
+        }
+        getDrawingReactions();
+    }, []);
 
     return (
         <div id="modal" className="drawing-modal" onClick={clickClose} ref={modalExternalRef}>
@@ -260,12 +280,12 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
                                         <div className="likeBox">
                                             <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                            <p> {drawing.heartCount} </p>
+                                            <p id="heartCount" onClick={handleshowLikeListOpen}> {drawing.heartCount} </p>
                                         </div>
 
                                         <div className="bookmarkBox">
                                             <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                            <p> {drawing.scrapCount} </p>
+                                            <p id="scrapCount" onClick={handleshowScrapListOpen}> {drawing.scrapCount} </p>
                                         </div>
                                     </>
                                     :
@@ -274,7 +294,6 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                         <button id="edit-complete" onClick={finishEditing}> 수정 완료 </button>
                                     </div>
                                 }
-
                             </div>
 
                             <div className="NFTBox" ref={nftRef}>
@@ -286,6 +305,14 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                     </div>
                 </div>
             </Grow>
+
+            {showLikeList &&
+                <ReactionList count={drawing.heartCount} list={likeList} close={handleshowLikeListClose} like={true}/>
+            }
+            
+            {showScrapList &&
+                <ReactionList count={drawing.scrapCount} list={bookmarkList} close={handleshowScrapListClose} like={false}/>
+            }
         </div>
     );
 }
