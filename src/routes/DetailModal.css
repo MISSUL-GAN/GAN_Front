@@ -249,6 +249,10 @@ button {
     margin-right: 10px;
 }
 
+#modal > div > div:nth-child(2) > div > div.buttonBox > div.NFTBox > a {
+    color: #9F9F9F;
+}
+
 #circular-box {
     display: flex;
     justify-content: center;

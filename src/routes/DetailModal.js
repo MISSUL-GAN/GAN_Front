@@ -314,7 +314,10 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                         <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width={20} alt=""/>
 
                                                         {nftInfo.collection.stats.one_day_average_price === 0 ?
-                                                            <> 아직 가격이 정해지지 않은 작품입니다.<br />아래 링크를 통해 소유자에게 거래를 제안해보세요! </>
+                                                            <>
+                                                                아직 가격이 정해지지 않은 작품입니다.<br />
+                                                                아래 링크를 통해 소유자에게 거래를 제안해보세요!
+                                                            </>
                                                             :
                                                             <>
                                                                 <> 1일 평균가 </>
@@ -323,8 +326,16 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                             </>
                                                         }
                                                     </div>
-
+                                                    
                                                     <a href={nftInfo.permalink} target="_blank" rel="noreferrer"> OpenSea에서 보기 </a>
+                                                    {/* <hr/>
+
+                                                    <div>
+                                                        최근 거래 내역 <br/>
+                                                        {nftInfo.last_sale.event_timestamp.replace("T", " ")} / 
+                                                        사용자 {nftInfo.last_sale.transaction.from_account.user.username}가
+                                                        0.{nftInfo.last_sale.total_price.substring(0,2)} {nftInfo.last_sale.payment_token.symbol}에 거래
+                                                    </div> */}
                                                 </>
                                                 :
                                                 <div id="circular-box"><CircularProgress className="progress-bar" color="inherit" /></div>
