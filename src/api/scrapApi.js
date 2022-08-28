@@ -1,5 +1,10 @@
 import { Axios } from "./api";
 
+export const getScrapMembers = async (drawingId) => {
+    const response = await Axios.get(`/scrap/${drawingId}`);
+    return response.data;
+}
+
 export const getScrap = async () => {
     const response = await Axios.get(`/scrap`);
     return response.data;
