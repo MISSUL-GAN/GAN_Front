@@ -311,7 +311,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                     <div> {nftInfo.owner.user.username}님이 소유하고 있는 작품입니다. </div>
 
                                                     <div style={{ display: "flex", margin: "10px 0px" }}>
-                                                        <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width={20} />
+                                                        <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width={20} alt=""/>
 
                                                         {nftInfo.collection.stats.one_day_average_price === 0 ?
                                                             <> 아직 가격이 정해지지 않은 작품입니다.<br />아래 링크를 통해 소유자에게 거래를 제안해보세요! </>
@@ -324,7 +324,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                         }
                                                     </div>
 
-                                                    <a href={nftInfo.permalink} target="_blank"> OpenSea에서 보기 </a>
+                                                    <a href={nftInfo.permalink} target="_blank" rel="noreferrer"> OpenSea에서 보기 </a>
                                                 </>
                                                 :
                                                 <div id="circular-box"><CircularProgress className="progress-bar" color="inherit" /></div>
