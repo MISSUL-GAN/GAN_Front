@@ -186,10 +186,6 @@ input[type="checkbox"]:checked+.tag {
     display: flex;
 }
 
-#modal .buttonBox button {
-    width: 95%;
-}
-
 #modal #edit-box {
     display: flex;
     justify-content: flex-end;
@@ -251,6 +247,12 @@ button {
 
 #modal > div > div:nth-child(2) > div > div.buttonBox > div.NFTBox > div:nth-child(2) > img {
     margin-right: 10px;
+}
+
+#circular-box {
+    display: flex;
+    justify-content: center;
+    color: #3C6B50;
 }
 
 #modal .kakao-share-btn {
