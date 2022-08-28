@@ -29,8 +29,8 @@ const CreateRoute = () => {
         setConvertedImage(null);
         setIsLoading(true);
         try {
-            // const { fileName } = await convertImage(originImage, styleImage, tag);
-            const fileName = "bafkreia2a24w552huefobv5q6dm7erxsnm4ohczochh5wsz6ijfto5mxiu";
+            const { fileName } = await convertImage(originImage, styleImage, tag);
+            // const fileName = "bafkreia2a24w552huefobv5q6dm7erxsnm4ohczochh5wsz6ijfto5mxiu";
             setConvertedImage(fileName);
         }
         catch (e) {
