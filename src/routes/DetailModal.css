@@ -123,7 +123,7 @@
     margin-right: 0.5vw;
 }
 
-input[type="checkbox"] {
+.tagBox input[type="checkbox"] {
     display: none;
 }
 
