@@ -1,13 +1,13 @@
 import { CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import KakaoImageShareButton from "../components/KakaoImageShareButton"
 import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
 import Tags from "../components/Tags";
 import { downloadImage } from '../util/downloadImage';
-import WalletHelpModal from "../components/WalletHelpModal";
 import EthereumWalletButton from "../components/EthereumWalletButton";
+import { useSelector } from "react-redux";
 
 const STYLES = [
     { name: "반 고흐", tagId: 8 },
@@ -68,7 +68,11 @@ function SaveDrawing() {
     const navigate = useNavigate();
     const navigateToMyPage = (drawingId) => navigate(`/myPage/${drawingId}`);
 
-    const { isLoading, presetTagId, fileName, openAlert } = useOutletContext();
+    const { isLoading, openAlert } = useOutletContext();
+    const outletContext = { openAlert };
+
+    const drawingCreate = useSelector(state => state.drawingCreate);
+    const { fileName, presetTagId } = drawingCreate;
 
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const imageLoaded = () => setIsImageLoaded(true);
@@ -80,9 +84,7 @@ function SaveDrawing() {
     const changeDescription = (e) => setDescription(e.target.value);
     const changeWalletAddress = (e) => setWalletAddress(e.target.value);
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const openModal = () => setModalOpen(true);
-    const closeModal = () => setModalOpen(false);
+    const openModal = () => navigate('help');
 
     const [tagIds, setTagIds] = useState([]);
     const tagChanged = (e) => {
@@ -199,12 +201,9 @@ function SaveDrawing() {
                             </NFTTooltip>
                             <div className="ethereum-wallet-address">
                                 <input className="ethereum-wallet-input" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} value={walletAddress} />
-                                {/* <button className="ethereum-wallet-button" onClick={requestEthereumWallet}>
-                                    <img src="/img/metamask.png" alt=""/>
-                                </button> */}
                                 <EthereumWalletButton setWalletAddress={setWalletAddress} openAlert={openAlert} openModal={openModal} />
+                                <Outlet context={outletContext} />
                             </div>
-                            <WalletHelpModal open={modalOpen} handleClose={closeModal} openAlert={openAlert} />
                         </div>
                         <div className="button-box">
                             <button onClick={download}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
