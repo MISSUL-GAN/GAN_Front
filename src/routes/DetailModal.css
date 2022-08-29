@@ -16,8 +16,7 @@
 #modal .drawing-modal-window {
     background: rgb(255, 255, 255);
     border-radius: 10px;
-    min-width: 600px;
-    width: 60%;
+    width: 90%;
     height: 70%;
     padding: 10px;
     display: flex;
