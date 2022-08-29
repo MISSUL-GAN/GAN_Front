@@ -31,7 +31,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const handleshowLikeListOpen = () => { setShowLikeList(true); }
     const handleshowLikeListClose = () => { setShowLikeList(false); }
 
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useState(drawing.didHeart);
     const [likeList, setLikeList] = useState([]);
     const clickLike = () => {
         if (member.signed) {
@@ -61,7 +61,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const handleshowScrapListOpen = () => { setShowScrapList(true); }
     const handleshowScrapListClose = () => { setShowScrapList(false); }
 
-    const [bookmark, setBookmark] = useState(false);
+    const [bookmark, setBookmark] = useState(drawing.didScrap);
     const [bookmarkList, setBookmarkList] = useState([]);
     const clickBookmark = () => {
         if (member.signed) {

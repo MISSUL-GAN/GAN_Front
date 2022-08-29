@@ -10,8 +10,8 @@ function Drawing({ drawing, openLoginAlert }) {
     const member = useSelector(state => state.member);
     const navigate = useNavigate();
 
-    const [like, setLike] = useState(false);
-    const [bookmark, setBookmark] = useState(false);
+    const [like, setLike] = useState(drawing.didHeart);
+    const [bookmark, setBookmark] = useState(drawing.didScrap);
 
     const image = "https://ipfs.io/ipfs/" + drawing.fileName;
 
