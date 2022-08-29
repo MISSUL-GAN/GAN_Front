@@ -7,6 +7,7 @@ import { addDrawing } from '../api/drawingApi';
 import Tags from "../components/Tags";
 import { downloadImage } from '../util/downloadImage';
 import WalletHelpModal from "../components/WalletHelpModal";
+import EthereumWalletButton from "../components/EthereumWalletButton";
 
 const STYLES = [
     { name: "반 고흐", tagId: 8 },
@@ -74,7 +75,7 @@ function SaveDrawing() {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [walletAddress, setWalletAddress] = useState(null);
+    const [walletAddress, setWalletAddress] = useState("");
     const changeTitle = (e) => setTitle(e.target.value);
     const changeDescription = (e) => setDescription(e.target.value);
     const changeWalletAddress = (e) => setWalletAddress(e.target.value);
@@ -130,7 +131,7 @@ function SaveDrawing() {
     useEffect(() => {
         const navigateToCreate = () => navigate("/create");
         if (!isLoading && !fileName) {
-            openAlert("변환 오류");
+            // openAlert("변환 오류");
             // navigateToCreate();
         }
         if (presetTagId)
@@ -196,8 +197,14 @@ function SaveDrawing() {
                                     <p>?</p>
                                 </div>
                             </NFTTooltip>
-                            <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} />
-                            <WalletHelpModal open={modalOpen} handleClose={closeModal} openAlert={openAlert}/>
+                            <div className="ethereum-wallet-address">
+                                <input className="ethereum-wallet-input" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} value={walletAddress} />
+                                {/* <button className="ethereum-wallet-button" onClick={requestEthereumWallet}>
+                                    <img src="/img/metamask.png" alt=""/>
+                                </button> */}
+                                <EthereumWalletButton setWalletAddress={setWalletAddress} openAlert={openAlert} openModal={openModal} />
+                            </div>
+                            <WalletHelpModal open={modalOpen} handleClose={closeModal} openAlert={openAlert} />
                         </div>
                         <div className="button-box">
                             <button onClick={download}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>

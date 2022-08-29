@@ -42,13 +42,8 @@ const H2WithLogo = style.h2`
 const WalletHelpModal = ({ open, handleClose, openAlert }) => {
 
     const addNetwork = async () => {
-        const provider = await detectEthereumProvider();
-
-        if (!provider) {
-            openAlert('MetaMask를 설치하세요');
-            return false;
-        }
         try {
+            const provider = await detectEthereumProvider();
             await provider.request({
                 method: 'wallet_addEthereumChain',
                 params: [{
@@ -64,14 +59,19 @@ const WalletHelpModal = ({ open, handleClose, openAlert }) => {
                 }]
             });
         }
-        catch {
-            openAlert('MetaMask 오류');
+        catch (e) {
+            if (e instanceof TypeError) {
+                openAlert('MetaMask를 설치하세요');
+                return false;
+            }
+            else {
+                openAlert('MetaMask에서 승인해주세요');
+            }
         }
     };
 
     return (
         <ModalElement open={open} handleClose={handleClose}>
-            {/* <a onClick={addNetwork}>네트워크 추가</a> */}
             <h1>지갑 만들기</h1>
             <Step>
                 <H2WithLogo>
