@@ -131,8 +131,8 @@ function SaveDrawing() {
     useEffect(() => {
         const navigateToCreate = () => navigate("/create");
         if (!isLoading && !fileName) {
-            // openAlert("변환 오류");
-            // navigateToCreate();
+            openAlert("변환 오류");
+            navigateToCreate();
         }
         if (presetTagId)
             setTagIds([presetTagId]);
