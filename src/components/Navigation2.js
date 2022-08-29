@@ -60,6 +60,7 @@ function Navigation2() {
                     <Toolbar>
                         <Link to="/home"><img style={{ width: "5rem" }} src="/img/naviLogo.png" alt="logo" /></Link>
                         <Box sx={{ flexGrow: 1 }}></Box>
+                        <a href="https://opensea.io/collection/missulgan-art" target="_blank" className="navItem">NFT Collection</a>
                         <NavLink to="/create" className="navItem">GAN 사진 변환</NavLink>
                         <NavLink to="/home" className="navItem">미슐간</NavLink>
 
