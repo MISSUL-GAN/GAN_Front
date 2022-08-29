@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
+import { CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import KakaoImageShareButton from "../components/KakaoImageShareButton"
@@ -6,8 +6,7 @@ import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
 import Tags from "../components/Tags";
 import { downloadImage } from '../util/downloadImage';
-import ModalElement from "../components/ModalElement";
-import detectEthereumProvider from '@metamask/detect-provider';
+import WalletHelpModal from "../components/WalletHelpModal";
 
 const STYLES = [
     { name: "반 고흐", tagId: 8 },
@@ -128,37 +127,11 @@ function SaveDrawing() {
         }
     }
 
-    const addNetwork = async () => {
-        const provider = await detectEthereumProvider();
-
-        if (provider) {
-            provider.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                    chainId: '0x89',
-                    chainName: 'Polygon Mainnet',
-                    nativeCurrency: {
-                        name: 'MATIC',
-                        symbol: 'MATIC',
-                        decimals: 18
-                    },
-                    rpcUrls: ['https://polygon-rpc.com'],
-                    blockExplorerUrls: ['https://polygonscan.com']
-                }]
-            })
-                .catch((error) => {
-                    console.log(error)
-                });
-        } else {
-            openAlert('MetaMask를 설치하세요');
-        }
-    };
-
     useEffect(() => {
         const navigateToCreate = () => navigate("/create");
         if (!isLoading && !fileName) {
             openAlert("변환 오류");
-            navigateToCreate();
+            // navigateToCreate();
         }
         if (presetTagId)
             setTagIds([presetTagId]);
@@ -224,15 +197,7 @@ function SaveDrawing() {
                                 </div>
                             </NFTTooltip>
                             <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} />
-                            <ModalElement open={modalOpen} handleClose={closeModal}>
-                                <Button onClick={addNetwork}>네트워크 추가</Button>
-                                <h2>지갑 주소 발행</h2>
-                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
-                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
-                                <h2>발행된 NFT 찾기</h2>
-                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
-                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
-                            </ModalElement>
+                            <WalletHelpModal open={modalOpen} handleClose={closeModal} openAlert={openAlert}/>
                         </div>
                         <div className="button-box">
                             <button onClick={download}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
