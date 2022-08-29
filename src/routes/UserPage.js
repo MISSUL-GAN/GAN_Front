@@ -51,29 +51,36 @@ function UserPage() {
         <hr />
 
         <div id="drawing-container">
-          <div id="drawingBox1">
-            {
-              memberDrawings.slice(0, parseInt(memberDrawings.length / 3)).map((element) =>
-                <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
-              )
-            }
-          </div>
+          {memberDrawings.length === 0
+            ?
+            <p id="nodrawing"> 아직 작품이 존재하지 않습니다. </p>
+            :
+            <>
+              <div id="drawingBox1">
+                {
+                  memberDrawings.slice(0, parseInt(memberDrawings.length / 3)).map((element) =>
+                    <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
+                  )
+                }
+              </div>
 
-          <div id="drawingBox2">
-            {
-              memberDrawings.slice(parseInt(memberDrawings.length / 3), 2 * parseInt(memberDrawings.length / 3)).map((element) =>
-                <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
-              )
-            }
-          </div>
+              <div id="drawingBox2">
+                {
+                  memberDrawings.slice(parseInt(memberDrawings.length / 3), 2 * parseInt(memberDrawings.length / 3)).map((element) =>
+                    <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
+                  )
+                }
+              </div>
 
-          <div id="drawingBox3">
-            {
-              memberDrawings.slice(2 * parseInt(memberDrawings.length / 3),).map((element) =>
-                <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
-              )
-            }
-          </div>
+              <div id="drawingBox3">
+                {
+                  memberDrawings.slice(2 * parseInt(memberDrawings.length / 3),).map((element) =>
+                    <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
+                  )
+                }
+              </div>
+            </>
+          }
         </div>
 
         {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
