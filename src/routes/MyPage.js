@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getDrawings, deleteDrawing } from "../api/drawingApi";
 import { getScrap, scrap, unscrap } from "../api/scrapApi";
@@ -11,6 +11,9 @@ function MyPage() {
     const [option, setOption] = useState("my");
     const [mydrawing, setMyDrawing] = useState([]);
     const [myscrap, setMyScrap] = useState([]);
+
+    const myHrRef = useRef();
+    const bookmarkHrRef = useRef();
 
     const openDetailModal = (drawing) => { navigate(`${drawing.id}`) }
 
@@ -29,10 +32,14 @@ function MyPage() {
         if (e.target.id === "my") {
             document.getElementById("my").style.color = "#3C6B50";
             document.getElementById("bookmark").style.color = "#9F9F9F";
+            myHrRef.current.style.backgroundColor = "#3C6B50";
+            bookmarkHrRef.current.style.backgroundColor = "#9F9F9F";
         }
         else {
             document.getElementById("my").style.color = "#9F9F9F";
             document.getElementById("bookmark").style.color = "#3C6B50";
+            myHrRef.current.style.backgroundColor = "#9F9F9F";
+            bookmarkHrRef.current.style.backgroundColor = "#3C6B50";
         }
     }
 
@@ -62,17 +69,17 @@ function MyPage() {
                 <div id="tabBox">
                     <button id="my" onClick={clickOption}>
                         내 작품
-                        <hr />
+                        <hr ref={myHrRef}/>
                     </button>
 
                     <button id="bookmark" onClick={clickOption}>
                         스크랩한 작품
-                        <hr />
+                        <hr ref={bookmarkHrRef}/>
                     </button>
                 </div>
 
                 <div id="drawing-container">
-                    {mydrawing.length === 0
+                    {(mydrawing.length === 0 && option === "my") || (myscrap.length === 0 && option === "bookmark")
                         ?
                         <p id="nodrawing"> 아직 작품이 존재하지 않습니다. </p>
                         :

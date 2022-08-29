@@ -27,9 +27,18 @@
     color: #3C6B50;
 }
 
+#my > hr {
+    background-color: #3C6B50;
+}
+
+#bookmark > hr {
+    background-color: #9F9F9F;
+}
+
 #my > hr, #bookmark > hr {
     width: 97%;
     margin-bottom: 3vw;
+    height: 4px;
 }
 
 #myDrawingBox {

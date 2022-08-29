@@ -42,7 +42,7 @@ const CreateRoute = () => {
     const outletContext = { setPresetTagId, convert, isLoading, presetTagId, fileName: convertedImage, openAlert };
     return (
         <>
-            <Container sx={{ my: 6 }}>
+            <Container sx={{ my: 3 }}>
                 <div className="logo"> <img src="/img/textLogo.png" alt="" /> </div>
                 <Outlet context={outletContext} />
                 <Message open={alertOpen} message={alertMessage} severity="error" handleClose={closeAlert} />

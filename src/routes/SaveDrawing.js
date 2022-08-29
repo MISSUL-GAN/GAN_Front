@@ -1,10 +1,36 @@
-import { CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
+import { Button, CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import KakaoImageShareButton from "../components/KakaoImageShareButton"
 import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
+import Tags from "../components/Tags";
+import { downloadImage } from '../util/downloadImage';
+import ModalElement from "../components/ModalElement";
+import detectEthereumProvider from '@metamask/detect-provider';
 
+const STYLES = [
+    { name: "반 고흐", tagId: 8 },
+    { name: "클로드 모네", tagId: 9 },
+    { name: "폴 세잔", tagId: 10 },
+    { name: "우키요에", tagId: 11 },
+];
+
+const TAGS = [
+    { name: "어두운", tagId: 1 },
+    { name: "화사한", tagId: 2 },
+    { name: "다채로운", tagId: 3 },
+    { name: "차분한", tagId: 4 },
+    { name: "강렬한", tagId: 5 },
+    { name: "차가운", tagId: 6 },
+    { name: "따뜻한", tagId: 7 },
+    { name: "풍경", tagId: 12 },
+    { name: "동물", tagId: 13 },
+    { name: "인물", tagId: 14 },
+    { name: "기타", tagId: 15 },
+];
+Object.freeze(STYLES);
+Object.freeze(TAGS);
 
 const NFTTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} arrow placement="top-start" classes={{ popper: className }} />
@@ -17,10 +43,9 @@ const NFTTooltip = styled(({ className, ...props }) => (
         backgroundColor: 'white',
         color: 'rgba(0, 0, 0, 0.87)',
         padding: "12px 16px",
-        maxWidth: 220,
         fontFamily: 'Spoqa Han Sans Neo',
         fontWeight: 500,
-        fontSize: "12px",
+        fontSize: "14px",
         borderRadius: "8px",
         filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15))"
     },
@@ -42,21 +67,29 @@ const GreenTextField = styled(TextField)
 function SaveDrawing() {
     const navigate = useNavigate();
     const navigateToMyPage = (drawingId) => navigate(`/myPage/${drawingId}`);
-    
+
     const { isLoading, presetTagId, fileName, openAlert } = useOutletContext();
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const imageLoaded = () => setIsImageLoaded(true);
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [walletAddress, setWalletAddress] = useState(null);
     const changeTitle = (e) => setTitle(e.target.value);
     const changeDescription = (e) => setDescription(e.target.value);
+    const changeWalletAddress = (e) => setWalletAddress(e.target.value);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
 
     const [tagIds, setTagIds] = useState([]);
     const tagChanged = (e) => {
         const isAdding = e.target.checked;
         const tagId = e.target.value;
         if (isAdding) {
-            if (tagIds.length < 3) {
+            if (tagIds.length < 4) {
                 if (tagIds.indexOf(tagId) === -1)
                     setTagIds([...tagIds, tagId]);
                 return true;
@@ -70,49 +103,18 @@ function SaveDrawing() {
         }
     }
 
-    const drawing = { title: title, description: description, fileName: fileName };
+    const drawing = { title, description, fileName, walletAddress };
 
-    const styles = [
-        { name: "반 고흐", tagId: 8 },
-        { name: "클로드 모네", tagId: 9 },
-        { name: "폴 세잔", tagId: 10 },
-        { name: "우키요에", tagId: 11 },
-    ];
-
-    const tags = [
-        { name: "어두운", tagId: 1 },
-        { name: "화사한", tagId: 2 },
-        { name: "다채로운", tagId: 3 },
-        { name: "차분한", tagId: 4 },
-        { name: "강렬한", tagId: 5 },
-        { name: "차가운", tagId: 6 },
-        { name: "따뜻한", tagId: 7 },
-        { name: "풍경", tagId: 12 },
-        { name: "동물", tagId: 13 },
-        { name: "인물", tagId: 14 },
-        { name: "기타", tagId: 15 },
-    ];
-
-    const downloadImage = async (e) => {
+    const download = async () => {
         try {
-            const imageUrl = `https://ipfs.io/ipfs/${fileName}`;
-            const response = await fetch(imageUrl, { method: 'GET' });
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-
-            const tempElement = document.createElement('a');
-            document.body.appendChild(tempElement);
-            tempElement.href = url;
-            tempElement.download = "missulgan";
-            tempElement.click();
-            tempElement.remove();
+            downloadImage(fileName);
         }
         catch (e) {
             openAlert("이미지 다운로드 실패");
         }
     }
 
-    const isReady = () => !isLoading && fileName && title && tagIds.length;
+    const isReady = () => !isLoading && fileName && title && tagIds.length && description.length;
 
     const save = async () => {
         if (!isReady()) return false;
@@ -125,6 +127,32 @@ function SaveDrawing() {
             openAlert("게시 실패");
         }
     }
+
+    const addNetwork = async () => {
+        const provider = await detectEthereumProvider();
+
+        if (provider) {
+            provider.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                    chainId: '0x89',
+                    chainName: 'Polygon Mainnet',
+                    nativeCurrency: {
+                        name: 'MATIC',
+                        symbol: 'MATIC',
+                        decimals: 18
+                    },
+                    rpcUrls: ['https://polygon-rpc.com'],
+                    blockExplorerUrls: ['https://polygonscan.com']
+                }]
+            })
+                .catch((error) => {
+                    console.log(error)
+                });
+        } else {
+            openAlert('MetaMask를 설치하세요');
+        }
+    };
 
     useEffect(() => {
         const navigateToCreate = () => navigate("/create");
@@ -165,39 +193,50 @@ function SaveDrawing() {
                             value={description}
                         />
                     </Grid>
-
-                    <Grid item alignSelf="end">
+                    <Grid item>
                         <div className="tag-box">
-                            <p> 태그를 선택해주세요. (최대 3개) </p>
+                            <p> 태그를 선택해주세요. (고정태그 포함 최대 4개) </p>
                             <hr />
-                            {styles
+                            {STYLES
                                 .filter(style => style.tagId == presetTagId)
                                 .map(style =>
                                     <label key={style.tagId}>
                                         <input name="tagBox" type="checkbox" value={style.tagId} disabled checked />
                                         <div className="style">{style.name}</div>
                                     </label>
-                                )}
-                            {tags.map(tag =>
-                                <label key={tag.tagId}>
-                                    <input name="tagBox" type="checkbox" value={tag.tagId} onClick={tagChanged} />
-                                    <div className="tag">{tag.name}</div>
-                                </label>
-                            )}
+                                )
+                            }
+                            <Tags tags={TAGS} tagChanged={tagChanged} />
                         </div>
-                        <div className="button-box">
-                            <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
-                            <KakaoImageShareButton drawing={drawing}></KakaoImageShareButton>
+                    </Grid>
+                    <Grid item alignSelf="end" flexGrow="1" flexDirection="column" display="flex" gap="14px">
+                        <div className="ethereum-wallet-box">
                             <NFTTooltip
                                 title={
                                     <React.Fragment>
-                                        당신의 작품을 NFT로 등록해보세요!
+                                        이더리움 지갑 생성 방법을 알아보아요!
                                     </React.Fragment>
                                 }
                                 className="NFTButton"
                             >
-                                <button className="NFTButton"><img src="/img/openseaIcon.png" width="60px" alt="" /> </button>
+                                <div className="question-button" onClick={openModal}>
+                                    <p>?</p>
+                                </div>
                             </NFTTooltip>
+                            <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} />
+                            <ModalElement open={modalOpen} handleClose={closeModal}>
+                                <Button onClick={addNetwork}>네트워크 추가</Button>
+                                <h2>지갑 주소 발행</h2>
+                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
+                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
+                                <h2>발행된 NFT 찾기</h2>
+                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
+                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
+                            </ModalElement>
+                        </div>
+                        <div className="button-box">
+                            <button onClick={download}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                            <KakaoImageShareButton drawing={drawing}></KakaoImageShareButton>
                             <button className="post-button" disabled={!isReady()} onClick={save}> Missul;GAN에 사진 게시하기 </button>
                         </div>
                     </Grid>
