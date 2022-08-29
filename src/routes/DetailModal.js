@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getHeartMembers, heart, unheart } from "../api/heartApi";
 import { getScrapMembers, scrap, unscrap } from "../api/scrapApi";
+import { getNFTInfo } from "../api/nftApi";
 import { editDrawing } from "../api/drawingApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import './DetailModal.css';
 import KakaoDrawingShareButton from '../components/KakaoDrawingShareButton';
-import { Grow } from "@mui/material";
+import { Grow, CircularProgress } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import EditTags from "../components/EditTags";
 import ReactionList from "./ReactionList";
@@ -78,7 +79,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 else {
                     drawing.scrapCount--;
 
-                    if (home){
+                    if (home) {
                         unscrap(drawing.id);
                         setBookmarkList(bookmarkList.filter(m => m.id !== member.id));
                     }
@@ -104,8 +105,17 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
 
     const [seeNFT, setSeeNFT] = useState(true);
     const nftRef = useRef();
-    const clickNFT = () => {
+    const [nftInfo, setNftInfo] = useState([]);
+
+    async function getDrawingNFTInfo() {
+        //setNftInfo(await getNFTInfo(drawing.nft.assetContractAddress, drawing.nft.tokenId));
+        setNftInfo(await getNFTInfo("0x381748c76f2b8871afbbe4578781cd24df34ae0d", "0"));
+    }
+
+    function clickNFT() {
         setSeeNFT(!seeNFT);
+        getDrawingNFTInfo();
+
         nftRef.current.style.display = seeNFT ? "inline" : "none";
     }
 
@@ -256,7 +266,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                     </label>
                                                 ))
                                             }
-                                            
+
                                             <EditTags tags={TAGS} newTags={newTagIds} tagChanged={tagChanged} />
                                         </div>
                                     </>
@@ -267,25 +277,69 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                 {edit
                                     ?
                                     <>
-                                        <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
-                                        <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
+                                        <div>
+                                            <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                                            <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
-                                        {!home && drawing.member.id === member.id &&
-                                            <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
-                                        }
+                                            {!home && drawing.member.id === member.id &&
+                                                <>
+                                                    <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                                </>
+                                            }
 
-                                        <button id="open-nft-button" onClick={clickNFT} style={!drawing.nft && { opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}>
-                                            NFT 통계 정보
-                                        </button>
+                                            {drawing.nft !== null //렌더링 될 땐 drawing.nft = null 이라서 테스트 하려고 잠시 반대로 해둔 곳,, ===이 맞다,,
+                                                ?
+                                                <button id="open-nft-button" onClick={clickNFT} style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
+                                                :
+                                                <button id="open-nft-button" onClick={clickNFT}> NFT 통계 정보 </button>
+                                            }
 
-                                        <div className="likeBox">
-                                            <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                            <p id="heartCount" onClick={handleshowLikeListOpen}> {drawing.heartCount} </p>
+                                            <div className="likeBox">
+                                                <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
+                                                <p onClick={handleshowLikeListOpen}> {drawing.heartCount} </p>
+                                            </div>
+
+                                            <div className="bookmarkBox">
+                                                <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
+                                                <p onClick={handleshowScrapListOpen}> {drawing.scrapCount} </p>
+                                            </div>
                                         </div>
 
-                                        <div className="bookmarkBox">
-                                            <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                            <p id="scrapCount" onClick={handleshowScrapListOpen}> {drawing.scrapCount} </p>
+                                        <div className="NFTBox" ref={nftRef}>
+                                            {nftInfo.length !== 0 ?
+                                                <>
+                                                    <div> {nftInfo.owner.user.username}님이 소유하고 있는 작품입니다. </div>
+
+                                                    <div style={{ display: "flex", margin: "10px 0px" }}>
+                                                        <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width={20} alt=""/>
+
+                                                        {nftInfo.collection.stats.one_day_average_price === 0 ?
+                                                            <>
+                                                                아직 가격이 정해지지 않은 작품입니다.<br />
+                                                                아래 링크를 통해 소유자에게 거래를 제안해보세요!
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <> 1일 평균가 </>
+                                                                {nftInfo.collection.stats.one_day_average_price}
+                                                                <> ETH </> <br />
+                                                            </>
+                                                        }
+                                                    </div>
+                                                    
+                                                    <a href={nftInfo.permalink} target="_blank" rel="noreferrer"> OpenSea에서 보기 </a>
+                                                    <hr/>
+
+                                                    <div>
+                                                        최근 거래 내역 <br/>
+                                                        {nftInfo.last_sale.event_timestamp.replace("T", " ")} / 
+                                                        사용자 {nftInfo.last_sale.transaction.from_account.user.username}가
+                                                        0.{nftInfo.last_sale.total_price.substring(0,2)} {nftInfo.last_sale.payment_token.symbol}에 거래
+                                                    </div>
+                                                </>
+                                                :
+                                                <div id="circular-box"><CircularProgress className="progress-bar" color="inherit" /></div>
+                                            }
                                         </div>
                                     </>
                                     :
@@ -295,23 +349,17 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     </div>
                                 }
                             </div>
-
-                            <div className="NFTBox" ref={nftRef}>
-                                어쩌고저쩌고<br />
-                                이 작품의 NFT 가격!! 247239857198321093원<br />
-                                아무튼 통계 정보~~~ 들어갈 자리~~~
-                            </div>
                         </div>
                     </div>
                 </div>
             </Grow>
 
             {showLikeList &&
-                <ReactionList count={drawing.heartCount} list={likeList} close={handleshowLikeListClose} like={true}/>
+                <ReactionList count={drawing.heartCount} list={likeList} close={handleshowLikeListClose} like={true} />
             }
-            
+
             {showScrapList &&
-                <ReactionList count={drawing.scrapCount} list={bookmarkList} close={handleshowScrapListClose} like={false}/>
+                <ReactionList count={drawing.scrapCount} list={bookmarkList} close={handleshowScrapListClose} like={false} />
             }
         </div>
     );
