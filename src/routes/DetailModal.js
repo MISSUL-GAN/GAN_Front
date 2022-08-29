@@ -30,7 +30,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const handleshowLikeListOpen = () => { setShowLikeList(true); }
     const handleshowLikeListClose = () => { setShowLikeList(false); }
 
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useState(drawing.didHeart);
     const [likeList, setLikeList] = useState([]);
     const clickLike = () => {
         if (member.signed) {
@@ -60,7 +60,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const handleshowScrapListOpen = () => { setShowScrapList(true); }
     const handleshowScrapListClose = () => { setShowScrapList(false); }
 
-    const [bookmark, setBookmark] = useState(false);
+    const [bookmark, setBookmark] = useState(drawing.didScrap);
     const [bookmarkList, setBookmarkList] = useState([]);
     const clickBookmark = () => {
         if (member.signed) {
@@ -78,7 +78,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                 else {
                     drawing.scrapCount--;
 
-                    if (home){
+                    if (home) {
                         unscrap(drawing.id);
                         setBookmarkList(bookmarkList.filter(m => m.id !== member.id));
                     }
@@ -256,7 +256,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                     </label>
                                                 ))
                                             }
-                                            
+
                                             <EditTags tags={TAGS} newTags={newTagIds} tagChanged={tagChanged} />
                                         </div>
                                     </>
@@ -307,11 +307,11 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
             </Grow>
 
             {showLikeList &&
-                <ReactionList count={drawing.heartCount} list={likeList} close={handleshowLikeListClose} like={true}/>
+                <ReactionList count={drawing.heartCount} list={likeList} close={handleshowLikeListClose} like={true} />
             }
-            
+
             {showScrapList &&
-                <ReactionList count={drawing.scrapCount} list={bookmarkList} close={handleshowScrapListClose} like={false}/>
+                <ReactionList count={drawing.scrapCount} list={bookmarkList} close={handleshowScrapListClose} like={false} />
             }
         </div>
     );
