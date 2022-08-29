@@ -328,14 +328,14 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                     </div>
                                                     
                                                     <a href={nftInfo.permalink} target="_blank" rel="noreferrer"> OpenSea에서 보기 </a>
-                                                    {/* <hr/>
+                                                    <hr/>
 
                                                     <div>
                                                         최근 거래 내역 <br/>
                                                         {nftInfo.last_sale.event_timestamp.replace("T", " ")} / 
                                                         사용자 {nftInfo.last_sale.transaction.from_account.user.username}가
                                                         0.{nftInfo.last_sale.total_price.substring(0,2)} {nftInfo.last_sale.payment_token.symbol}에 거래
-                                                    </div> */}
+                                                    </div>
                                                 </>
                                                 :
                                                 <div id="circular-box"><CircularProgress className="progress-bar" color="inherit" /></div>
