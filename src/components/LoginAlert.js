@@ -8,7 +8,8 @@ const LoginAlert = (props) => {
     return (
         <div id="alert-modal1" className="warning-modal">
             <div className="warning-modal-window">
-                <p className="warning-modal-close" onClick={clickAlertClose}> x </p>
+                <button className="warning-modal-close" onClick={clickAlertClose}> <img src="/img/closeButton.png" alt="" /> </button>
+                        
                 <div className="alert-content">
                     <p> 로그인이 필요한 서비스입니다 </p>
 
