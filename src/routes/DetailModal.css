@@ -96,6 +96,7 @@
 #modal .author {
     margin-left: 8px;
     margin-top: 13px;
+    cursor: pointer;
 }
 
 #modal #drawing-title-box {
