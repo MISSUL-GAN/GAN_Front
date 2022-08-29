@@ -131,7 +131,7 @@ function SaveDrawing() {
         const navigateToCreate = () => navigate("/create");
         if (!isLoading && !fileName) {
             openAlert("변환 오류");
-            // navigateToCreate();
+            navigateToCreate();
         }
         if (presetTagId)
             setTagIds([presetTagId]);
