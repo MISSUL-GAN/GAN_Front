@@ -68,7 +68,7 @@ const DrawingContainer = ({ sort, tagFilter }) => {
                 }
                 {!isLoading && hasNextPage && (
                     <div ref={setTarget}>
-                        {isLoading && <div>로딩중</div>}
+                        <div>로딩중</div>
                     </div>
                 )
                 }
