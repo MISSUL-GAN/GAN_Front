@@ -5,6 +5,7 @@ import style from 'styled-components';
 
 const ShadowImage = style.img`
     box-shadow: 4px 4px 10px 4px rgb(0 0 0 / 15%);
+    margin-top: 10px;
     margin-bottom: 20px;
 `;
 
@@ -23,6 +24,7 @@ const Number = style.div`
 
 const Instruction = style.div`
     margin-bottom: 5px;
+    margin-left: 20px;
 `;
 
 const Step = style.div`
@@ -36,6 +38,24 @@ const H2WithLogo = style.h2`
 
     & img {
         height: 36px;
+    }
+`;
+
+const Button = style.button`
+    background-color: #3C6B50;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 10px;
+    margin-right: 5px;
+
+    &:hover {
+        -webkit-filter: brightness(90%);
+        filter: brightness(90%);
+        -webkit-transition: all 250ms ease;
+        -moz-transition: all 250ms ease;
+        -o-transition: all 250ms ease;
+        -ms-transition: all 250ms ease;
+        transition: all 250ms ease;
     }
 `;
 
@@ -98,7 +118,7 @@ const WalletHelpModal = ({ open, handleClose, openAlert }) => {
                 <Instruction><Number>3</Number><b>동의함</b> 버튼을 클릭해주세요.</Instruction>
                 <Instruction><Number>4</Number><b>지갑 생성</b> 버튼을 클릭해주세요.</Instruction>
                 <Instruction><Number>5</Number>비밀번호를 설정하고, 약관에 동의한 후 <b>생성</b>버튼을 클릭해주세요.</Instruction>
-                <Instruction><Number>6</Number><a href="#" onClick={addNetwork}>폴리곤 네트워크</a>를 눌러 추가해 주세요.</Instruction>
+                <Instruction><Number>6</Number><Button onClick={addNetwork}>이곳</Button>을 눌러 폴리곤 네트워크를 추가해 주세요.</Instruction>
             </Step>
         </ModalElement>
     );
