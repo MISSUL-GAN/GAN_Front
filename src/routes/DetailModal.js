@@ -245,9 +245,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     </>
                                     :
                                     <>
-                                        <textarea className="description" ref={newDescriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
+                                        <textarea className="description" ref={newDescriptionRef} style={{ border: "none", height: "150px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
-                                            <div> 태그를 선택해주세요. (고정태그 포함 최대 4개)</div>
+                                            <div id="tag-guide"> 태그를 선택해주세요. (고정태그 포함 최대 4개)</div>
 
                                             {STYLE_TAGS
                                                 .filter(style => newTagIds.includes(style.tagId))
@@ -279,9 +279,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                 </>
                                             }
 
-                                            {drawing.nft !== null //렌더링 될 땐 drawing.nft = null 이라서 테스트 하려고 잠시 반대로 해둔 곳,, ===이 맞다,,
+                                            {drawing.nftTransactionHash === null
                                                 ?
-                                                <button id="open-nft-button" onClick={clickNFT} style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
+                                                <button id="open-nft-button" style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
                                                 :
                                                 <button id="open-nft-button" onClick={clickNFT}> NFT 통계 정보 </button>
                                             }

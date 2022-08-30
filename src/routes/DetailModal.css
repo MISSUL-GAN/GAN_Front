@@ -8,9 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 100;
 }
 
 #modal .drawing-modal-window {
@@ -18,7 +16,7 @@
     border-radius: 10px;
     width: 90%;
     height: 70%;
-    padding: 10px;
+    padding: 20px 10px;
     display: flex;
     justify-content: space-between;
     overflow: auto;
@@ -43,33 +41,26 @@
 }
 
 #modal .drawing-modal-left {
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    margin: 0 10px;
-}
-
-#modal .drawing-modal-window .large-drawing {
-    width: auto;
+    width: 50%;
     height: 100%;
-}
-
-#modal .drawing-modal-right {
-    height: 68vh;
+    margin: 0 10px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-left: 10px;
+    justify-content: center;
 }
 
-#modal>div>div:nth-child(2) {
+#modal .drawing-modal-left .large-drawing {
+    width: 100%;
+    object-fit: contain;
+}
+
+.drawing-modal-window>div:nth-child(2) {
+    width: 50%;
     position: relative;
 }
 
 #modal .drawing-modal-close {
     border: none;
     background-color: rgb(0, 0, 0, 0);
-
     position: absolute;
     right: 0;
 }
@@ -77,6 +68,15 @@
 #modal .drawing-modal-close img {
     width: 30px;
     height: 30px;
+}
+
+#modal .drawing-modal-right {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 10px;
 }
 
 #modal .userInfo {
@@ -117,14 +117,14 @@
 }
 
 #modal .drawing-tag p {
-    margin-right: 0.5vw;
+    margin-right: 6px;
 }
 
 #style-tag {
     display: none;
 }
 
-#modal > div > div:nth-child(2) > div > div:nth-child(1) > div:nth-child(4) > div {
+#tag-guide {
     font-size: 1.2rem;
     letter-spacing: -0.05em;
     color: #9F9F9F;
@@ -174,25 +174,28 @@ input[type="checkbox"]:checked+.tag {
 #modal .buttonBox {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     width: 95%;
 }
 
-#modal .buttonBox > :nth-child(1) {
+button {
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
+}
+
+#modal .buttonBox> :nth-child(1) {
     display: flex;
 }
 
 #modal #edit-box {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     margin-top: 10px;
 }
 
 #edit-cancle {
-    width: 18rem;
+    width: 40%;
     height: 60px;
-    border: 1px solid;
     border: 1.5px solid #FF922E;
     border-radius: 20px;
     color: #FF922E;
@@ -201,17 +204,12 @@ input[type="checkbox"]:checked+.tag {
 }
 
 #edit-complete {
-    width: 25rem;
+    width: 58%;
     height: 60px;
     border: none;
     background: #FF922E;
     border-radius: 20px;
     color: white;
-}
-
-button {
-    border: none;
-    background-color: rgb(0, 0, 0, 0);
 }
 
 #modal .buttonBox #open-nft-button {
@@ -221,25 +219,24 @@ button {
     color: white;
     width: 270px;
     height: 60px;
-
-    margin-top: 12px;
-    margin-right: 120px;
-    margin-left: 6px;
+    margin: 12px 0 12px 6px;
 }
 
-#modal .likeBox,
+.likeBox {
+    margin: 10px 0 0 40%;
+}
+
+.likeBox,
 .bookmarkBox {
     height: fit-content;
-    margin-top: 10px;
     font-size: smaller;
     text-align: center;
 }
 
 .likeBox p,
-.bookmarkBox p{
+.bookmarkBox p {
     cursor: pointer;
 }
-
 
 #modal .NFTBox {
     display: none;
@@ -247,11 +244,11 @@ button {
     padding: 10px;
 }
 
-#modal > div > div:nth-child(2) > div > div.buttonBox > div.NFTBox > div:nth-child(2) > img {
+.NFTBox > div:nth-child(2) > img {
     margin-right: 10px;
 }
 
-#modal > div > div:nth-child(2) > div > div.buttonBox > div.NFTBox > a {
+.NFTBox a {
     color: #9F9F9F;
 }
 
