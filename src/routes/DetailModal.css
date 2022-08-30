@@ -120,7 +120,7 @@
     margin-right: 0.5vw;
 }
 
-.tagBox input[type="checkbox"] {
+#style-tag {
     display: none;
 }
 

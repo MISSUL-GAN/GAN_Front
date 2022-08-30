@@ -253,7 +253,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                 .filter(style => newTagIds.includes(style.tagId))
                                                 .map(tag => (
                                                     <label key={tag.tagId}>
-                                                        <input name="tagBox" type="checkbox" value={tag.name} disabled />
+                                                        <input id="style-tag" name="tagBox" type="checkbox" value={tag.name} disabled />
                                                         <div className="edit-style-tag"> {tag.name} </div>
                                                     </label>
                                                 ))
