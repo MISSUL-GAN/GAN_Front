@@ -11,6 +11,7 @@ import { Grow, CircularProgress } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import EditTags from "../components/EditTags";
 import ReactionList from "./ReactionList";
+import { downloadImage } from '../util/downloadImage';
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -119,19 +120,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         nftRef.current.style.display = seeNFT ? "inline" : "none";
     }
 
-    const downloadImage = async (e) => {
+    const clickDownload = async () => {
         try {
-            const imageUrl = `https://ipfs.io/ipfs/${drawing.fileName}`;
-            const response = await fetch(imageUrl, { method: 'GET' });
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-
-            const tempElement = document.createElement('a');
-            document.body.appendChild(tempElement);
-            tempElement.href = url;
-            tempElement.download = "missulgan";
-            tempElement.click();
-            tempElement.remove();
+            downloadImage(drawing.fileName);
         }
         catch (e) {
             alert("이미지 다운로드 실패");
@@ -146,16 +137,16 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         { name: "강렬한", tagId: 5 },
         { name: "차가운", tagId: 6 },
         { name: "따뜻한", tagId: 7 },
-        { name: "풍경", tagId: 12 },
-        { name: "동물", tagId: 13 },
-        { name: "인물", tagId: 14 },
-        { name: "기타", tagId: 15 },
+        { name: "풍경", tagId: 13 },
+        { name: "동물", tagId: 14 },
+        { name: "인물", tagId: 15 },
     ];
     const STYLE_TAGS = [
         { name: "반 고흐", tagId: 8 },
         { name: "클로드 모네", tagId: 9 },
         { name: "폴 세잔", tagId: 10 },
         { name: "우키요에", tagId: 11 },
+        { name: "DIY", tagId: 12}
     ]
 
     const [newTagIds, setNewTagIds] = useState(drawing.tags.map((t) => { return t.id }));
@@ -278,7 +269,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     ?
                                     <>
                                         <div>
-                                            <button onClick={downloadImage}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                                            <button onClick={clickDownload}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
                                             <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
                                             {!home && drawing.member.id === member.id &&

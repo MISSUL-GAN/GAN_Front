@@ -43,19 +43,15 @@
 }
 
 #modal .drawing-modal-left {
-    width: 230%;
+    width: fit-content;
     display: flex;
     align-items: center;
     margin: 0 10px;
 }
 
-#modal .drawing-modal-left img {
-    min-width: 300px;
-}
-
 #modal .drawing-modal-window .large-drawing {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
 }
 
 #modal .drawing-modal-right {
@@ -96,6 +92,7 @@
 #modal .author {
     margin-left: 8px;
     margin-top: 13px;
+    cursor: pointer;
 }
 
 #modal #drawing-title-box {
