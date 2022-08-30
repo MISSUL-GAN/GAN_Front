@@ -58,7 +58,7 @@ function UserPage() {
             <>
               <div id="drawingBox1">
                 {
-                  memberDrawings.slice(0, parseInt(memberDrawings.length / 3)).map((element) =>
+                  memberDrawings.slice(2 * parseInt(memberDrawings.length / 3),).map((element) =>
                     <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
                   )
                 }
@@ -74,7 +74,7 @@ function UserPage() {
 
               <div id="drawingBox3">
                 {
-                  memberDrawings.slice(2 * parseInt(memberDrawings.length / 3),).map((element) =>
+                  memberDrawings.slice(0, parseInt(memberDrawings.length / 3)).map((element) =>
                     <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} openLoginAlert={openLoginAlert} />
                   )
                 }
