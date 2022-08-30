@@ -29,10 +29,10 @@ const Tag2 = [
   { name: "클로드 모네", tagId: 9 },
   { name: "폴 세잔", tagId: 10 },
   { name: "우키요에", tagId: 11 },
-  { name: "풍경", tagId: 12 },
-  { name: "동물", tagId: 13 },
-  { name: "인물", tagId: 14 },
-  { name: "기타", tagId: 15 },
+  { name: "DIY", tagId: 12},
+  { name: "풍경", tagId: 13 },
+  { name: "동물", tagId: 14 },
+  { name: "인물", tagId: 15 }
 ];
 Object.freeze(Tag2);
 
