@@ -1,53 +1,27 @@
-import { Container } from "@mui/system";
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { convertImage } from "../api/imageApi";
-import Message from "./Message";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import { clear } from "../redux/drawingCreateReducer";
+import CreateDrawing from "../routes/CreateDrawing";
+import SaveDrawing from "../routes/SaveDrawing";
+import CreateDrawingContainer from "./CreateDrawingContainer";
+import WalletHelpModal from "./WalletHelpModal";
 
 const CreateRoute = () => {
 
-    const [convertedImage, setConvertedImage] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    const dispatchClear = () => dispatch(clear());
 
-    const [alertOpen, setAlertOpen] = useState(false);
-    const [alertMessage, setAlertMessage] = useState("");
-    const [presetTagId, setPreset] = useState(null);
-    const setPresetTagId = (preset) => {
-        if(preset === "cnn")
-            setPreset(null);
-        else
-            setPreset(preset);
-    };
-
-    const closeAlert = () => setAlertOpen(false);
-    const openAlert = (message) => {
-        setAlertMessage(message);
-        setAlertOpen(true);
-    }
-
-    const convert = async (originImage, styleImage, tag) => {
-        setConvertedImage(null);
-        setIsLoading(true);
-        try {
-            const { fileName } = await convertImage(originImage, styleImage, tag);
-            // const fileName = "bafkreia2a24w552huefobv5q6dm7erxsnm4ohczochh5wsz6ijfto5mxiu";
-            setConvertedImage(fileName);
-        }
-        catch (e) {
-            console.log(e);
-        }
-        setIsLoading(false);
-    };
-
-    const outletContext = { setPresetTagId, convert, isLoading, presetTagId, fileName: convertedImage, openAlert };
+    useEffect(() => dispatchClear);
     return (
-        <>
-            <Container sx={{ my: 3 }}>
-                <div className="logo"> <img src="/img/textLogo.png" alt="" /> </div>
-                <Outlet context={outletContext} />
-                <Message open={alertOpen} message={alertMessage} severity="error" handleClose={closeAlert} />
-            </Container>
-        </>
+        <Routes>
+            <Route element={<CreateDrawingContainer />}>
+                <Route exact path='' element={<CreateDrawing />} />
+                <Route exact path='save' element={<SaveDrawing />}>
+                    <Route exact path='help' element={<WalletHelpModal />} />
+                </Route>
+            </Route>
+        </Routes>
     );
 };
 

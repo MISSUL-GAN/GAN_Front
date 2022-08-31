@@ -1,19 +1,20 @@
-import { Button, CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
+import { CircularProgress, Grid, Grow, styled, TextField, Tooltip, tooltipClasses } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import KakaoImageShareButton from "../components/KakaoImageShareButton"
 import './SaveDrawing.css';
 import { addDrawing } from '../api/drawingApi';
 import Tags from "../components/Tags";
 import { downloadImage } from '../util/downloadImage';
-import ModalElement from "../components/ModalElement";
-import detectEthereumProvider from '@metamask/detect-provider';
+import EthereumWalletButton from "../components/EthereumWalletButton";
+import { useSelector } from "react-redux";
 
 const STYLES = [
     { name: "반 고흐", tagId: 8 },
     { name: "클로드 모네", tagId: 9 },
     { name: "폴 세잔", tagId: 10 },
     { name: "우키요에", tagId: 11 },
+    { name: "DIY", tagId: 12 }
 ];
 
 const TAGS = [
@@ -24,10 +25,9 @@ const TAGS = [
     { name: "강렬한", tagId: 5 },
     { name: "차가운", tagId: 6 },
     { name: "따뜻한", tagId: 7 },
-    { name: "풍경", tagId: 12 },
-    { name: "동물", tagId: 13 },
-    { name: "인물", tagId: 14 },
-    { name: "기타", tagId: 15 },
+    { name: "풍경", tagId: 13 },
+    { name: "동물", tagId: 14 },
+    { name: "인물", tagId: 15 }
 ];
 Object.freeze(STYLES);
 Object.freeze(TAGS);
@@ -68,21 +68,23 @@ function SaveDrawing() {
     const navigate = useNavigate();
     const navigateToMyPage = (drawingId) => navigate(`/myPage/${drawingId}`);
 
-    const { isLoading, presetTagId, fileName, openAlert } = useOutletContext();
+    const { isLoading, openAlert } = useOutletContext();
+    const outletContext = { openAlert };
+
+    const drawingCreate = useSelector(state => state.drawingCreate);
+    const { fileName, presetTagId } = drawingCreate;
 
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const imageLoaded = () => setIsImageLoaded(true);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [walletAddress, setWalletAddress] = useState(null);
+    const [walletAddress, setWalletAddress] = useState("");
     const changeTitle = (e) => setTitle(e.target.value);
     const changeDescription = (e) => setDescription(e.target.value);
     const changeWalletAddress = (e) => setWalletAddress(e.target.value);
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const openModal = () => setModalOpen(true);
-    const closeModal = () => setModalOpen(false);
+    const openModal = () => navigate('help');
 
     const [tagIds, setTagIds] = useState([]);
     const tagChanged = (e) => {
@@ -103,7 +105,7 @@ function SaveDrawing() {
         }
     }
 
-    const drawing = { title, description, fileName, walletAddress };
+    const drawing = { title, description, fileName, tagIds };
 
     const download = async () => {
         try {
@@ -116,43 +118,29 @@ function SaveDrawing() {
 
     const isReady = () => !isLoading && fileName && title && tagIds.length && description.length;
 
+    const validateWalletAddress = (address) => address.startsWith("0x");
+    const validateWalletAddressPresent = (address) => address != null && address.length > 0;
+
     const save = async () => {
         if (!isReady()) return false;
-        drawing.tagIds = tagIds;
         try {
+            if (validateWalletAddressPresent(walletAddress)) {
+                if (validateWalletAddress(walletAddress)) {
+                    drawing.walletAddress = walletAddress;
+                }
+                else {
+                    openAlert("지갑 주소를 확인해주세요");
+                    return false;
+                }
+            }
+
             const response = await addDrawing(drawing);
-            navigateToMyPage(response.id)
+            navigateToMyPage(response.id);
         }
         catch {
             openAlert("게시 실패");
         }
     }
-
-    const addNetwork = async () => {
-        const provider = await detectEthereumProvider();
-
-        if (provider) {
-            provider.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                    chainId: '0x89',
-                    chainName: 'Polygon Mainnet',
-                    nativeCurrency: {
-                        name: 'MATIC',
-                        symbol: 'MATIC',
-                        decimals: 18
-                    },
-                    rpcUrls: ['https://polygon-rpc.com'],
-                    blockExplorerUrls: ['https://polygonscan.com']
-                }]
-            })
-                .catch((error) => {
-                    console.log(error)
-                });
-        } else {
-            openAlert('MetaMask를 설치하세요');
-        }
-    };
 
     useEffect(() => {
         const navigateToCreate = () => navigate("/create");
@@ -223,16 +211,11 @@ function SaveDrawing() {
                                     <p>?</p>
                                 </div>
                             </NFTTooltip>
-                            <input className="ethereum-wallet-address" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} />
-                            <ModalElement open={modalOpen} handleClose={closeModal}>
-                                <Button onClick={addNetwork}>네트워크 추가</Button>
-                                <h2>지갑 주소 발행</h2>
-                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
-                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
-                                <h2>발행된 NFT 찾기</h2>
-                                <img src="https://ipfs.io/ipfs/bafkreidnafgvrfv4v3cluml6fjvybv2aqvffly52u4wcnoeaqm3bvmrb54" alt="" />
-                                <h5>어쩌구 어쩌고 하면 됩니다</h5>
-                            </ModalElement>
+                            <div className="ethereum-wallet-address">
+                                <input className="ethereum-wallet-input" placeholder="이더리움 지갑 주소를 입력할 경우, 해당 작품의 NFT가 발행됩니다." onChange={changeWalletAddress} value={walletAddress} />
+                                <EthereumWalletButton setWalletAddress={setWalletAddress} openAlert={openAlert} openModal={openModal} />
+                                <Outlet context={outletContext} />
+                            </div>
                         </div>
                         <div className="button-box">
                             <button onClick={download}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Dialog as MUIDialog, useMediaQuery, useTheme } from "@mui/material";
+import { Container, Dialog as MUIDialog, Grow, useMediaQuery, useTheme } from "@mui/material";
 import { styled } from "@mui/system";
 import style from "styled-components";
 
@@ -27,6 +27,7 @@ const ModalElement = ({ open = true, handleClose, children, width = "md" }) => {
             open={open}
             onClose={handleClose}
             sx={{ '& .MuiDialog-paper': { borderRadius: "10px" } }}
+            TransitionComponent={Grow}
         >
             <ButtonContainer>
                 <button onClick={handleClose}>

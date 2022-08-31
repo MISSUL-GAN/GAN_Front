@@ -22,7 +22,7 @@ function Login() {
     getMember()
       .then(data => {
         loginDispatch(data);
-        if (isFirstTime === true)
+        if (isFirstTime === 'true')
           navigate(`/join/${name}`);
         else
           navigate('/home');
