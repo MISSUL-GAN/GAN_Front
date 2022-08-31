@@ -1,6 +1,8 @@
 import { Grid, Grow } from "@mui/material";
 import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { savePresetTagId } from "../redux/drawingCreateReducer";
 import './CreateDrawing.css';
 
 
@@ -28,7 +30,16 @@ function CreateDrawing() {
     const [originImageSrc, setOriginImageSrc] = useState(null);
     const [styleImageFile, setStyleImageFile] = useState(null);
 
-    const { setPresetTagId, convert } = useOutletContext();
+    const dispatch = useDispatch();
+    const dispatchPresetTagId = (presetTagId) => dispatch(savePresetTagId(presetTagId));
+    const setPresetTagId = (preset) => {
+        if (preset === "cnn")
+            dispatchPresetTagId(null);
+        else
+            dispatchPresetTagId(preset);
+    };
+
+    const { convert } = useOutletContext();
     const convertImage = () => {
         setPresetTagId(style)
         convert(originImageFile, styleImageFile, style);
