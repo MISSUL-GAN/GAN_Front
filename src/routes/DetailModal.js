@@ -241,18 +241,19 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     <>
                                         <p className="description"> {drawing.description} </p>
                                         <div className="drawing-tag"> {drawing.tags.map((t) => <p key={t.id}> #{t.name} </p>)} </div>
+                                        <div style={{color: "#9F9F9F"}}> {drawing.createdAt.substring(0, 16)} </div>
                                     </>
                                     :
                                     <>
-                                        <textarea className="description" ref={newDescriptionRef} style={{ border: "none", height: "200px" }} placeholder={drawing.description} maxLength={200} />
+                                        <textarea className="description" ref={newDescriptionRef} style={{ border: "none", height: "150px" }} placeholder={drawing.description} maxLength={200} />
                                         <div>
-                                            <div> 태그를 선택해주세요. (고정태그 포함 최대 4개)</div>
+                                            <div id="tag-guide"> 태그를 선택해주세요. (고정태그 포함 최대 4개)</div>
 
                                             {STYLE_TAGS
                                                 .filter(style => newTagIds.includes(style.tagId))
                                                 .map(tag => (
                                                     <label key={tag.tagId}>
-                                                        <input name="tagBox" type="checkbox" value={tag.name} disabled />
+                                                        <input id="style-tag" name="tagBox" type="checkbox" value={tag.name} disabled />
                                                         <div className="edit-style-tag"> {tag.name} </div>
                                                     </label>
                                                 ))
@@ -278,9 +279,9 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                                 </>
                                             }
 
-                                            {drawing.nft !== null //렌더링 될 땐 drawing.nft = null 이라서 테스트 하려고 잠시 반대로 해둔 곳,, ===이 맞다,,
+                                            {drawing.nftTransactionHash === null
                                                 ?
-                                                <button id="open-nft-button" onClick={clickNFT} style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
+                                                <button id="open-nft-button" style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
                                                 :
                                                 <button id="open-nft-button" onClick={clickNFT}> NFT 통계 정보 </button>
                                             }
