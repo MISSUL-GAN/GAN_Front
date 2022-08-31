@@ -14,7 +14,7 @@ const STYLES = [
     { name: "클로드 모네", tagId: 9 },
     { name: "폴 세잔", tagId: 10 },
     { name: "우키요에", tagId: 11 },
-    { name: "DIY", tagId: 12}
+    { name: "DIY", tagId: 12 }
 ];
 
 const TAGS = [
@@ -105,7 +105,7 @@ function SaveDrawing() {
         }
     }
 
-    const drawing = { title, description, fileName, walletAddress };
+    const drawing = { title, description, fileName, tagIds };
 
     const download = async () => {
         try {
@@ -118,12 +118,24 @@ function SaveDrawing() {
 
     const isReady = () => !isLoading && fileName && title && tagIds.length && description.length;
 
+    const validateWalletAddress = (address) => address.startsWith("0x");
+    const validateWalletAddressPresent = (address) => address != null && address.length > 0;
+
     const save = async () => {
         if (!isReady()) return false;
-        drawing.tagIds = tagIds;
         try {
+            if (validateWalletAddressPresent(walletAddress)) {
+                if (validateWalletAddress(walletAddress)) {
+                    drawing.walletAddress = walletAddress;
+                }
+                else {
+                    openAlert("지갑 주소를 확인해주세요");
+                    return false;
+                }
+            }
+
             const response = await addDrawing(drawing);
-            navigateToMyPage(response.id)
+            navigateToMyPage(response.id);
         }
         catch {
             openAlert("게시 실패");
