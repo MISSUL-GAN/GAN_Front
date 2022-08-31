@@ -34,7 +34,7 @@ function CreateDrawing() {
     const dispatchPresetTagId = (presetTagId) => dispatch(savePresetTagId(presetTagId));
     const setPresetTagId = (preset) => {
         if (preset === "cnn")
-            dispatchPresetTagId(null);
+            dispatchPresetTagId(12);
         else
             dispatchPresetTagId(preset);
     };

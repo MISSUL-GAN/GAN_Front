@@ -14,6 +14,7 @@ const STYLES = [
     { name: "클로드 모네", tagId: 9 },
     { name: "폴 세잔", tagId: 10 },
     { name: "우키요에", tagId: 11 },
+    { name: "DIY", tagId: 12}
 ];
 
 const TAGS = [
@@ -24,10 +25,9 @@ const TAGS = [
     { name: "강렬한", tagId: 5 },
     { name: "차가운", tagId: 6 },
     { name: "따뜻한", tagId: 7 },
-    { name: "풍경", tagId: 12 },
-    { name: "동물", tagId: 13 },
-    { name: "인물", tagId: 14 },
-    { name: "기타", tagId: 15 },
+    { name: "풍경", tagId: 13 },
+    { name: "동물", tagId: 14 },
+    { name: "인물", tagId: 15 }
 ];
 Object.freeze(STYLES);
 Object.freeze(TAGS);
