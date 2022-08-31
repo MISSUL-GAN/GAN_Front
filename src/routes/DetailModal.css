@@ -177,6 +177,11 @@ input[type="checkbox"]:checked+.tag {
     width: 95%;
 }
 
+#modal .buttonBox button{
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
 button {
     border: none;
     background-color: rgb(0, 0, 0, 0);
@@ -222,20 +227,23 @@ button {
     margin: 12px 0 12px 6px;
 }
 
-.likeBox {
-    margin: 10px 0 0 40%;
-}
-
 .likeBox,
 .bookmarkBox {
+    margin: 0 10px 0 0;
     height: fit-content;
     font-size: smaller;
     text-align: center;
 }
 
+.likeBox button,
+.bookmarkBox button {
+    margin: 0 !important;
+}
+
 .likeBox p,
 .bookmarkBox p {
     cursor: pointer;
+    margin: 0;
 }
 
 #modal .NFTBox {
