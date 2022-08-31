@@ -126,7 +126,7 @@ const WalletHelpModal = () => {
             <Step>
                 <H2WithLogo>
                     <img src="/img/polygon.svg" alt="" />
-                    폴리곤 네트워크 추가 (선택사항)
+                    폴리곤 네트워크 추가
                 </H2WithLogo>
                 <ShadowImage src="/img/Polygon-network-install.gif" alt="" width="100%" />
                 <Instruction><Number>1</Number><Button onClick={addNetwork}>이곳</Button>을 눌러 폴리곤 네트워크를 추가해 주세요</Instruction>
