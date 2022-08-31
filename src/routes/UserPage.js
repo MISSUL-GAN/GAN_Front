@@ -6,13 +6,13 @@ import { getMemberInfo } from "../api/memberApi";
 import LoginAlert from "../components/LoginAlert";
 import { useParams, useNavigate, Outlet } from "react-router-dom";
 import './UserPage.css';
+import { Skeleton } from "@mui/material";
 
 function UserPage() {
   const { memberId } = useParams();
   const [memberDrawings, setMemberDrawings] = useState([]);
 
-  const profileImgRef = useRef();
-  const nameRef = useRef();
+  const [memberInfo, setMemberInfo] = useState(null);
 
   const navigate = useNavigate();
 
@@ -25,9 +25,7 @@ function UserPage() {
   useEffect(() => {
     async function getUserPageContent() {
       const member = await getMemberInfo(memberId);
-      profileImgRef.current = member.profileImage;
-      nameRef.current = member.name;
-
+      setMemberInfo(member);
       setMemberDrawings(await getMemberDrawings(memberId));
     }
 
@@ -46,8 +44,22 @@ function UserPage() {
   return (
     <>
       <div id="page-content">
-        <div> <img src={profileImgRef.current} alt="" /> </div>
-        <div> {nameRef.current} </div>
+
+        {
+          memberInfo ?
+            <div className="user-info">
+              <div className="user-image"> <img src={memberInfo.profileImage} alt="" /> </div>
+              <div className="user-text"> {memberInfo.name} </div>
+              <div className="user-text-2"> {memberInfo.accountEmail} </div>
+            </div>
+            :
+            <div className="user-info">
+              <Skeleton variant="circular" className="user-image"/>
+              <Skeleton className="user-text" width={50}/>
+              <Skeleton className="user-text-2" width={150}/>
+              {/* <Skeleton variant="text" width={130} height={130}/> */}
+            </div>
+        }
         <hr />
 
         <div id="drawing-container">
@@ -85,7 +97,7 @@ function UserPage() {
 
         {loginAlertExpanded && <LoginAlert handleLoginAlertClose={handleLoginAlertClose} />}
 
-        <Outlet context={outletContext}/>
+        <Outlet context={outletContext} />
       </div>
     </>
   );
