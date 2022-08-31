@@ -12,6 +12,7 @@ import { useOutletContext } from "react-router-dom";
 import EditTags from "../components/EditTags";
 import ReactionList from "./ReactionList";
 import { downloadImage } from '../util/downloadImage';
+import NFTStats from "../components/NFTStats";
 
 function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
     const member = useSelector(state => state.member);
@@ -146,7 +147,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         { name: "클로드 모네", tagId: 9 },
         { name: "폴 세잔", tagId: 10 },
         { name: "우키요에", tagId: 11 },
-        { name: "DIY", tagId: 12}
+        { name: "DIY", tagId: 12 }
     ]
 
     const [newTagIds, setNewTagIds] = useState(drawing.tags.map((t) => { return t.id }));
@@ -241,7 +242,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     <>
                                         <p className="description"> {drawing.description} </p>
                                         <div className="drawing-tag"> {drawing.tags.map((t) => <p key={t.id}> #{t.name} </p>)} </div>
-                                        <div style={{color: "#9F9F9F"}}> {drawing.createdAt.substring(0, 16)} </div>
+                                        <div style={{ color: "#9F9F9F" }}> {drawing.createdAt.substring(0, 16)} </div>
                                     </>
                                     :
                                     <>
@@ -269,69 +270,29 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                 {edit
                                     ?
                                     <>
-                                        <div>
-                                            <button onClick={clickDownload}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
-                                            <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
+                                        <div style={{  }}>
+                                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", flexGrow:"1" }}>
+                                                <button onClick={clickDownload}> <img src="/img/downloadIcon.png" width="60px" alt="" /> </button>
+                                                <KakaoDrawingShareButton drawing={drawing}></KakaoDrawingShareButton>
 
-                                            {!home && drawing.member.id === member.id &&
-                                                <>
-                                                    <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
-                                                </>
-                                            }
-
-                                            {drawing.nftTransactionHash === null
-                                                ?
-                                                <button id="open-nft-button" style={{ opacity: "0.5", cursor: "not-allowed" }} disabled={!drawing.nft && true}> NFT 통계 정보 </button>
-                                                :
-                                                <button id="open-nft-button" onClick={clickNFT}> NFT 통계 정보 </button>
-                                            }
-
-                                            <div className="likeBox">
-                                                <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
-                                                <p onClick={handleshowLikeListOpen}> {drawing.heartCount} </p>
+                                                {!home && drawing.member.id === member.id &&
+                                                    <>
+                                                        <button onClick={requestDelete}> <img src="/img/binIcon.png" width="60px" alt="" /> </button>
+                                                    </>
+                                                }
+                                                <NFTStats nftTransactionHash={drawing.nftTransactionHash} />
                                             </div>
+                                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                                <div className="likeBox">
+                                                    <button className="like" onClick={clickLike}> <img src={like ? "/img/Like.png" : "/img/emptyLike.png"} width={32} alt="" /> </button>
+                                                    <p onClick={handleshowLikeListOpen}> {drawing.heartCount} </p>
+                                                </div>
 
-                                            <div className="bookmarkBox">
-                                                <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
-                                                <p onClick={handleshowScrapListOpen}> {drawing.scrapCount} </p>
+                                                <div className="bookmarkBox">
+                                                    <button className="bookmark" onClick={clickBookmark}> <img src={bookmark ? "/img/bookmark.png" : "/img/emptyBookmark.png"} width={28} alt="" /> </button>
+                                                    <p onClick={handleshowScrapListOpen}> {drawing.scrapCount} </p>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div className="NFTBox" ref={nftRef}>
-                                            {nftInfo.length !== 0 ?
-                                                <>
-                                                    <div> {nftInfo.owner.user.username}님이 소유하고 있는 작품입니다. </div>
-
-                                                    <div style={{ display: "flex", margin: "10px 0px" }}>
-                                                        <img src="https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg" width={20} alt=""/>
-
-                                                        {nftInfo.collection.stats.one_day_average_price === 0 ?
-                                                            <>
-                                                                아직 가격이 정해지지 않은 작품입니다.<br />
-                                                                아래 링크를 통해 소유자에게 거래를 제안해보세요!
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <> 1일 평균가 </>
-                                                                {nftInfo.collection.stats.one_day_average_price}
-                                                                <> ETH </> <br />
-                                                            </>
-                                                        }
-                                                    </div>
-                                                    
-                                                    <a href={nftInfo.permalink} target="_blank" rel="noreferrer"> OpenSea에서 보기 </a>
-                                                    <hr/>
-
-                                                    <div>
-                                                        최근 거래 내역 <br/>
-                                                        {nftInfo.last_sale.event_timestamp.replace("T", " ")} / 
-                                                        사용자 {nftInfo.last_sale.transaction.from_account.user.username}가
-                                                        0.{nftInfo.last_sale.total_price.substring(0,2)} {nftInfo.last_sale.payment_token.symbol}에 거래
-                                                    </div>
-                                                </>
-                                                :
-                                                <div id="circular-box"><CircularProgress className="progress-bar" color="inherit" /></div>
-                                            }
                                         </div>
                                     </>
                                     :
