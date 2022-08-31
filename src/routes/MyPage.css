@@ -173,7 +173,7 @@
     width: 95%;
 }
 
-#zoom-modal .likeBox, .bookmarkBox {
+#zoom-modal .likeBox, #zoom-modal .bookmarkBox {
     height: fit-content;
     margin-top: 10px;
     font-size: smaller;
