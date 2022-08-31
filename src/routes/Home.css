@@ -73,7 +73,6 @@
     display: flex;
     padding: 10px 0px;
     overflow-x: scroll;
-    justify-content: space-between;
     height: fit-content;
 }
 

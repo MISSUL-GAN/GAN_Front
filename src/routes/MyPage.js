@@ -87,12 +87,12 @@ function MyPage() {
                             <div id="drawingBox1">
                                 {option === "my"
                                     ?
-                                    mydrawing.slice(0, parseInt(mydrawing.length/3)).map((element) =>
+                                    mydrawing.slice(2 * parseInt(mydrawing.length/3),).map((element) =>
                                         <UserDrawing key={element.id} drawing={element} mine={true} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
                                     )
                                     :
-                                    myscrap.slice(0, parseInt(myscrap.length/3)).map((element) =>
-                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                    myscrap.slice(2 * parseInt(myscrap.length/3),).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
                                     )
                                 }
                             </div>
@@ -113,12 +113,12 @@ function MyPage() {
                             <div id="drawingBox3">
                                 {option === "my"
                                     ?
-                                    mydrawing.slice(2 * parseInt(mydrawing.length/3),).map((element) =>
+                                    mydrawing.slice(0, parseInt(mydrawing.length/3)).map((element) =>
                                         <UserDrawing key={element.id} drawing={element} mine={true} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
                                     )
                                     :
-                                    myscrap.slice(2 * parseInt(myscrap.length/3),).map((element) =>
-                                        <UserDrawing key={element.id} drawing={element} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                    myscrap.slice(0, parseInt(myscrap.length/3)).map((element) =>
+                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
                                     )
                                 }
                             </div>

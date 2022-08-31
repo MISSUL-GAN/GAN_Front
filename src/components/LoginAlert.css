@@ -16,7 +16,6 @@
 #alert-modal1 .warning-modal-window {
     background: rgb(255, 255, 255);
     border-radius: 10px;
-    padding: 0px 10px 40px 10px;
 }
 
 #alert-modal1 .warning-modal-window .alert-content {
@@ -24,13 +23,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
-#alert-modal1 .warning-modal-close {
-    width: fit-content;
-    height: auto;
-    font-size: 20px;
-    margin-left: 400px;
+#alert-modal1 .warning-modal-close img{
+    width: 30px;
+    height: 30px;
 }
 
 #alert-modal1 .warning-modal-close {
