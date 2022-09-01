@@ -6,8 +6,8 @@ import './UserDrawing.css';
 function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, openLoginAlert }) {
     const member = useSelector(state => state.member);
 
-    const [like, setLike] = useState(false); // 서버에서 받은 정보로 초기값 넣기
-    const [bookmark, setBookmark] = useState(false); // 서버에서 받은 정보로 초기값 넣기
+    const [like, setLike] = useState(drawing.didHeart); 
+    const [bookmark, setBookmark] = useState(true); 
     
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
