@@ -6,9 +6,9 @@ import './UserDrawing.css';
 function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, openLoginAlert }) {
     const member = useSelector(state => state.member);
 
-    const [like, setLike] = useState(drawing.didHeart); 
-    const [bookmark, setBookmark] = useState(true); 
-    
+    const [like, setLike] = useState(drawing.didHeart);
+    const [bookmark, setBookmark] = useState(drawing.didScrap); 
+
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     function clickImg() {
