@@ -58,10 +58,6 @@ function MyPage() {
         scrap(id);
     }
 
-    const clickUnscrap = (id) => {
-        unscrap(id);
-    }
-
     const outletContext = { home: false, clickDelete };
     return (
         <>
@@ -92,7 +88,7 @@ function MyPage() {
                                     )
                                     :
                                     myscrap.slice(2 * parseInt(myscrap.length/3),).map((element) =>
-                                        <UserDrawing key={element.id} drawing={element} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
                                     )
                                 }
                             </div>
@@ -105,7 +101,7 @@ function MyPage() {
                                     )
                                     :
                                     myscrap.slice(parseInt(myscrap.length/3), 2 * parseInt(myscrap.length/3)).map((element) =>
-                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
                                     )
                                 }
                             </div>
@@ -118,7 +114,7 @@ function MyPage() {
                                     )
                                     :
                                     myscrap.slice(0, parseInt(myscrap.length/3)).map((element) =>
-                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} clickUnScrap={clickUnscrap} openDetailModal={openDetailModal} />
+                                        <UserDrawing key={element.id} drawing={element} clickDelete={clickDelete} clickScrap={clickScrap} openDetailModal={openDetailModal} />
                                     )
                                 }
                             </div>

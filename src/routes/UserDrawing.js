@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
+import { useMatch } from "react-router-dom";
 import { heart, unheart } from "../api/heartApi";
 import './UserDrawing.css';
 
@@ -7,8 +8,9 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
     const member = useSelector(state => state.member);
 
     const [like, setLike] = useState(drawing.didHeart); 
-    const [bookmark, setBookmark] = useState(true); 
-    
+    const didScrap = useMatch("myPage") ? true : false;
+    const [bookmark, setBookmark] = useState(drawing.didScrap || didScrap); 
+
     const img = "https://ipfs.io/ipfs/"+drawing.fileName;
 
     function clickImg() {
