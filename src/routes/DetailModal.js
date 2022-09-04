@@ -242,7 +242,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
                                     <>
                                         <p className="description"> {drawing.description} </p>
                                         <div className="drawing-tag"> {drawing.tags.map((t) => <p key={t.id}> #{t.name} </p>)} </div>
-                                        <div style={{ color: "#9F9F9F" }}> {drawing.createdAt.substring(0, 16)} </div>
+                                        <div style={{ color: "#9F9F9F" }}> {(new Date(`${drawing.createdAt} +0000`)).toLocaleString()} </div>
                                     </>
                                     :
                                     <>
