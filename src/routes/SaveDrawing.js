@@ -158,7 +158,7 @@ function SaveDrawing() {
                 <Grid item xs={12} md={6}>
                     <div className="uploadImage">
                         <Grow in={!isImageLoaded}><CircularProgress className="progress-bar" color="inherit" /></Grow>
-                        <Grow in={isImageLoaded}><img src={`https://ipfs.io/ipfs/${fileName}`} onLoad={imageLoaded} alt=""></img></Grow>
+                        <Grow in={isImageLoaded}><img src={`https://${drawing.fileName}.ipfs.nftstorage.link`} onLoad={imageLoaded} alt=""></img></Grow>
                     </div>
                 </Grid>
 

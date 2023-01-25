@@ -14,7 +14,7 @@ function ApiTestPage() {
 
     const downloadImage = async (fileName) => {
         try {
-            const imageUrl = `https://ipfs.io/ipfs/${fileName}`;
+            const imageUrl = `https://${fileName}.ipfs.nftstorage.link`;
             const response = await fetch(imageUrl, { method: 'GET' });
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);

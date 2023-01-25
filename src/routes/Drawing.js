@@ -13,7 +13,7 @@ function Drawing({ drawing, openLoginAlert }) {
     const [like, setLike] = useState(drawing.didHeart);
     const [bookmark, setBookmark] = useState(drawing.didScrap);
 
-    const image = "https://ipfs.io/ipfs/" + drawing.fileName;
+    const image = `https://${drawing.fileName}.ipfs.nftstorage.link`;
 
     function clickImg() {
         navigate(`${drawing.id}`);

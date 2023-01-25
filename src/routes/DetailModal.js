@@ -27,7 +27,7 @@ function DetailModal({ drawing, handleDetailModalClose, openLoginAlert }) {
         clickDelete(drawing.id);
     }
 
-    const IMG = "https://ipfs.io/ipfs/" + drawing.fileName;
+    const IMG = `https://${drawing.fileName}.ipfs.nftstorage.link`;
 
     const [showLikeList, setShowLikeList] = useState(false);
     const handleshowLikeListOpen = () => { setShowLikeList(true); }
