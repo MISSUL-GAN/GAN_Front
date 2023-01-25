@@ -9,7 +9,7 @@ function UserDrawing({ drawing, mine, clickDelete, clickScrap, openDetailModal, 
     const [like, setLike] = useState(drawing.didHeart);
     const [bookmark, setBookmark] = useState(drawing.didScrap); 
 
-    const img = "https://ipfs.io/ipfs/"+drawing.fileName;
+    const img = `https://${drawing.fileName}.ipfs.nftstorage.link`;
 
     function clickImg() {
         openDetailModal(drawing);
